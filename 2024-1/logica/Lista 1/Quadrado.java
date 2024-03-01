@@ -13,12 +13,15 @@ public class Quadrado {
 
         in = new Scanner(System.in);
 
-        int numero;
+        int numero, quadrado;
 
         System.out.println("Digite um número inteiro:");
         numero = in.nextInt();
+        in.close();
 
-        System.out.println(numero + "² = " + (numero * numero));
+        quadrado = numero * numero;
+
+        System.out.println(numero + "² = " + quadrado);
     }  
 }
 

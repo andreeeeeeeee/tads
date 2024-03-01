@@ -17,12 +17,15 @@ public class Fahrenheit {
 
         in = new Scanner(System.in);
 
-        double fahrenheit;
+        float fahrenheit, celsius;
 
         System.out.println("Digite uma temperatura em Fahreheint:");
-        fahrenheit = in.nextDouble();
+        fahrenheit = in.nextFloat();
+        in.close();
 
-        System.out.println(fahrenheit + "°F = " + ((fahrenheit - 32) / 9 * 5) + "°C");
+        celsius = (fahrenheit - 32) / 9 * 5;
+
+        System.out.println(fahrenheit + "°F = " + celsius + "°C");
     }  
 }
 

@@ -18,13 +18,14 @@ public class Antecessor {
         in = new Scanner(System.in);    // TERMINAL / ENTRADA DO USUARIO
         
         // tipo / nome
-        int numero;
+        int numero, antecessor;
 
         System.out.println("Digite um número inteiro:");
         numero = in.nextInt();       // a variavel numero recebe o inteiro que for digitado
+        in.close();
 
+        antecessor = numero - 1;
 
-        System.out.println("O antecessor de " + numero + " é " + (numero-1));
-
+        System.out.println("O antecessor de " + numero + " é " + antecessor);
     }
 }

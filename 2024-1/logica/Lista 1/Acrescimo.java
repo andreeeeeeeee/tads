@@ -18,11 +18,15 @@ public class Acrescimo {
         
         // tipo / nome
         int numero;
+        float acrescimo, total;
 
         System.out.println("Digite um número inteiro:");
         numero = in.nextInt();       // a variavel numero recebe o inteiro que for digitado
+        in.close();
 
-        System.out.println(numero + " mais 20% (" + (numero * 0.2) + ") é " + (numero * 1.2));
+        acrescimo = numero * 0.2f;
+        total = numero + acrescimo;
 
+        System.out.println(numero + " mais 20% (" + acrescimo + ") é " + total);   
     }
 }

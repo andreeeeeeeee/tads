@@ -12,14 +12,17 @@ public class Media {
 
         in = new Scanner(System.in);
 
-        double nota1, nota2;
+        float nota1, nota2, media;
 
         System.out.println("Digite o valor da primeira nota:");
-        nota1 = in.nextDouble();
+        nota1 = in.nextFloat();
         System.out.println("Digite o valor da segunda nota:");
-        nota2 = in.nextDouble();
+        nota2 = in.nextFloat();
+        in.close();
 
-        System.out.println("A média entre as duas notas é " + ((nota1 + nota2) / 2));
+        media = (nota1 + nota2) / 2;
+
+        System.out.println("A média entre as duas notas é " + media);
     }  
 }
 

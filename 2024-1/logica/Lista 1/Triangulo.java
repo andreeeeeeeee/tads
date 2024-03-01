@@ -13,14 +13,17 @@ public class Triangulo {
 
         in = new Scanner(System.in);
 
-        double base, altura;
+        float base, altura, area;
 
         System.out.println("Digite o valor da base do triângulo:");
-        base = in.nextDouble();
+        base = in.nextFloat();
         System.out.println("Digite o valor da altura do triângulo:");
-        altura = in.nextDouble();
+        altura = in.nextFloat();
+        in.close();
 
-        System.out.println("A área do triângulo é " + (base * altura / 2));
+        area = base * altura / 2;
+
+        System.out.println("A área do triângulo é " + area);
     }  
 }
 

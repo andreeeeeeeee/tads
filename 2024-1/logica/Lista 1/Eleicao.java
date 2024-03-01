@@ -24,16 +24,17 @@ import java.util.Scanner;
         in = new Scanner(System.in);    // TERMINAL / ENTRADA DO USUARIO
         
         // tipo / nomes
-        double eleitores, validos, brancos, nulos, percValidos, percBrancos, percNulos;
+        float eleitores, validos, brancos, nulos, percValidos, percBrancos, percNulos;
 
         System.out.println("Digite o número total de eleitores:");
         eleitores = in.nextInt();
         System.out.println("Digite o número total de votos válidos:");
         validos = in.nextInt();
-       System.out.println("Digite o número total de votos brancos:");
+        System.out.println("Digite o número total de votos brancos:");
         brancos = in.nextInt();
         System.out.println("Digite o número total de votos nulos:");
         nulos = in.nextInt();
+        in.close();
 
         percValidos = validos / eleitores * 100;
         percBrancos = brancos / eleitores * 100;

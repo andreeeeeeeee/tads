@@ -24,21 +24,27 @@ public class Ingressos {
         in = new Scanner(System.in);    // TERMINAL / ENTRADA DO USUARIO
         
         // tipo / nomes
-        double valorIngresso, valorDesconto, totalRenda, totalIngressos, totalDesconto;
+        float valorIngresso, valorDesconto, totalRenda, totalIngressos, totalDesconto;
         int pagantes, naoPagantes, socios, totalPublico;
 
         System.out.println("Valor de cada ingresso, em reais:");
-        valorIngresso = in.nextDouble();
-        valorDesconto = valorIngresso * 0.3;
+        valorIngresso = in.nextFloat();
+        valorDesconto = valorIngresso * 0.3f;
         System.out.println("Número de pessoas (público do evento) que são sócias do clube:");
         socios = in.nextInt();
         System.out.println("Número de pessoas (público do evento) não pagantes (menores de 10 anos):");
         naoPagantes = in.nextInt();
         System.out.println("Número de pessoas (público do evento) pagantes (sem desconto algum):");
         pagantes = in.nextInt();
+        in.close();
 
         totalPublico = socios + naoPagantes + pagantes;
         totalIngressos = totalPublico * valorIngresso;
-        totalRenda = socios * valorIngresso + pagantes * (valorIngresso - valorDesconto);
+        totalRenda = pagantes * valorIngresso + socios * (valorIngresso - valorDesconto);
+        totalDesconto = totalIngressos - totalRenda;
+
+        System.out.print("O evento teve um público total de " + totalPublico + " pessoas, ");
+        System.out.println("gerando uma renda total de R$ " + totalRenda + ".");
+        System.out.println("O valor acumulado de isenções e descontos foi de R$ " + totalDesconto);
     }
 }
