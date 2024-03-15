@@ -24,11 +24,10 @@ public class Exame {
  
         System.out.printf("A média entre as três notas é %.2f\n", media);
 
-        exame = (5 - media * 0.6f) / 0.4f;
- 
         if (media >= APROVACAO)
             System.out.println("Aprovado");
         else {
+            exame = (5 - media * 0.6f) / 0.4f;
             System.out.println("Reprovado");
             System.out.printf("Você precisa de %.2f para ser aprovado no exame\n", exame);
         }
