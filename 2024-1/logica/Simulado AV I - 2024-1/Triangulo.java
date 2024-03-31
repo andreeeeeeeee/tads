@@ -9,24 +9,24 @@
 import java.util.Scanner;
 
 public class Triangulo {
-    public static void main(String[] args){
-        Scanner in = new Scanner(System.in);
+  public static void main(String[] args) {
+    Scanner in = new Scanner(System.in);
 
-        float l1, l2, l3;
+    float l1, l2, l3;
 
-        System.out.println("Digite os 3 lados de um triângulo");
-        l1 = in.nextFloat();
-        l2 = in.nextFloat();
-        l3 = in.nextFloat();
+    System.out.println("Digite os 3 lados de um triângulo");
+    l1 = in.nextFloat();
+    l2 = in.nextFloat();
+    l3 = in.nextFloat();
 
-        if (l1 == l2 && l2 == l3) {
-            System.out.println("Equilátero");
-        } else if (l1 != l2 && l1 != l3 && l2 != l3){
-            System.out.println("Escaleno");
-        } else {
-            System.out.println("Isósceles");
-        }
-
-        in.close();
+    if (l1 == l2 && l2 == l3) {
+      System.out.println("Equilátero");
+    } else if (l1 != l2 && l1 != l3 && l2 != l3) {
+      System.out.println("Escaleno");
+    } else {
+      System.out.println("Isósceles");
     }
+
+    in.close();
+  }
 }

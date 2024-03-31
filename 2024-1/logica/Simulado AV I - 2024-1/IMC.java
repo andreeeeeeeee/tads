@@ -16,35 +16,35 @@
 import java.util.Scanner;
 
 public class IMC {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
+  public static void main(String[] args) {
+    Scanner in = new Scanner(System.in);
 
-        float peso, altura, IMC;
-        int genero;
+    float peso, altura, IMC;
+    int genero;
 
-        System.out.println("Digite o peso em quilos e a altura em metros");
-        peso = in.nextFloat();
-        altura = in.nextFloat();
+    System.out.println("Digite o peso em quilos e a altura em metros");
+    peso = in.nextFloat();
+    altura = in.nextFloat();
 
-        System.out.println("1 pra homi 2 pra muie");
-        genero = in.nextInt();
+    System.out.println("Qual seu gênero? Digite 1 para masculino e 2 para feminino.");
+    genero = in.nextInt();
 
-        IMC = peso/(altura*altura);
+    IMC = peso / (altura * altura);
 
-        if (IMC < 18) {
-            System.out.println("Abaixo do peso");
-        } else if ((IMC < 24 && genero == 2) || (IMC < 25 && genero == 1)) {
-            System.out.println("Peso normal");
-        } else if(IMC < 30) {
-            System.out.println("Sobrepeso");
-        } else if(IMC<35) {
-            System.out.println("Obesidade leve");
-        } else if (IMC<40) {
-            System.out.println("Obesidade moderada");
-        } else {
-            System.out.println("Obesidade grave");
-        }
-
-        in.close();
+    if (IMC < 18) {
+      System.out.println("Abaixo do peso");
+    } else if ((IMC < 24 && genero == 2) || (IMC < 25 && genero == 1)) {
+      System.out.println("Peso normal");
+    } else if (IMC < 30) {
+      System.out.println("Sobrepeso");
+    } else if (IMC < 35) {
+      System.out.println("Obesidade leve");
+    } else if (IMC < 40) {
+      System.out.println("Obesidade moderada");
+    } else {
+      System.out.println("Obesidade grave");
     }
+
+    in.close();
+  }
 }

@@ -10,34 +10,34 @@
 import java.util.Scanner;
 
 public class Inversor {
-    public static void main(String[] args){
-        Scanner in = new Scanner(System.in);
+  public static void main(String[] args) {
+    Scanner in = new Scanner(System.in);
 
-        int num, numInv = 0, numOrig, milhar, centena, dezena, unidade;
+    int num, numInv = 0, numOrig, milhar, centena, dezena, unidade;
 
-        System.out.println("Digite um número:");
-        numOrig = in.nextInt();
+    System.out.println("Digite um número:");
+    numOrig = in.nextInt();
 
-        num = numOrig;
+    num = numOrig;
 
-        milhar = num / 1000;
-        numInv += milhar;
-        num -= milhar * 1000;
+    milhar = num / 1000;
+    numInv += milhar;
+    num -= milhar * 1000;
 
-        centena = num / 100;
-        numInv += centena * 10;
-        num -= centena * 100;
+    centena = num / 100;
+    numInv += centena * 10;
+    num -= centena * 100;
 
-        dezena = num / 10;
-        numInv += dezena * 100;
-        num -= dezena * 10;
+    dezena = num / 10;
+    numInv += dezena * 100;
+    num -= dezena * 10;
 
-        unidade = num;
-        numInv += unidade * 1000;
-        num -= unidade;
+    unidade = num;
+    numInv += unidade * 1000;
+    num -= unidade;
 
-        System.out.printf("%d invertido: %d\n", numOrig, numInv);
+    System.out.printf("%d invertido: %d\n", numOrig, numInv);
 
-        in.close();
-    }
+    in.close();
+  }
 }

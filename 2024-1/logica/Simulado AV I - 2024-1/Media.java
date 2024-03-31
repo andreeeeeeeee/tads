@@ -11,38 +11,38 @@
  *  *   Exame : media >= 3.0 e < 6.0
  */
 
-
 import java.util.Scanner;
 
 public class Media {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
+  public static void main(String[] args) {
+    Scanner in = new Scanner(System.in);
 
-        float n1, n2, nOpta, media;
+    float n1, n2, nOpta, media;
 
-        System.out.println("Digite as notas das duas avaliações e da optativa, caso seja realizada. Caso contrário, digite o valor -1.");
-        n1 = in.nextFloat();
-        n2 = in.nextFloat();
-        nOpta = in.nextFloat();
+    System.out.println(
+        "Digite as notas das duas avaliações e da optativa, caso seja realizada. Caso contrário, digite o valor -1.");
+    n1 = in.nextFloat();
+    n2 = in.nextFloat();
+    nOpta = in.nextFloat();
 
-        media = (n1 + n2)/2;
+    media = (n1 + n2) / 2;
 
-        if (nOpta > -1) {
-            float menor = Math.min(n1,n2);
-            float maior = Math.max(n1,n2);
-            if (nOpta > menor) {
-                media = (maior + nOpta)/2;
-            }
-        }
-
-        if(media>=6) {
-            System.out.println("Aprovado");
-        } else if(media< 3) {
-            System.out.println("Reprovado");
-        } else {
-            System.out.println("Exame");
-        }
-
-        in.close();
+    if (nOpta > -1) {
+      float menor = Math.min(n1, n2);
+      float maior = Math.max(n1, n2);
+      if (nOpta > menor) {
+        media = (maior + nOpta) / 2;
+      }
     }
+
+    if (media >= 6) {
+      System.out.println("Aprovado");
+    } else if (media < 3) {
+      System.out.println("Reprovado");
+    } else {
+      System.out.println("Exame");
+    }
+
+    in.close();
+  }
 }

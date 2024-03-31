@@ -7,31 +7,31 @@
  * das idades digitadas: mulher mais nova, mulher mais velha, homem mais novo e homem mais velho.
  */
 
-import java.util.Scanner; 
+import java.util.Scanner;
 
 public class Idades {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
+  public static void main(String[] args) {
+    Scanner in = new Scanner(System.in);
 
-        int h1, h2, m1, m2, velho, novo, velha, nova, soma, produto;
+    int h1, h2, m1, m2, velho, novo, velha, nova, soma, produto;
 
-        System.out.println("Digite a idade dos dois homens e das duas mulheres, respectivamente:");
-        h1 = in.nextInt();
-        h2 = in.nextInt();
-        m1 = in.nextInt();
-        m2 = in.nextInt();
+    System.out.println("Digite a idade dos dois homens e das duas mulheres, respectivamente:");
+    h1 = in.nextInt();
+    h2 = in.nextInt();
+    m1 = in.nextInt();
+    m2 = in.nextInt();
 
-        velho = Math.max(h1,h2);
-        novo = Math.min(h1,h2);
-        velha = Math.max(m1,m2);
-        nova = Math.min(m1,m2);
+    velho = Math.max(h1, h2);
+    novo = Math.min(h1, h2);
+    velha = Math.max(m1, m2);
+    nova = Math.min(m1, m2);
 
-        soma = velho + nova;
-        produto = novo * velha;
+    soma = velho + nova;
+    produto = novo * velha;
 
-        System.out.printf("%d + %d = %d\n", velho, nova, soma);
-        System.out.printf("%d * %d = %d\n", novo, velha, produto);
+    System.out.printf("%d + %d = %d\n", velho, nova, soma);
+    System.out.printf("%d * %d = %d\n", novo, velha, produto);
 
-        in.close();
-    }
+    in.close();
+  }
 }
