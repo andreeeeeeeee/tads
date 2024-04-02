@@ -13,21 +13,27 @@
 
  */
 
-import java.util.Random;
+import java.util.Scanner;
 
 public class Cartas {
   public static void main(String[] args) {
-    Random rand = new Random();
+    Scanner in = new Scanner(System.in);
 
-    int carta1Jog1 = rand.nextInt(13) + 1, carta2Jog1 = rand.nextInt(13) + 1;
-    int naipe1Jog1 = rand.nextInt(4) + 1, naipe2Jog1 = rand.nextInt(4) + 1;
-    int carta1Jog2 = rand.nextInt(13) + 1, carta2Jog2 = rand.nextInt(13) + 1;
-    int naipe1Jog2 = rand.nextInt(4) + 1, naipe2Jog2 = rand.nextInt(4) + 1;
+    int carta1Jog1 = in.nextInt();
+    String naipe1Jog1 = in.next();
+    int carta2Jog1 = in.nextInt();
+    String naipe2Jog1 = in.next();
+    int carta1Jog2 = in.nextInt();
+    String naipe1Jog2 = in.next();
+    int carta2Jog2 = in.nextInt();
+    String naipe2Jog2 = in.next();
     int pontosJog1 = 0, pontosJog2 = 0;
+
+    in.close();
 
     if (carta1Jog1 == carta2Jog1) {
       pontosJog1 = carta1Jog1 * carta2Jog1;
-    } else if (naipe1Jog1 == naipe2Jog1) {
+    } else if (naipe1Jog1.equals(naipe2Jog1)) {
       if (carta1Jog1 == carta2Jog1 + 1 || carta1Jog1 == carta2Jog1 - 1) {
         pontosJog1 = carta1Jog1 * carta2Jog1;
       } else {
@@ -43,7 +49,7 @@ public class Cartas {
 
     if (carta1Jog2 == carta2Jog2) {
       pontosJog2 = carta1Jog2 * carta2Jog2;
-    } else if (naipe1Jog2 == naipe2Jog2) {
+    } else if (naipe1Jog2.equals(naipe2Jog2)) {
       if (carta1Jog2 == carta2Jog2 + 1 || carta1Jog2 == carta2Jog2 - 1) {
         pontosJog2 = carta1Jog2 * carta2Jog2;
       } else {
@@ -56,7 +62,6 @@ public class Cartas {
         pontosJog2 = Math.abs((carta1Jog2 - carta2Jog2));
       }
     }
-
 
     if (pontosJog1 == pontosJog2) {
       System.out.printf("Empate, ambos jogadores fizeram %d pontos\n", pontosJog1);
