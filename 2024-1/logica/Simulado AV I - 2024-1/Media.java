@@ -28,11 +28,7 @@ public class Media {
     media = (n1 + n2) / 2;
 
     if (nOpta > -1) {
-      float menor = Math.min(n1, n2);
-      float maior = Math.max(n1, n2);
-      if (nOpta > menor) {
-        media = (maior + nOpta) / 2;
-      }
+      media = (Math.max(n1, n2) + nOpta) / 2;
     }
 
     if (media >= 6) {
