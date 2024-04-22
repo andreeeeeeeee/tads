@@ -8,20 +8,19 @@
 import java.util.Scanner;
 
 public class Quadrado {
-    public static void main(String[] args) {
-        Scanner in;
+  public static void main(String[] args) {
+    Scanner in;
 
-        in = new Scanner(System.in);
+    in = new Scanner(System.in);
 
-        int numero, quadrado;
+    int numero, quadrado;
 
-        System.out.println("Digite um número inteiro:");
-        numero = in.nextInt();
-        in.close();
+    System.out.println("Digite um número inteiro:");
+    numero = in.nextInt();
+    in.close();
 
-        quadrado = numero * numero;
+    quadrado = numero * numero;
 
-        System.out.println(numero + "² = " + quadrado);
-    }  
+    System.out.println(numero + "² = " + quadrado);
+  }
 }
-

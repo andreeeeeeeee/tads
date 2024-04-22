@@ -6,24 +6,23 @@
  * A fórmula é (Celsius * 9/5) + 32.
  */
 
-
 import java.util.Scanner;
 
 public class Celsius {
-    public static void main(String[] args) {
-        Scanner in;
+  public static void main(String[] args) {
+    Scanner in;
 
-        in = new Scanner(System.in);
+    in = new Scanner(System.in);
 
-        float fahrenheit, celsius;
+    float fahrenheit, celsius;
 
-        System.out.println("Digite uma temperatura em Celsius:");
-        celsius = in.nextFloat();
-        
-        fahrenheit = (celsius * 9 / 5) + 32;
+    System.out.println("Digite uma temperatura em Celsius:");
+    celsius = in.nextFloat();
 
-        System.out.println(celsius + "°C = " + fahrenheit + "°F");
-        
-        in.close();
-    }  
+    fahrenheit = (celsius * 9 / 5) + 32;
+
+    System.out.println(celsius + "°C = " + fahrenheit + "°F");
+
+    in.close();
+  }
 }

@@ -12,20 +12,19 @@
 import java.util.Scanner;
 
 public class Fahrenheit {
-    public static void main(String[] args) {
-        Scanner in;
+  public static void main(String[] args) {
+    Scanner in;
 
-        in = new Scanner(System.in);
+    in = new Scanner(System.in);
 
-        float fahrenheit, celsius;
+    float fahrenheit, celsius;
 
-        System.out.println("Digite uma temperatura em Fahreheint:");
-        fahrenheit = in.nextFloat();
-        in.close();
+    System.out.println("Digite uma temperatura em Fahreheint:");
+    fahrenheit = in.nextFloat();
+    in.close();
 
-        celsius = (fahrenheit - 32) / 9 * 5;
+    celsius = (fahrenheit - 32) / 9 * 5;
 
-        System.out.println(fahrenheit + "°F = " + celsius + "°C");
-    }  
+    System.out.println(fahrenheit + "°F = " + celsius + "°C");
+  }
 }
-

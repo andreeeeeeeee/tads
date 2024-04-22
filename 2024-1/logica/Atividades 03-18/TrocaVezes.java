@@ -5,23 +5,23 @@
 import java.util.Scanner;
 
 public class TrocaVezes {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
+  public static void main(String[] args) {
+    Scanner in = new Scanner(System.in);
 
-        int a, b, c = 0;
+    int a, b, c = 0;
 
-        System.out.println("Digite os valores de A e B:");
-        a = in.nextInt();
-        b = in.nextInt();
+    System.out.println("Digite os valores de A e B:");
+    a = in.nextInt();
+    b = in.nextInt();
 
-        if (a > b) {
-            c = a;
-            a = b;
-            b = c;
-        }
-
-        System.out.printf("A: %d\nB: %d\n", a, b);
-
-        in.close();
+    if (a > b) {
+      c = a;
+      a = b;
+      b = c;
     }
+
+    System.out.printf("A: %d\nB: %d\n", a, b);
+
+    in.close();
+  }
 }

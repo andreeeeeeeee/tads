@@ -8,19 +8,19 @@
 import java.util.Scanner;
 
 public class Retangulo {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
+  public static void main(String[] args) {
+    Scanner in = new Scanner(System.in);
 
-        float larg, comp, perimetro;
+    float larg, comp, perimetro;
 
-        System.out.println("Digite, em metros, a largura e o comprimento de um retângulo, respectivamente:");
-        larg = in.nextFloat();
-        comp = in.nextFloat();
+    System.out.println("Digite, em metros, a largura e o comprimento de um retângulo, respectivamente:");
+    larg = in.nextFloat();
+    comp = in.nextFloat();
 
-        perimetro = larg * 2 + comp * 2;
+    perimetro = larg * 2 + comp * 2;
 
-        System.out.println("O perímetro é de " + perimetro);
+    System.out.println("O perímetro é de " + perimetro);
 
-        in.close();
-    }
+    in.close();
+  }
 }

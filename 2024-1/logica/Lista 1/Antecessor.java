@@ -9,23 +9,23 @@ import java.util.Scanner;
 
 public class Antecessor {
 
-    public static void main(String[] args) {
+  public static void main(String[] args) {
 
-        // DECLARACAO
-        Scanner in;
+    // DECLARACAO
+    Scanner in;
 
-        // INICIALIZACAO
-        in = new Scanner(System.in);    // TERMINAL / ENTRADA DO USUARIO
-        
-        // tipo / nome
-        int numero, antecessor;
+    // INICIALIZACAO
+    in = new Scanner(System.in); // TERMINAL / ENTRADA DO USUARIO
 
-        System.out.println("Digite um número inteiro:");
-        numero = in.nextInt();       // a variavel numero recebe o inteiro que for digitado
-        in.close();
+    // tipo / nome
+    int numero, antecessor;
 
-        antecessor = numero - 1;
+    System.out.println("Digite um número inteiro:");
+    numero = in.nextInt(); // a variavel numero recebe o inteiro que for digitado
+    in.close();
 
-        System.out.println("O antecessor de " + numero + " é " + antecessor);
-    }
+    antecessor = numero - 1;
+
+    System.out.println("O antecessor de " + numero + " é " + antecessor);
+  }
 }

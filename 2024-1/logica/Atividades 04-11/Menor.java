@@ -1,15 +1,15 @@
 /*
- * 4.
- * Leia 10 valores e indique o maior e o menor valor
+ * 1.
+ * DADO 10 VALORES DIGITADOS PELO USUARIO, INDIQUE QUAL O MENOR VALOR.
  */
 
 import java.util.Scanner;
 
-public class MaiorMenor {
+public class Menor {
   public static void main(String[] args) {
     Scanner in = new Scanner(System.in);
 
-    int i = 0, numero = 0, menor = 0, maior = 0;
+    int i = 0, numero = 0, menor = 0;
 
     while (i < 10) {
       i++;
@@ -17,18 +17,14 @@ public class MaiorMenor {
       numero = in.nextInt();
       if (i == 1) {
         menor = numero;
-        maior = numero;
       }
       if (menor > numero) {
         menor = numero;
-      }
-      if (maior < numero) {
-        maior = numero;
       }
     }
 
     in.close();
 
-    System.out.printf("Maior: %d\nMenor: %d\n", maior, menor);
+    System.out.printf("Menor: %d\n", menor);
   }
 }

@@ -7,22 +7,22 @@
 import java.util.Scanner;
 
 public class AlcoolGasol {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
+  public static void main(String[] args) {
+    Scanner in = new Scanner(System.in);
 
-        float valorAlcool, valorGasol;
-        final float multiplicador = 0.3f;
+    float valorAlcool, valorGasol;
+    final float multiplicador = 0.3f;
 
-        System.out.println("Digite o valor do álcool:");
-        valorAlcool = in.nextFloat();
-        System.out.println("Digite o valor da gasolina:");
-        valorGasol = in.nextFloat();
+    System.out.println("Digite o valor do álcool:");
+    valorAlcool = in.nextFloat();
+    System.out.println("Digite o valor da gasolina:");
+    valorGasol = in.nextFloat();
 
-        if (valorAlcool + valorGasol * multiplicador < valorGasol)
-            System.out.println("Àlcool");
-        else
-            System.out.println("Gasolina");
+    if (valorAlcool + valorGasol * multiplicador < valorGasol)
+      System.out.println("Àlcool");
+    else
+      System.out.println("Gasolina");
 
-        in.close();
-    }
+    in.close();
+  }
 }

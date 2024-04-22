@@ -10,25 +10,25 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class MiniGame {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        Random rand = new Random();
+  public static void main(String[] args) {
+    Scanner in = new Scanner(System.in);
+    Random rand = new Random();
 
-        int ataque, defesa, vencedor;
+    int ataque, defesa, vencedor;
 
-        System.out.println("Digite a pontuação da carta de ataque:");
-        ataque = in.nextInt();
-        System.out.println("Digite a pontuação da carta de defesa:");
-        defesa = in.nextInt();
+    System.out.println("Digite a pontuação da carta de ataque:");
+    ataque = in.nextInt();
+    System.out.println("Digite a pontuação da carta de defesa:");
+    defesa = in.nextInt();
 
-        vencedor = rand.nextInt(2);
+    vencedor = rand.nextInt(2);
 
-        if (vencedor == 0) {
-          System.out.println("A carta de ataque venceu.");
-        } else {
-          System.out.println("A carta de defesa venceu.");
-        }
-
-        in.close();
+    if (vencedor == 0) {
+      System.out.println("A carta de ataque venceu.");
+    } else {
+      System.out.println("A carta de defesa venceu.");
     }
+
+    in.close();
+  }
 }

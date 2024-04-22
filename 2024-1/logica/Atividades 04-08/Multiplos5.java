@@ -3,18 +3,18 @@
 import java.util.Scanner;
 
 public class Multiplos5 {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
+  public static void main(String[] args) {
+    Scanner in = new Scanner(System.in);
 
-        int a = in.nextInt(), b = in.nextInt();
+    int a = in.nextInt(), b = in.nextInt();
 
-        while (a <= b) {
-            if (a%5 == 0) {
-                System.out.println(a);
-            }
-            
-            a++;
-        }
-        in.close();
+    while (a <= b) {
+      if (a % 5 == 0) {
+        System.out.println(a);
+      }
+
+      a++;
     }
+    in.close();
+  }
 }

@@ -9,19 +9,19 @@
 import java.util.Scanner;
 
 public class Concat {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
+  public static void main(String[] args) {
+    Scanner in = new Scanner(System.in);
 
-        String nome1, nome2, nome;
+    String nome1, nome2, nome;
 
-        System.out.println("Digite dois nomes:");
-        nome1 = in.next();
-        nome2 = in.next();
+    System.out.println("Digite dois nomes:");
+    nome1 = in.next();
+    nome2 = in.next();
 
-        nome = nome1 + " " + nome2;
+    nome = nome1 + " " + nome2;
 
-        System.out.println(nome);
+    System.out.println(nome);
 
-        in.close();
-    }
+    in.close();
+  }
 }

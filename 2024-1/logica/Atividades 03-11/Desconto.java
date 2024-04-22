@@ -6,25 +6,25 @@
 import java.util.Scanner;
 
 public class Desconto {
-    public static void main(String[] args) {
-        
-        Scanner in = new Scanner(System.in);
+  public static void main(String[] args) {
 
-        int quantidade;
-        float valorUni, valorDes, valorTot, valorFin, percDes;
+    Scanner in = new Scanner(System.in);
 
-        System.out.println("Digite a quantidade de items comprados:");
-        quantidade = in.nextInt();
-        System.out.println("Digite o valor de cada item:");
-        valorUni = in.nextFloat();
+    int quantidade;
+    float valorUni, valorDes, valorTot, valorFin, percDes;
 
-        valorTot = quantidade * valorUni;
-        percDes = ((int) quantidade / 3) * 0.05f;
-        valorDes = valorTot * percDes;
-        valorFin = valorTot - valorDes;
+    System.out.println("Digite a quantidade de items comprados:");
+    quantidade = in.nextInt();
+    System.out.println("Digite o valor de cada item:");
+    valorUni = in.nextFloat();
 
-        System.out.printf("%02.2f", valorFin);
+    valorTot = quantidade * valorUni;
+    percDes = ((int) quantidade / 3) * 0.05f;
+    valorDes = valorTot * percDes;
+    valorFin = valorTot - valorDes;
 
-        in.close();
-    }
+    System.out.printf("%02.2f", valorFin);
+
+    in.close();
+  }
 }
