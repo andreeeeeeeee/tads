@@ -21,13 +21,11 @@ public class TrocaPosicao {
             System.out.println();
 
             if (posicao1 >=0 && posicao1 <v.length && posicao2 >=0 && posicao2 <v.length) {
-                int valor1 = v[posicao1];
-                int valor2=v[posicao2];
+                int valor = v[posicao2];
+                v[posicao2] = v[posicao1];
 
-                v[posicao1] = valor2;
-                v[posicao2] = valor1;
-            } else
-                break;
+                v[posicao1] = valor;
+            } else break;
         }
 
         in.close();
