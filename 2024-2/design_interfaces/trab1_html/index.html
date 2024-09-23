@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <title>Trabalho 1 HTML</title>
+
+  <style>
+    fieldset {
+      display: flex;
+      flex-direction: column;
+      width: 20%;
+    }
+
+    fieldset>input {
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Supermercado Compre Bem</h1>
+    <p><i>Dashboard</i> de controle de lucros do <b>Compre Bem</b></p>
+  </header>
+  <nav>
+    <ul>
+      <li>Menu</li>
+      <li>Principal</li>
+      <li>Produtos</li>
+      <li>Serviços</li>
+      <li>Sobre</li>
+    </ul>
+  </nav>
+  <main>
+    <section>
+      <h2>Produtos e lucros</h2>
+      <ol>
+        <li>
+          <span>Frutas</span>
+          <ul>
+            <li>Banana</li>
+            <li>Maçã</li>
+            <li>Abacate</li>
+          </ul>
+        </li>
+        <li>
+          <span>Legumes</span>
+          <ul>
+            <li>Cebola</li>
+            <li>Pimentão</li>
+          </ul>
+        </li>
+        <li>
+          <span>Cereais</span>
+          <ul>
+            <li>Arroz</li>
+            <li>Feijão</li>
+          </ul>
+        </li>
+      </ol>
+      <table>
+        <caption>Lucros por mês</caption>
+        <thead>
+          <tr>
+            <th>Mês</th>
+            <th>Banana</th>
+            <th>Maçã</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Janeiro</td>
+            <td>100</td>
+            <td>50</td>
+          </tr>
+          <tr>
+            <td>Fevereiro</td>
+            <td>120</td>
+            <td>100</td>
+          </tr>
+          <tr>
+            <td>Março</td>
+            <td>120</td>
+            <td>150</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total</td>
+            <td>340</td>
+            <td>300</td>
+          </tr>
+        </tfoot>
+      </table>
+      <a href="https://ifrs.edu.br/">
+        <img src="img/cebola.jpg" alt="Cebola">
+      </a>
+      <figure>
+        <img src="img/pimentao.jpg" alt="Pimentão">
+        <figcaption>Pimentão</figcaption>
+      </figure>
+    </section>
+    <section>
+      <h2>Cadastro e mais informações</h2>
+      <form>
+        <fieldset>
+          <legend>Cadastro de usuário</legend>
+          <label for="name">Nome</label>
+          <input type="text" id="name">
+          <label for="birthday">Data de nascimento</label>
+          <input type="date" id="birthday">
+          <label for="email">E-mail</label>
+          <input type="email" id="email">
+          <label for="phone">Telefone</label>
+          <input type="tel" id="phone">
+          <label for="password">Senha</label>
+          <input type="password" id="password">
+          <input type="submit">
+        </fieldset>
+      </form>
+      <iframe width="400" height="225" src="https://www.youtube.com/embed/k85mRPqvMbE"
+        title="Crazy Frog - Axel F (Official Video)" referrerpolicy="strict-origin-when-cross-origin"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"></iframe>
+    </section>
+  </main>
+  <footer>
+    <p> Rua Engenheiro Alfredo Huch, 475, Centro — Rio Grande,RS — 96201-460 </p>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
