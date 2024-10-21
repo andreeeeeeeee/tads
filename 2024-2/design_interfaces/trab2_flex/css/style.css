@@ -1,0 +1,120 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: "Montserrat", sans-serif;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-content: space-around;
+  background-color: rgba(0, 255, 255, 0.5);
+  border-bottom: 1px solid rebeccapurple;
+  padding: 0 0.5rem;
+}
+
+header > h1 {
+  text-align: center;
+}
+
+header > p {
+  text-align: right;
+}
+
+ul {
+  list-style-type: none;
+}
+
+nav > ul {
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 1px solid rebeccapurple;
+  padding: 0.25rem 0;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  border: solid rebeccapurple;
+  border-width: 0 0 1px 0;
+  padding: 0.5rem;
+}
+
+.here {
+  list-style-type: disc;
+  font-weight: bold;
+  text-decoration: underline rebeccapurple;
+}
+
+.produtos {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+table {
+  align-self: center;
+  width: 80%;
+}
+
+caption {
+  text-align: center;
+}
+
+th,
+td {
+  border-width: 1px;
+  padding: 0.5rem;
+}
+
+th {
+  text-align: center;
+}
+
+.valor {
+  text-align: right;
+}
+
+.imagens {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+figcaption {
+  text-align: center;
+}
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+fieldset > input,
+fieldset > label {
+  width: 80%;
+}
+
+fieldset > input {
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  border-width: 1px;
+  padding: 0.25rem 0.5rem;
+}
+
+iframe {
+  align-self: center;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+}
