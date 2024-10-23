@@ -1,7 +1,12 @@
 function substring(string, start, end = string.length) {
   let s = "";
+  if (start < 0) {
+    start = 0;
+  }
 
-  for (let i = start; i < string.length && i < end; i++) s += string[i];
+  for (let i = start; i < string.length && i < end; i++) {
+    s += string[i];
+  }
 
   return s;
 }
@@ -17,7 +22,7 @@ function split(string, separator) {
       start = i + 1;
     }
 
-    if (i == string.length - 1) {
+    if (i == string.length - 1 && string[i] != separator) {
       let substr = substring(string, start);
       a.push(substr);
     }
@@ -83,8 +88,9 @@ function kebabcase(string) {
 
 const cargo = "desenvolvedora";
 console.log(substring(cargo, 5, 10));
+console.log(substring(cargo, 5, 25));
 
-const disciplina = "progamação modular tads";
+const disciplina = "progamação modular tads ";
 console.log(split(disciplina, " "));
 
 const nomeSobrenome = ["Gabriel", "Jacinto"];
