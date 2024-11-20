@@ -77,11 +77,8 @@ class App {
         boolean igual4 = Listas.igual(professores, professores);
         System.out.println(igual4); // true
 
-        // // desafio:
-        // List<List<String>> agrupado = Listas.agrupar(professores, 2);
-        // System.out.println(agrupado); // [[Márcio Torres, Tiago Telecken], [Cleber Fonseca, Igor Pereira], [Javier Lopez, Eduardo Brião]]
-
-
-
+        // desafio:
+        List<List<String>> agrupado = Listas.agrupar(professores, 2);
+        System.out.println(agrupado); // [[Márcio Torres, Tiago Telecken], [Cleber Fonseca, Igor Pereira], [Javier Lopez, Eduardo Brião]]
     }
 }
