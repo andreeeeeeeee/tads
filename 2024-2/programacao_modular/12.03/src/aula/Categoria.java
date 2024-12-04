@@ -1,0 +1,3 @@
+enum Categoria {
+    PASSEIO, UTILITARIO;
+}
