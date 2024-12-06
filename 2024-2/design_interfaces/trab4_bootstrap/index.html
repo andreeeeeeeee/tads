@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="title" content="Supermercado Compre Bem">
+  <meta name="description" content="Dashboard de controle de lucros do Supermercado Compre Bem">
+  <meta name="keywords" content="supermercado, lucros, produtos, serviços">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://andreeeeeeeee.github.io/Trab3HTML2024-2/">
+  <meta property="og:title" content="Supermercado Compre Bem">
+  <meta property="og:description" content="Dashboard de controle de lucros do Supermercado Compre Bem">
+  <meta property="og:image" content="img/image.webp">
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://andreeeeeeeee.github.io/Trab3HTML2024-2/">
+  <meta property="twitter:title" content="Supermercado Compre Bem">
+  <meta property="twitter:description" content="Dashboard de controle de lucros do Supermercado Compre Bem">
+  <meta property="twitter:image" content="img/image.webp">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
+
+  <title>Supermercado Compre Bem</title>
+</head>
+
+<body>
+  <header>
+    <h1>Compre Bem</h1>
+    <p><i>Dashboard</i> de controle de lucros do <b>Compre Bem</b></p>
+  </header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Compre Bem</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#principal">Principal</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#produtos">Produtos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#servicos">Serviços</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#sobre">Sobre</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <main>
+    <section id='principal'>
+      <h2>Produtos e lucros</h2>
+      <ol class='produtos'>
+        <li>
+          <span>Frutas</span>
+          <ul>
+            <li>Banana</li>
+            <li>Maçã</li>
+            <li>Abacate</li>
+          </ul>
+        </li>
+        <li>
+          <span>Legumes</span>
+          <ul>
+            <li>Cebola</li>
+            <li>Pimentão</li>
+          </ul>
+        </li>
+      </ol>
+      <table class="table table-striped table-bordered">
+        <caption>Lucros por mês</caption>
+        <thead class="thead-dark">
+          <tr>
+            <th>Mês</th>
+            <th>Banana</th>
+            <th>Maçã</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Janeiro</td>
+            <td class='valor'>R$ 100,00</td>
+            <td class='valor'>R$ 50,00</td>
+          </tr>
+          <tr>
+            <td>Fevereiro</td>
+            <td class='valor'>R$ 120,00</td>
+            <td class='valor'>R$ 100,00</td>
+          </tr>
+          <tr>
+            <td>Março</td>
+            <td class='valor'>R$ 120,00</td>
+            <td class='valor'>R$ 150,00</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total</td>
+            <td class='valor'>R$ 340,00</td>
+            <td class='valor'>R$ 300,00</td>
+          </tr>
+        </tfoot>
+      </table>
+      <div id="carouselIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="0" class="active"
+            aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div>
+              <img src="img/cebola.webp" class="img-fluid" alt="Cebola">
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div>
+              <img src="img/pimentao.webp" class="img-fluid" alt="Pimentão">
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div>
+              <img src="img/banana.webp" class="img-fluid" alt="Banana">
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </section>
+    <section class="galeria" id='produtos'>
+      <h2>Galeria de Produtos</h2>
+      <div class="grid-container">
+        <div class="grid-item">
+          <a href="#" data-bs-toggle="modal" data-bs-target="#modalProduto1">
+            <img src="img/produto1.webp" alt="Produto 1" class="img-fluid">
+          </a>
+          <p>Achocolatado Nescau</p>
+        </div>
+        <div class="grid-item">
+          <a href="#" data-bs-toggle="modal" data-bs-target="#modalProduto2">
+            <img src="img/produto2.webp" alt="Produto 2" class="img-fluid">
+          </a>
+          <p>Detergente Ypê</p>
+        </div>
+        <div class="grid-item">
+          <a href="#" data-bs-toggle="modal" data-bs-target="#modalProduto3">
+            <img src="img/produto3.webp" alt="Produto 3" class="img-fluid">
+          </a>
+          <p>Coca-Cola</p>
+        </div>
+        <div class="grid-item">
+          <a href="#" data-bs-toggle="modal" data-bs-target="#modalProduto4">
+            <img src="img/produto4.webp" alt="Produto 4" class="img-fluid">
+          </a>
+          <p>Leite Elegê</p>
+        </div>
+        <div class="grid-item">
+          <a href="#" data-bs-toggle="modal" data-bs-target="#modalProduto5">
+            <img src="img/produto5.webp" alt="Produto 5" class="img-fluid">
+          </a>
+          <p>Arroz Tordilho</p>
+        </div>
+        <div class="grid-item">
+          <a href="#" data-bs-toggle="modal" data-bs-target="#modalProduto6">
+            <img src="img/produto6.webp" alt="Produto 6" class="img-fluid">
+          </a>
+          <p>Café Melitta</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="modal fade" id="modalProduto1" tabindex="-1" aria-labelledby="modalProduto1Label" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalProduto1Label">Achocolatado Nescau</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <img src="img/produto1.webp" alt="Produto 1" class="img-fluid">
+            <p>Achocolatado Em Pó 2.0 Nescau 400g</p>
+            <p>R$ 11,99</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalProduto2" tabindex="-1" aria-labelledby="modalProduto2Label" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalProduto2Label">Detergente Ypê</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <img src="img/produto2.webp" alt="Produto 2" class="img-fluid">
+            <p>Detergente Ypê Clear 500mL</p>
+            <p>R$ 2,99</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalProduto3" tabindex="-1" aria-labelledby="modalProduto3Label" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalProduto3Label">Coca-Cola</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <img src="img/produto3.webp" alt="Produto 3" class="img-fluid">
+            <p>Refrigerante Coca-Cola Original Pet 2L</p>
+            <p>R$ 11,99</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalProduto4" tabindex="-1" aria-labelledby="modalProduto4Label" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalProduto4Label">Leite Elegê</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <img src="img/produto4.webp" alt="Produto 4" class="img-fluid">
+            <p>Leite Integral UHT Elegê 1L</p>
+            <p>R$ 4,99</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalProduto5" tabindex="-1" aria-labelledby="modalProduto5Label" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalProduto5Label">Arroz Tordilho</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <img src="img/produto5.webp" alt="Produto 5" class="img-fluid">
+            <p>Arroz Parboilizado Tordilho T1 1kg</p>
+            <p>R$ 6,99</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalProduto6" tabindex="-1" aria-labelledby="modalProduto6Label" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalProduto6Label">Café Melitta</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <img src="img/produto6.webp" alt="Produto 6" class="img-fluid">
+            <p>Café Tradicional Melitta Vácuo 500g</p>
+            <p>R$ 26,99</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="formulario" id='servicos'>
+      <h2>Formulário de Contato</h2>
+      <div class="form-container">
+        <form>
+          <fieldset>
+            <legend>Informações Pessoais</legend>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="data-nascimento">Data de Nascimento:</label>
+            <input type="date" id="data-nascimento" name="data-nascimento" required>
+            <label for="telefone">Telefone:</label>
+            <input type="tel" id="telefone" name="telefone" required>
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required>
+            <label for="senha">Tipo de pessoa:</label>
+            <div></div>
+            <input type="radio" id="cpf" name="cpf" required>
+            <label for="cpf">Pessoa Física</label>
+            <input type="radio" id="cnpj" name="cnpj" required>
+            <label for="cnpj">Pessoa Jurídica</label>
+            <label for="mensagem">Mensagem:</label>
+            <textarea id="mensagem" name="mensagem" rows="4" required></textarea>
+            <input type="checkbox" id="news" name="news" required>
+            <label for="news">Desejo receber atualizações no e-mail</label>
+
+          </fieldset>
+          <button type="submit">Enviar</button>
+        </form>
+        <figure>
+          <img src="img/form-figura.webp" alt="Figura ao lado do formulário" width='1024' height='576'>
+        </figure>
+      </div>
+    </section>
+  </main>
+  <footer id='sobre'>
+    <p> Rua Engenheiro Alfredo Huch, 475, Centro — Rio Grande, RS — 96201-460 </p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

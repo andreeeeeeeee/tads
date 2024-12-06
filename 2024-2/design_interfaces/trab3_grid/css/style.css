@@ -1,0 +1,200 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+body {
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-content: space-around;
+  background-color: rgba(0, 255, 255, 0.5);
+  border-bottom: 1px solid rebeccapurple;
+  padding: 0 0.5rem;
+}
+
+header>h1 {
+  text-align: center;
+}
+
+header>p {
+  text-align: right;
+}
+
+ul {
+  list-style-type: none;
+}
+
+nav>ul {
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 1px solid rebeccapurple;
+  padding: 0.25rem 0;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+main {
+  padding: 1rem;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  border: solid rebeccapurple;
+  border-width: 0 0 1px 0;
+  padding: 0.5rem;
+}
+
+.here {
+  font-weight: bold;
+  text-decoration: underline rebeccapurple;
+}
+
+.produtos {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+table {
+  align-self: center;
+  width: 80%;
+}
+
+caption {
+  text-align: center;
+}
+
+th,
+td {
+  border-width: 1px;
+  padding: 0.5rem;
+}
+
+th {
+  text-align: center;
+}
+
+.valor {
+  text-align: right;
+}
+
+.imagens {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+figcaption {
+  text-align: center;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.galeria {
+  margin-top: 1rem;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.grid-item {
+  text-align: center;
+}
+
+.formulario {
+  margin-top: 1rem;
+}
+
+.form-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form fieldset {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  border: 1px solid rebeccapurple;
+  padding: 1rem;
+}
+
+form legend {
+  grid-column: 1 / span 2;
+}
+
+form label {
+  margin-top: 0.5rem;
+}
+
+form input,
+form textarea {
+  margin-top: 0.25rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form button {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  background-color: rebeccapurple;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: darkmagenta;
+}
+
+figure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+figure img {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .form-container {
+    grid-template-columns: 1fr;
+  }
+
+  form fieldset {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  figure {
+    margin-top: 1rem;
+  }
+}

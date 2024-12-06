@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="title" content="Supermercado Compre Bem">
+  <meta name="description" content="Dashboard de controle de lucros do Supermercado Compre Bem">
+  <meta name="keywords" content="supermercado, lucros, produtos, serviços">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://andreeeeeeeee.github.io/Trab3HTML2024-2/">
+  <meta property="og:title" content="Supermercado Compre Bem">
+  <meta property="og:description" content="Dashboard de controle de lucros do Supermercado Compre Bem">
+  <meta property="og:image" content="img/image.webp">
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://andreeeeeeeee.github.io/Trab3HTML2024-2/">
+  <meta property="twitter:title" content="Supermercado Compre Bem">
+  <meta property="twitter:description" content="Dashboard de controle de lucros do Supermercado Compre Bem">
+  <meta property="twitter:image" content="img/image.webp">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
+
+  <title>Supermercado Compre Bem</title>
+</head>
+
+<body>
+  <header>
+    <h1>Supermercado Compre Bem</h1>
+    <p><i>Dashboard</i> de controle de lucros do <b>Compre Bem</b></p>
+  </header>
+  <nav>
+    <ul>
+      <li class='here'><a href="#">Principal</a></li>
+      <li><a href="#">Produtos</a></li>
+      <li><a href="#">Serviços</a></li>
+      <li><a href="#">Sobre</a></li>
+    </ul>
+  </nav>
+  <main>
+    <section>
+      <h2>Produtos e lucros</h2>
+      <ol class='produtos'>
+        <li>
+          <span>Frutas</span>
+          <ul>
+            <li>Banana</li>
+            <li>Maçã</li>
+            <li>Abacate</li>
+          </ul>
+        </li>
+        <li>
+          <span>Legumes</span>
+          <ul>
+            <li>Cebola</li>
+            <li>Pimentão</li>
+          </ul>
+        </li>
+        <!-- <li>
+          <span>Cereais</span>
+          <ul>
+            <li>Arroz</li>
+            <li>Feijão</li>
+          </ul>
+        </li> -->
+      </ol>
+      <table>
+        <caption>Lucros por mês</caption>
+        <thead>
+          <tr>
+            <th>Mês</th>
+            <th>Banana</th>
+            <th>Maçã</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Janeiro</td>
+            <td class='valor'>R$ 100,00</td>
+            <td class='valor'>R$ 50,00</td>
+          </tr>
+          <tr>
+            <td>Fevereiro</td>
+            <td class='valor'>R$ 120,00</td>
+            <td class='valor'>R$ 100,00</td>
+          </tr>
+          <tr>
+            <td>Março</td>
+            <td class='valor'>R$ 120,00</td>
+            <td class='valor'>R$ 150,00</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total</td>
+            <td class='valor'>R$ 340,00</td>
+            <td class='valor'>R$ 300,00</td>
+          </tr>
+        </tfoot>
+      </table>
+      <div class='imagens'>
+        <figure>
+          <img src="img/cebola.webp" alt="Cebola" width='150' height='150'>
+          <figcaption>Cebola</figcaption>
+        </figure>
+        <figure>
+          <img src="img/pimentao.webp" alt="Pimentão" width='150' height='150'>
+          <figcaption>Pimentão</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="galeria">
+      <h2>Galeria de Produtos</h2>
+      <div class="grid-container">
+        <div class="grid-item">
+          <img src="img/produto1.webp" alt="Produto 1" width='150' height='150'>
+          <p>Achocolatado Nescau</p>
+        </div>
+        <div class="grid-item">
+          <img src="img/produto2.webp" alt="Produto 2" width='150' height='150'>
+          <p>Detergente Ypê</p>
+        </div>
+        <div class="grid-item">
+          <img src="img/produto3.webp" alt="Produto 3" width='150' height='150'>
+          <p>Coca-Cola</p>
+        </div>
+        <div class="grid-item">
+          <img src="img/produto4.webp" alt="Produto 4" width='150' height='150'>
+          <p>Leite Elegê</p>
+        </div>
+        <div class="grid-item">
+          <img src="img/produto5.webp" alt="Produto 5" width='150' height='150'>
+          <p>Arroz Tordilho</p>
+        </div>
+        <div class="grid-item">
+          <img src="img/produto6.webp" alt="Produto 6" width='150' height='150'>
+          <p>Café Melitta</p>
+        </div>
+      </div>
+    </section>
+    <section class="formulario">
+      <h2>Formulário de Contato</h2>
+      <div class="form-container">
+        <form>
+          <fieldset>
+            <legend>Informações Pessoais</legend>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="data-nascimento">Data de Nascimento:</label>
+            <input type="date" id="data-nascimento" name="data-nascimento" required>
+            <label for="telefone">Telefone:</label>
+            <input type="tel" id="telefone" name="telefone" required>
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required>
+            <label for="senha">Tipo de pessoa:</label>
+            <div></div>
+            <input type="radio" id="cpf" name="cpf" required>
+            <label for="cpf">Pessoa Física</label>
+            <input type="radio" id="cnpj" name="cnpj" required>
+            <label for="cnpj">Pessoa Jurídica</label>
+            <label for="mensagem">Mensagem:</label>
+            <textarea id="mensagem" name="mensagem" rows="4" required></textarea>
+            <input type="checkbox" id="news" name="news" required>
+            <label for="news">Desejo receber atualizações no e-mail</label>
+
+          </fieldset>
+          <button type="submit">Enviar</button>
+        </form>
+        <figure>
+          <img src="img/form-figura.webp" alt="Figura ao lado do formulário" width='1024' height='576'>
+        </figure>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <p> Rua Engenheiro Alfredo Huch, 475, Centro — Rio Grande, RS — 96201-460 </p>
+  </footer>
+</body>
+
+</html>
