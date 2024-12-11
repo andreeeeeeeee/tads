@@ -1,8 +1,9 @@
 function mmc(n1, n2) {
-  let maior = n2>n1 ? n2 : n1;
+  const maior = n2 > n1 ? n2 : n1;
+  const menor = n2 < n1 ? n2 : n1;
 
-  let multiplo = maior
-  while (!(multiplo % n1 == 0 && multiplo % n2 == 0) && (multiplo += maior));
+  let multiplo = maior;
+  while (!(multiplo % menor == 0) && (multiplo += maior));
   return multiplo;
 }
 
