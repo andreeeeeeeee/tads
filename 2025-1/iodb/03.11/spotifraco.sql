@@ -12,6 +12,44 @@ CREATE TABLE
         senha TEXT NOT NULL
     );
 
+CREATE TABLE
+    artista (
+        id SERIAL PRIMARY KEY,
+        nome TEXT NOT NULL,
+        nome_artistico CHARACTER VARYING(60)
+    );
+
+CREATE TABLE
+    album (
+        id SERIAL PRIMARY KEY,
+        titulo TEXT NOT NULL,
+        data_lancamento DATE,
+        artista_id INTEGER REFERENCES artista (id)
+    );
+
+CREATE TABLE
+    musica (
+        id SERIAL PRIMARY KEY,
+        titulo TEXT NOT NULL,
+        duracao INTEGER CHECK (duracao > 0),
+        album_id INTEGER REFERENCES album (id)
+    );
+
+CREATE TABLE
+    playlist (
+        id SERIAL PRIMARY KEY,
+        nome TEXT NOT NULL,
+        data_hora TIMESTAMP DEFAULT current_timestamp,
+        usuario_id INTEGER REFERENCES usuario (id)
+    );
+
+CREATE TABLE
+    playlist_musica (
+        playlist_id INTEGER REFERENCES playlist (id),
+        musica_id INTEGER REFERENCES musica (id),
+        PRIMARY KEY (playlist_id, musica_id)
+    );
+
 INSERT INTO
     usuario (nome, email, senha)
 VALUES
@@ -25,14 +63,7 @@ VALUES
         'igor.pereira@riogrande.ifrs.edu.br',
         md5 ('12345678')
     );
-
-CREATE TABLE
-    artista (
-        id SERIAL PRIMARY KEY,
-        nome TEXT NOT NULL,
-        nome_artistico CHARACTER VARYING(60)
-    );
-
+    
 INSERT INTO
     artista (nome, nome_artistico)
 VALUES
@@ -41,14 +72,6 @@ VALUES
     ('Kendrick Lamar Morale', 'Kendrick Lamar'),
     ('Tyler Okonma', 'Tyler, the Creator');
 
-CREATE TABLE
-    album (
-        id SERIAL PRIMARY KEY,
-        titulo TEXT NOT NULL,
-        data_lancamento DATE,
-        artista_id INTEGER REFERENCES artista (id)
-    );
-
 INSERT INTO
     album (titulo, artista_id)
 VALUES
@@ -56,14 +79,6 @@ VALUES
     ('AmarElo', 2),
     ('DAMN.', 3),
     ('To Pimp a Butterfly', 4);
-
-CREATE TABLE
-    musica (
-        id SERIAL PRIMARY KEY,
-        titulo TEXT NOT NULL,
-        duracao INTEGER CHECK (duracao > 0),
-        album_id INTEGER REFERENCES album (id)
-    );
 
 INSERT INTO
     musica (titulo, duracao, album_id)
@@ -82,14 +97,6 @@ VALUES
     ('Alright', 219, 4),
     ('King Kunta', 235, 4);
 
-CREATE TABLE
-    playlist (
-        id SERIAL PRIMARY KEY,
-        nome TEXT NOT NULL,
-        data_hora TIMESTAMP DEFAULT current_timestamp,
-        usuario_id INTEGER REFERENCES usuario (id)
-    );
-
 INSERT INTO
     playlist (nome, usuario_id)
 values
@@ -98,13 +105,6 @@ values
     ('minhas canções', 2),
     ('emo', 2),
     ('samba 90', 2);
-
-CREATE TABLE
-    playlist_musica (
-        playlist_id INTEGER REFERENCES playlist (id),
-        musica_id INTEGER REFERENCES musica (id),
-        PRIMARY KEY (playlist_id, musica_id)
-    );
 
 INSERT INTO
     playlist_musica (playlist_id, musica_id)
