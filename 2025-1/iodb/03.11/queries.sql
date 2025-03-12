@@ -13,11 +13,13 @@ ADD COLUMN data_nascimento DATE CHECK (
 );
 
 /*
-Retorne os nomes dos usuários e suas datas de nascimento
-formatadas em dia/mes/ano.
-Para testar será preciso inserir ou atualizar as datas de nascimento
+Retorne os nomes dos usuários e suas datas de nascimento formatadas em dia/mes/ano.
+Para testar será preciso inserir ou atualizar as datas de nascimento 
 de alguns usuários
- */
+*/
+UPDATE usuario SET data_nascimento = '2005-03-26' WHERE id = 1;
+UPDATE usuario SET data_nascimento = '1987-01-20' WHERE id = 2;
+
 SELECT
     nome,
     to_char (data_nascimento, 'DD/MM/YYYY') as nascimento
@@ -43,7 +45,7 @@ SET
 Retorne os títulos de todos os álbuns em maiúsculo
  */
 SELECT
-    upper(titulo)
+    upper(titulo) as titulo
 FROM
     album;
 
@@ -109,6 +111,12 @@ SELECT
 FROM
     artista;
 
+SELECT 
+CASE
+    WHEN nome_artistico IS NOT NULL THEN nome_artistico
+    ELSE artista.nome
+END, album.titulo FROM artista INNER JOIN album ON (artista.id = album.artista_id);
+
 /*
 Retorne o título dos álbuns lançados em 2023
  */
@@ -126,12 +134,14 @@ WHERE
 /*
 Retorne o nome das playlists que foram criadas hoje
 */
-SELECT nome FROM playlist WHERE cast(data_hora AS DATE) = current_date;
+SELECT nome, cast(data_hora AS DATE) data FROM playlist WHERE cast(data_hora AS DATE) = current_date;
+
+--SELECT nome, data_hora::DATE AS data FROM playlist WHERE data_hora::DATE = current_date;
 
 /*
 Atualize todos os nomes dos artistas (nome e nome_artistico) para maiúsculo
 */
-
+UPDATE artista SET nome = upper(nome);
 
 /*
 Coloque uma verificação para a coluna duracao (tabela musica) para que
@@ -148,12 +158,12 @@ ALTER TABLE usuario ALTER COLUMN email SET UNIQUE;
 Retorne somente os artistas que o nome artístico começa com "Leo"
 (Ex: Leo Santana, Leonardo e etc.)
 */
-SELECT * FROM artista WHERE nome_artistico LIKE "Leo%";
+SELECT coalesce(nome_artistico,nome) as artista FROM artista WHERE nome_artistico LIKE 'Leo%';
 
 /*
 Retorne o título dos álbuns que estão fazendo aniversário neste mês
 */
-SELECT titulo, data_lanamento FROM album WHERE extract(month from data_lanamento) = extract(month from current_date);
+SELECT titulo, data_lancamento FROM album WHERE extract(month from data_lancamento) = extract(month from current_date);
 
 /*
 Retorne o título dos álbuns lançados no segundo semestre do ano passado
@@ -164,24 +174,48 @@ Retorne o título dos álbuns lançados no segundo semestre do ano passado
 Retorne o título dos álbuns lançados nos últimos 30 dias
 https://www.postgresql.org/docs/current/functions-datetime.html
 */
+SELECT titulo FROM album WHERE data_lancamento >= current_date-cast('30 day' as interval); 
 
 /*
 Retorne o título e o dia de lançamento (por extenso) de todos os álbuns
 */
-SELECT titulo, (extract(day from data_lanamento) + extract(month from data_lanamento) + extract(year from data_lanamento)) as data_lanamento FROM album;
+SELECT titulo, case extract(dow from data_lancamento)
+		when 0 then 'domingo'
+		when 1 then 'segunda'
+		when 2 then 'terca'
+		when 3 then 'quarta'
+		when 4 then 'quinta'
+		when 5 then 'sexta'
+		when 6 then 'sabado' 
+        end as dia_lancamento FROM album;
 
 /*
 Retorne o título e o mês de lançamento (por extenso) de todos os álbuns
 */
-SELECT titulo, extract(month from data_lanamento) as mes FROM album;
+SELECT titulo, case extract(month from data_lancamento)
+		when 1 then 'janeiro'
+		when 2 then 'fevereiro'
+		when 3 then 'marco'
+		when 4 then 'abril'
+		when 5 then 'maio'
+		when 6 then 'junho'
+		when 7 then 'julho'
+		when 8 then 'agosto'
+		when 9 then 'setembro'
+		when 10 then 'outubro'
+		when 11 then 'novembro'
+		when 12 then 'dezembro'
+	end as mes FROM album;
 
 /*
 Retorne pelo menos um dos álbuns mais antigos
 */
+SELECT * FROM album ORDER BY data_lancamento ASC;
 
 /*
 Retorne pelo menos um dos álbuns mais recentes
 */
+SELECT * FROM album ORDER BY data_lancamento DESC;
 
 /*
 Liste os títulos das músicas de todos os álbuns de um determinado artista
