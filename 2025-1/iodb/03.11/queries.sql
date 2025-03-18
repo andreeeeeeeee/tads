@@ -152,14 +152,17 @@ WHERE extract(
  */
 SELECT titulo
 FROM album
-WHERE data_lancamento BETWEEN '2022-07-01' AND '2022-12-31';
+WHERE 
+ extract(month from data_lancamento) >= 7 AND
+ extract(year from data_lancamento) = extract(year from current_date - interval '1 year');
+-- WHERE data_lancamento BETWEEN '2022-07-01' AND '2022-12-31';
 /*
  Retorne o título dos álbuns lançados nos últimos 30 dias
  https://www.postgresql.org/docs/current/functions-datetime.html
  */
 SELECT titulo
 FROM album
-WHERE data_lancamento >= current_date - cast('30 day' as interval);
+WHERE data_lancamento >= current_date - interval '30 day';
 /*
  Retorne o título e o dia de lançamento (por extenso) de todos os álbuns
  */
