@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="title" content="Editor de página">
+  <meta name="description" content="Dashboard de edição dinâmica de páginas">
+  <meta name="keywords" content="supermercado, lucros, produtos, serviços">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://andreeeeeeeee.github.io/Trab1JS2025-1/">
+  <meta property="og:title" content="Editor de página">
+  <meta property="og:description" content="Dashboard de edição dinâmica de páginas">
+  <!-- <meta property="og:image" content="img/image.webp"> -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://andreeeeeeeee.github.io/Trab1JS2025-1/">
+  <meta property="twitter:title" content="Editor de página">
+  <meta property="twitter:description" content="Dashboard de edição dinâmica de páginas">
+  <!-- <meta property="twitter:image" content="img/image.webp"> -->
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
+
+  <title>Editor de páginas</title>
+</head>
+
+<body>
+  <div id="editor">
+    <h2 class="text-center">Editor de Cabeçalho</h2>
+    <form id="headerForm">
+      <div class="mb-3">
+        <label for="headerBgColor" class="form-label">Cor de fundo do cabeçalho:</label>
+        <input type="color" id="headerBgColor" class="form-control" value="#ffffff">
+      </div>
+      <div class="mb-3">
+        <label for="elementType" class="form-label">Tipo de Elemento</label>
+        <select id="elementType" class="form-control">
+          <option value="text">Texto</option>
+          <option value="image">Imagem</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="elementContent" class="form-label">Conteúdo do Elemento</label>
+        <input type="text" id="elementContent" class="form-control" placeholder="Digite o texto">
+        <input type="file" id="elementImage" class="form-control d-none" accept="image/*">
+      </div>
+      <div class="mb-3">
+        <label for="bgColor" class="form-label">Cor de Fundo</label>
+        <input type="color" id="bgColor" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label for="textColor" class="form-label">Cor do Texto</label>
+        <input type="color" id="textColor" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label for="borderStyle" class="form-label">Estilo da Borda</label>
+        <select id="borderStyle" class="form-control">
+          <option value="none">Nenhuma</option>
+          <option value="solid">Sólida</option>
+          <option value="dashed">Tracejada</option>
+          <option value="dotted">Pontilhada</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="elementSize" class="form-label">Tamanho do Elemento (em px)</label>
+        <input type="number" id="elementSize" class="form-control" placeholder="Ex: 200">
+      </div>
+      <button type="button" id="addElementButton" class="btn btn-success w-100">Adicionar Elemento</button>
+    </form>
+  </div>
+
+  <div id="preview">
+    <h2 class="text-center">Visualização do Cabeçalho</h2>
+    <div id="headerPreview" class="d-flex flex-wrap gap-3"></div>
+  </div>
+
+  <script src="js/script.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

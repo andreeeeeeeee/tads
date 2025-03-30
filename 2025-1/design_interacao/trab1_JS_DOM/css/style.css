@@ -1,0 +1,50 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+#editor,
+#preview {
+  width: 800px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+}
+
+#preview {
+  background-color: #fff;
+}
+
+.form-control {
+  margin-bottom: 15px;
+}
+
+.element-preview {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+#headerPreview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  border: 1px dashed #ccc;
+}
+
+p {
+  margin: 0;
+}
