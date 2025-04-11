@@ -8,6 +8,7 @@ public class Main {
     biblioteca.adicionarLivro(livro1);
     biblioteca.adicionarLivro(livro2);
     biblioteca.adicionarLivro(livro3);
+    biblioteca.listarLivros();
 
     biblioteca.emprestarLivro("O Senhor dos Anéis");
 

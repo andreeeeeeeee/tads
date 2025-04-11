@@ -16,12 +16,14 @@ public class Biblioteca {
   public void emprestarLivro(String titulo) {
     for (Livro livro : this.livros) {
       if (livro.getTitulo().equals(titulo)) {
-        if (livro.isDisponivel()) {
-          livro.setDisponivel(false);
-          System.out.println("Livro emprestado\n" + livro);
+        if (!livro.isDisponivel()) {
+          System.out.println("Livro indisponível");
           return;
         }
-        System.out.println("Livro indisponível");
+
+        livro.setDisponivel(false);
+        System.out.println("Livro emprestado\n" + livro);
+        break;
       }
     }
   }
@@ -33,15 +35,16 @@ public class Biblioteca {
           System.out.println("Livro não está emprestado");
           return;
         }
+
         livro.setDisponivel(true);
         System.out.println("Livro devolvido\n" + livro);
+        break;
       }
     }
   }
 
   public void listarLivros() {
-    for (Livro livro : this.livros) {
+    for (Livro livro : this.livros)
       System.out.println(livro);
-    }
   }
 }
