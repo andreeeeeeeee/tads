@@ -11,19 +11,19 @@ public class Livro {
 
   @Override
   public String toString() {
-    return "Livro: " + titulo + " - " + autor + " - " + (disponivel ? "Disponível" : "Indisponível");
+    return "Livro: " + this.titulo + " - " + this.autor + " - " + (this.disponivel ? "Disponível" : "Indisponível");
   }
 
   public String getTitulo() {
-    return titulo;
+    return this.titulo;
   }
 
   public String getAutor() {
-    return autor;
+    return this.autor;
   }
 
   public boolean isDisponivel() {
-    return disponivel;
+    return this.disponivel;
   }
 
   public void setDisponivel(boolean disponivel) {

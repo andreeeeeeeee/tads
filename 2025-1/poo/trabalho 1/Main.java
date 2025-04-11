@@ -17,6 +17,9 @@ public class Main {
     biblioteca.devolverLivro("O Senhor dos Anéis");
 
     biblioteca.devolverLivro("A Metamorfose");
+
+    biblioteca.emprestarLivro("As Crônicas de Nárnia");
+
     biblioteca.listarLivros();
   }
 }
