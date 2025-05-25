@@ -1,0 +1,51 @@
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+public class Responsavel extends Pessoa {
+  private final List<AgendaDisponibilidade> agendas;
+
+  public Responsavel(String nome, String cpf, String email, String telefone) {
+    super(nome, cpf, email, telefone);
+    this.agendas = new ArrayList<>();
+  }
+
+  public List<AgendaDisponibilidade> getAgendas() {
+    return this.agendas;
+  }
+
+  public void abrirAgenda(Date data) {
+    AgendaDisponibilidade agenda = new AgendaDisponibilidade(data);
+
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTime(data);
+
+    for (int hora = 9; hora <= 17; hora++) {
+      calendar.set(Calendar.HOUR_OF_DAY, hora);
+      calendar.set(Calendar.MINUTE, 0);
+      calendar.set(Calendar.SECOND, 0);
+      calendar.set(Calendar.MILLISECOND, 0);
+
+      Horario horario = new Horario(calendar.getTime());
+      agenda.addHorario(horario);
+    }
+
+    this.agendas.add(agenda);
+  }
+
+  public boolean isHorarioDisponivel(Date dataHora) {
+    for (AgendaDisponibilidade agenda : this.agendas) {
+      if (agenda.getData().equals(dataHora)) {
+        for (Horario horario : agenda.getHorarios()) {
+          if (horario.getDataHora().equals(dataHora)) {
+            return !horario.isOcupado();
+          }
+        }
+      }
+    }
+
+    return true;
+  }
+}
