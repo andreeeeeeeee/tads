@@ -1,18 +1,17 @@
 # TRABALHO II
 
-# ENTREGA E APRESENTACAO DIA 30/05/25
-
+## ENTREGA E APRESENTACAO DIA 30/05/25
 
 SISTEMA DE UMA CLINICA
 Sistema de agendamentos de consultas médicas.
 E gera o prontuario da consulta para historico.
 
-Medica e Paciente Herdam de Pessoa.
+Medico e Paciente Herdam de Pessoa.
 Medico e o Tecnico sao responsaveis
 
 Tecnico
 
-Medica
+Medico
 
     - nome
     - cpf
@@ -51,29 +50,30 @@ Consulta implementa agendavel
     - Paciente
     - Prontuario
 
-Exame implementa agendavel  - nao necessita de agenda medica
+Exame implementa agendavel  - nao necessita de agenda medico
     - nome
     <!-- - solicitacao de um(a) médico(a)   valendo estrelinha -->
     - Data & Hora
-    - Responsavel  (tecnico ou medica)
+    - Responsavel  (tecnico ou medico)
     - laudo (pode ser uma classe ou apenas uma string)
 
 Prontuario
     - detalhes da consulta
     - sintomas
     - exames solicitados (texto)
-    - medicamentos
-
+    - medicomentos
 
 Condicoes Gerais:
+
 * Ao marcar uma consulta em um horairo nao disponivel, deve ser lançada uma exceçao. (AgendaNaoDiponivelException)
 
 * Ao encerrar uma consulta é gerado o seu prontuario
 * Ao encerrar um exame é gerado o laudo
 
 Ações que devemos conseguir fazer na plataforma (cada item abaixo vale 1pto)
+
 * Criar um paciente
-* Criar uma medica
+* Criar uma medico
 * Criar um tecnico
 * Disponibilizar Agenda
 * Fazer um agendamento

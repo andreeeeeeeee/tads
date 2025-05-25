@@ -29,12 +29,13 @@ public class Main {
 
       Consulta consulta = medico.agendarConsulta(new Date(), TipoConsulta.CARDIOLOGICA, paciente);
       consulta.encerrar("Febre alta e dor de cabeça", "Hemograma completo", "Paracetamol 500mg");
+      Prontuario prontuario = consulta.getProntuario();
+      System.out.println("Prontuário gerado: " + prontuario);
+
       Exame exame = tecnico.agendarExame(new Date(), "Hemograma completo");
       exame.encerrar("Hemoglobina normal.");
-
       System.out.println("Laudo do exame: " + exame.getLaudo());
-      Prontuario prontuario = consulta.getProntuario();
-      System.out.println("Prontuário gerado: " + prontuario.getSintomas());
+
     } catch (ParseException e) {
       System.err.println(e.getMessage());
     }

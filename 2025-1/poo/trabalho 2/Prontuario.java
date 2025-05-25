@@ -1,11 +1,3 @@
-/*
-Prontuario
-+ detalhesConsulta: String
-+ sintomas: String
-+ examesSolicitados: String
-+ medicamentos: String
-*/
-
 public class Prontuario {
   private Consulta detalhesConsulta;
   private String sintomas;
@@ -19,8 +11,13 @@ public class Prontuario {
     this.medicamentos = medicamentos;
   }
 
+  @Override
+  public String toString() {
+    return "";
+  }
+
   public Consulta getDetalhesConsulta() {
-    return detalhesConsulta;
+    return this.detalhesConsulta;
   }
 
   public void setDetalhesConsulta(Consulta detalhesConsulta) {
@@ -28,7 +25,7 @@ public class Prontuario {
   }
 
   public String getSintomas() {
-    return sintomas;
+    return this.sintomas;
   }
 
   public void setSintomas(String sintomas) {
@@ -36,7 +33,7 @@ public class Prontuario {
   }
 
   public String getExamesSolicitados() {
-    return examesSolicitados;
+    return this.examesSolicitados;
   }
 
   public void setExamesSolicitados(String examesSolicitados) {
@@ -44,7 +41,7 @@ public class Prontuario {
   }
 
   public String getMedicamentos() {
-    return medicamentos;
+    return this.medicamentos;
   }
 
   public void setMedicamentos(String medicamentos) {

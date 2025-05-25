@@ -12,6 +12,15 @@ public class Medico extends Responsavel {
     this.especialidades = new ArrayList<>();
   }
 
+  @Override
+  public String toString() {
+    String retorno = getNome() + " - ";
+    for (String especialidade : getEspecialidades()) {
+      retorno += especialidade + ", ";
+    }
+    return retorno;
+  }
+
   public String getCrm() {
     return this.crm;
   }
@@ -36,5 +45,15 @@ public class Medico extends Responsavel {
       System.err.println(e.getMessage());
     }
     return consulta;
+  }
+
+  public Exame agendarExame(Date dataHora, String nome) {
+    Exame exame = new Exame(nome, this);
+    try {
+      exame.agendar(dataHora);
+    } catch (AgendaNaoDisponivelException e) {
+      System.err.println(e.getMessage());
+    }
+    return exame;
   }
 }

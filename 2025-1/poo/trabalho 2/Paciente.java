@@ -5,7 +5,7 @@ public class Paciente extends Pessoa {
   private Date dtNascimento;
   private Sexo sexo;
   private TipoSanguineo tipoSanguineo;
-  private HistoricoConsultas historicoConsultas;
+  private final HistoricoConsultas historicoConsultas;
 
   public Paciente(
       String nome,
@@ -18,6 +18,7 @@ public class Paciente extends Pessoa {
 
     this.sexo = sexo;
     this.tipoSanguineo = tipoSanguineo;
+    this.historicoConsultas = new HistoricoConsultas();
   }
 
   public Date getDtNascimento() {
