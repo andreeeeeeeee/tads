@@ -11,6 +11,23 @@ public class Exame implements IAgendavel {
     this.responsavel = responsavel;
   }
 
+  /*
+   * return tipo.getDescricao() + " " +
+   * "em " + dataHora +
+   * ", por " + medico.getNome() + "(CRM: " + medico.getCrm() + ")" +
+   * ", ao paciente " + paciente.getNome() + "(CPF: " + paciente.getCpf() + ")" +
+   * ".\n" + (prontuario != null ? prontuario.toString() : "");
+   */
+  @Override
+  public String toString() {
+    return nome +
+        " em: " + dataHora +
+        ", por " + responsavel.getNome() +
+        " ("
+        + (responsavel instanceof Medico ? "CRM: " + ((Medico) responsavel).getCrm() : "CPF: " + responsavel.getCpf())
+        + ").\nLaudo: " + (laudo != null ? laudo : "Pendente");
+  }
+
   public Date getDataHora() {
     return dataHora;
   }
@@ -54,9 +71,9 @@ public class Exame implements IAgendavel {
     }
 
     for (AgendaDisponibilidade agenda : this.responsavel.getAgendas()) {
-      if (agenda.getData().equals(dataHora)) {
+      if (this.responsavel.isMesmoDia(agenda.getData(), dataHora)) { // compara só o dia
         for (Horario horario : agenda.getHorarios()) {
-          if (horario.getDataHora().equals(dataHora)) {
+          if (horario.getDataHora().equals(dataHora)) { // compara data e hora
             horario.setOcupado(true);
             break;
           }
@@ -66,4 +83,5 @@ public class Exame implements IAgendavel {
 
     setDataHora(dataHora);
   }
+
 }

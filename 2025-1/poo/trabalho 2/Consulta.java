@@ -13,6 +13,15 @@ public class Consulta implements IAgendavel {
     this.paciente = paciente;
   }
 
+  @Override
+  public String toString() {
+    return tipo.getDescricao() + " " +
+        "em " + dataHora +
+        ", por " + medico.getNome() + "(CRM: " + medico.getCrm() + ")" +
+        ", ao paciente " + paciente.getNome() + "(CPF: " + paciente.getCpf() + ")" +
+        ".\n" + (prontuario != null ? prontuario.toString() : "");
+  }
+
   public Date getDataHora() {
     return this.dataHora;
   }
@@ -55,6 +64,7 @@ public class Consulta implements IAgendavel {
 
   public void encerrar(String sintomas, String examesSolicitados, String medicamentos) {
     setProntuario(new Prontuario(this, sintomas, examesSolicitados, medicamentos));
+    paciente.addConsulta(this);
   }
 
   @Override
@@ -64,7 +74,8 @@ public class Consulta implements IAgendavel {
     }
 
     for (AgendaDisponibilidade agenda : this.medico.getAgendas()) {
-      if (agenda.getData().equals(dataHora)) {
+      // Comparar apenas o dia, mês e ano
+      if (medico.isMesmoDia(agenda.getData(), dataHora)) {
         for (Horario horario : agenda.getHorarios()) {
           if (horario.getDataHora().equals(dataHora)) {
             horario.setOcupado(true);

@@ -6,6 +6,13 @@ public class Tecnico extends Responsavel {
     super(nome, cpf, email, telefone);
   }
 
+  @Override
+  public String toString() {
+    return "Técnico: " + getNome() +
+        "\n - CPF: " + getCpf() +
+        "\n - Contato: " + getEmail() + ", " + getTelefone();
+  }
+
   public Exame agendarExame(Date dataHora, String nome) {
     Exame exame = new Exame(nome, this);
     try {

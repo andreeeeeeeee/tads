@@ -10,15 +10,27 @@ public class Paciente extends Pessoa {
   public Paciente(
       String nome,
       String cpf,
+      Date dtNascimento,
       String email,
       String telefone,
       Sexo sexo,
       TipoSanguineo tipoSanguineo) {
     super(nome, cpf, email, telefone);
 
+    this.dtNascimento = dtNascimento;
     this.sexo = sexo;
     this.tipoSanguineo = tipoSanguineo;
     this.historicoConsultas = new HistoricoConsultas();
+  }
+
+  @Override
+  public String toString() {
+    return "Paciente: " + getNome() +
+        "\n - CPF: " + getCpf() +
+        "\n - Data de Nascimento: " + dtNascimento +
+        "\n - Sexo: " + sexo.getDescricao() +
+        "\n - Tipo Sanguíneo: " + tipoSanguineo.getDescricao() +
+        "\n - Contato: " + getEmail() + ", " + getTelefone();
   }
 
   public Date getDtNascimento() {

@@ -14,11 +14,19 @@ public class Medico extends Responsavel {
 
   @Override
   public String toString() {
-    String retorno = getNome() + " - ";
-    for (String especialidade : getEspecialidades()) {
-      retorno += especialidade + ", ";
-    }
-    return retorno;
+    StringBuilder especialidades = new StringBuilder();
+    for (String especialidade : this.especialidades)
+      especialidades.append(especialidade).append(", ");
+
+    if (especialidades.length() > 0)
+      especialidades.setLength(especialidades.length() - 2);
+    else
+      especialidades.append("Nenhuma especialidade cadastrada");
+
+    return "Médico: " + getNome() +
+        "\n - CRM: " + crm +
+        "\n - Especialidades: " + especialidades +
+        "\n - Contato: " + getEmail() + ", " + getTelefone();
   }
 
   public String getCrm() {

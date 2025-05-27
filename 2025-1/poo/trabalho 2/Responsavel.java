@@ -37,7 +37,7 @@ public class Responsavel extends Pessoa {
 
   public boolean isHorarioDisponivel(Date dataHora) {
     for (AgendaDisponibilidade agenda : this.agendas) {
-      if (agenda.getData().equals(dataHora)) {
+      if (isMesmoDia(agenda.getData(), dataHora)) {
         for (Horario horario : agenda.getHorarios()) {
           if (horario.getDataHora().equals(dataHora)) {
             return !horario.isOcupado();
@@ -45,7 +45,16 @@ public class Responsavel extends Pessoa {
         }
       }
     }
+    return false;
+  }
 
-    return true;
+  public boolean isMesmoDia(Date d1, Date d2) {
+    java.util.Calendar c1 = java.util.Calendar.getInstance();
+    java.util.Calendar c2 = java.util.Calendar.getInstance();
+    c1.setTime(d1);
+    c2.setTime(d2);
+    return c1.get(java.util.Calendar.YEAR) == c2.get(java.util.Calendar.YEAR)
+        && c1.get(java.util.Calendar.MONTH) == c2.get(java.util.Calendar.MONTH)
+        && c1.get(java.util.Calendar.DAY_OF_MONTH) == c2.get(java.util.Calendar.DAY_OF_MONTH);
   }
 }

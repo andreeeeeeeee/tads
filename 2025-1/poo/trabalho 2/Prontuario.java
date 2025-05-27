@@ -13,7 +13,10 @@ public class Prontuario {
 
   @Override
   public String toString() {
-    return "";
+    return "Prontuário: " +
+        "\n - Sintomas: " + sintomas +
+        "\n - Exames solicitados: " + examesSolicitados +
+        "\n - Medicamentos: " + medicamentos;
   }
 
   public Consulta getDetalhesConsulta() {
