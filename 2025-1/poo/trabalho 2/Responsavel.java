@@ -1,4 +1,5 @@
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,6 +34,23 @@ public class Responsavel extends Pessoa {
     }
 
     this.agendas.add(agenda);
+  }
+
+  public void getDisponibilidade(Date data) {
+    SimpleDateFormat sdfData = new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat sdfDataHora = new SimpleDateFormat("HH\'h'");
+    System.out.println("Horários disponíveis para " + sdfData.format(data) + ":");
+    for (AgendaDisponibilidade agenda : this.agendas) {
+      if (isMesmoDia(agenda.getData(), data)) {
+        for (Horario horario : agenda.getHorarios()) {
+          System.out.println(
+              "- " + sdfDataHora.format(horario.getDataHora()) +
+                  " (" + (horario.isOcupado() ? "Ocupado" : "Disponível") + ")");
+        }
+        return;
+      }
+    }
+    System.out.println("Nenhuma agenda disponível para a data: " + data);
   }
 
   public boolean isHorarioDisponivel(Date dataHora) {

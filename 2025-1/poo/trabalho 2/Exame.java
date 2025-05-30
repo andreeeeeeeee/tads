@@ -1,3 +1,4 @@
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Exame implements IAgendavel {
@@ -11,17 +12,11 @@ public class Exame implements IAgendavel {
     this.responsavel = responsavel;
   }
 
-  /*
-   * return tipo.getDescricao() + " " +
-   * "em " + dataHora +
-   * ", por " + medico.getNome() + "(CRM: " + medico.getCrm() + ")" +
-   * ", ao paciente " + paciente.getNome() + "(CPF: " + paciente.getCpf() + ")" +
-   * ".\n" + (prontuario != null ? prontuario.toString() : "");
-   */
   @Override
   public String toString() {
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy à\'s' HH\'h'");
     return nome +
-        " em: " + dataHora +
+        " em: " + sdf.format(dataHora) +
         ", por " + responsavel.getNome() +
         " ("
         + (responsavel instanceof Medico ? "CRM: " + ((Medico) responsavel).getCrm() : "CPF: " + responsavel.getCpf())

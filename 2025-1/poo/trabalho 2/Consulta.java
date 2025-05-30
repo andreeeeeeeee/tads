@@ -1,3 +1,4 @@
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Consulta implements IAgendavel {
@@ -15,10 +16,11 @@ public class Consulta implements IAgendavel {
 
   @Override
   public String toString() {
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy à\'s' HH\'h'");
     return tipo.getDescricao() + " " +
-        "em " + dataHora +
-        ", por " + medico.getNome() + "(CRM: " + medico.getCrm() + ")" +
-        ", ao paciente " + paciente.getNome() + "(CPF: " + paciente.getCpf() + ")" +
+        "em " + sdf.format(dataHora) +
+        ", por " + medico.getNome() + " (CRM: " + medico.getCrm() + ")" +
+        ", ao paciente " + paciente.getNome() + " (CPF: " + paciente.getCpf() + ")" +
         ".\n" + (prontuario != null ? prontuario.toString() : "");
   }
 

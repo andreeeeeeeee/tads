@@ -6,8 +6,8 @@ import java.util.Date;
 public class Main {
   public static void main(String[] args) {
     try {
-      SimpleDateFormat sdfNascimento = new SimpleDateFormat("dd/MM/yyyy");
-      Date dtNascimento = sdfNascimento.parse("01/01/2000");
+      SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+      Date dtNascimento = sdf.parse("01/01/2000");
 
       final Medico medico = new Medico(
           "Dr. Auzio Varella",
@@ -35,19 +35,11 @@ public class Main {
       System.out.println(tecnico);
       System.out.println();
 
-      SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
       Date dataAgenda = sdf.parse("30/05/2025");
       medico.abrirAgenda(dataAgenda);
       tecnico.abrirAgenda(dataAgenda);
 
-      System.out.println("Horários disponíveis para " + sdf.format(dataAgenda) + ":");
-      medico.getAgendas().forEach(agenda -> {
-        if (agenda.getData().equals(dataAgenda))
-          agenda.getHorarios().forEach(horario -> {
-            System.out.println(
-                "- " + horario.getDataHora() + " (" + (horario.isOcupado() ? "Ocupado" : "Disponível") + ")");
-          });
-      });
+      medico.getDisponibilidade(dataAgenda);
       System.out.println();
 
       Consulta consulta = medico.agendarConsulta(
@@ -55,14 +47,8 @@ public class Main {
           TipoConsulta.CARDIOLOGICA,
           paciente);
       System.out.println("Consulta agendada: " + consulta);
-      medico.getAgendas().forEach(agenda -> {
-        if (agenda.getData().equals(dataAgenda)) {
-          agenda.getHorarios().forEach(horario -> {
-            System.out.println(
-                "- " + horario.getDataHora() + " (" + (horario.isOcupado() ? "Ocupado" : "Disponível") + ")");
-          });
-        }
-      });
+      System.out.println();
+      medico.getDisponibilidade(dataAgenda);
       System.out.println();
 
       consulta.encerrar("Febre alta e dor de cabeça", "Hemograma completo", "Paracetamol 500mg");
@@ -76,14 +62,7 @@ public class Main {
           "Hemograma completo");
       System.out.println("Exame agendado: " + exame);
       System.out.println();
-      tecnico.getAgendas().forEach(agenda -> {
-        if (agenda.getData().equals(dataAgenda)) {
-          agenda.getHorarios().forEach(horario -> {
-            System.out.println(
-                "- " + horario.getDataHora() + " (" + (horario.isOcupado() ? "Ocupado" : "Disponível") + ")");
-          });
-        }
-      });
+      tecnico.getDisponibilidade(dataAgenda);
       System.out.println();
       System.out.println("Teste de agendamento para horário ocupado:");
       tecnico.agendarExame(

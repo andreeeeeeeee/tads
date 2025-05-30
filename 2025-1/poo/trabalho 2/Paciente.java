@@ -1,4 +1,5 @@
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Paciente extends Pessoa {
@@ -25,9 +26,11 @@ public class Paciente extends Pessoa {
 
   @Override
   public String toString() {
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy ");
+
     return "Paciente: " + getNome() +
         "\n - CPF: " + getCpf() +
-        "\n - Data de Nascimento: " + dtNascimento +
+        "\n - Data de Nascimento: " + sdf.format(dtNascimento) +
         "\n - Sexo: " + sexo.getDescricao() +
         "\n - Tipo Sanguíneo: " + tipoSanguineo.getDescricao() +
         "\n - Contato: " + getEmail() + ", " + getTelefone();
