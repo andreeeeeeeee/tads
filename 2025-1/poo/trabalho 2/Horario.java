@@ -2,12 +2,12 @@
 import java.util.Date;
 
 public class Horario {
-  private Date dataHora; // Representa o horário específico
-  private boolean ocupado; // Flag para indicar se o horário está ocupado
+  private Date dataHora;
+  private boolean ocupado;
 
   public Horario(Date dataHora) {
     this.dataHora = dataHora;
-    this.ocupado = false; // Inicialmente, o horário está disponível
+    this.ocupado = false;
   }
 
   public Date getDataHora() {

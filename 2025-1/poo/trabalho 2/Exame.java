@@ -66,9 +66,9 @@ public class Exame implements IAgendavel {
     }
 
     for (AgendaDisponibilidade agenda : this.responsavel.getAgendas()) {
-      if (this.responsavel.isMesmoDia(agenda.getData(), dataHora)) { // compara só o dia
+      if (this.responsavel.isMesmoDia(agenda.getData(), dataHora)) {
         for (Horario horario : agenda.getHorarios()) {
-          if (horario.getDataHora().equals(dataHora)) { // compara data e hora
+          if (horario.getDataHora().equals(dataHora)) {
             horario.setOcupado(true);
             break;
           }

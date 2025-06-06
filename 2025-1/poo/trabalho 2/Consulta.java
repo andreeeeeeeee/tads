@@ -76,7 +76,6 @@ public class Consulta implements IAgendavel {
     }
 
     for (AgendaDisponibilidade agenda : this.medico.getAgendas()) {
-      // Comparar apenas o dia, mês e ano
       if (medico.isMesmoDia(agenda.getData(), dataHora)) {
         for (Horario horario : agenda.getHorarios()) {
           if (horario.getDataHora().equals(dataHora)) {
