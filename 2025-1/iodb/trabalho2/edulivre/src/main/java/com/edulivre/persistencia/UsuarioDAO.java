@@ -35,6 +35,29 @@ public class UsuarioDAO {
     return usuarios;
   }
 
+  public static Usuario buscarPorEmail(String email) {
+    String sql = "SELECT * FROM usuario WHERE email = ?;";
+    try (Connection conexao = new ConexaoPostgreSQL().getConexao();
+        PreparedStatement preparedStatement = conexao.prepareStatement(sql)) {
+      preparedStatement.setString(1, email);
+      ResultSet rs = preparedStatement.executeQuery();
+      if (rs.next()) {
+        Usuario usuario = new Usuario();
+        usuario.setId(UUID.fromString(rs.getString("id")));
+        usuario.setNome(rs.getString("nome"));
+        usuario.setEmail(rs.getString("email"));
+        usuario.setPerfil(Perfil.fromString(rs.getString("perfil")));
+        usuario.setSenha(rs.getString("senha"));
+        return usuario;
+      }
+      conexao.close();
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+      return null;
+    }
+    return null;
+  }
+
   public static boolean inserir(Usuario usuario) {
     String sql = "INSERT INTO usuario (nome, email, senha, perfil) VALUES (?, ?, ?, ?);";
     try (Connection conexao = new ConexaoPostgreSQL().getConexao();

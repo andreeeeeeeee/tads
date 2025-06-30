@@ -11,7 +11,6 @@ public class ConexaoPostgreSQL {
   private final String port;
   private final String password;
 
-  // https://jdbc.postgresql.org/documentation/use/
   public ConexaoPostgreSQL() {
     this.host = "localhost";
     this.port = "5432";

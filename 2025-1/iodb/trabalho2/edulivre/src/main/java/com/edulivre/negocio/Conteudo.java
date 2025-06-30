@@ -57,4 +57,28 @@ public class Conteudo {
   public void setArquivo(byte[] arquivo) {
     this.arquivo = arquivo;
   }
+
+  public long getTamanhoArquivo() {
+    return arquivo != null ? arquivo.length : 0;
+  }
+
+  public String getTamanhoArquivoFormatado() {
+    if (arquivo == null)
+      return "N/A";
+
+    long bytes = arquivo.length;
+    if (bytes == 0)
+      return "0 B";
+
+    String[] unidades = { "B", "KB", "MB", "GB" };
+    int unidade = 0;
+    double tamanho = bytes;
+
+    while (tamanho >= 1024 && unidade < unidades.length - 1) {
+      tamanho /= 1024;
+      unidade++;
+    }
+
+    return String.format("%.2f %s", tamanho, unidades[unidade]);
+  }
 }
