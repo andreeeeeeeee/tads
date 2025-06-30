@@ -1,4 +1,4 @@
-package com.edulivre.persistencia;
+package com.edulivre.DAOs;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import com.edulivre.negocio.Matricula;
+import com.edulivre.models.Matricula;
 
 public class MatriculaDAO {
   public static List<Matricula> listar() {

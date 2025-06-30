@@ -1,4 +1,4 @@
-package com.edulivre.negocio;
+package com.edulivre.models;
 
 import java.sql.Date;
 import java.util.UUID;
@@ -51,4 +51,5 @@ public class Curso {
   public void setAvaliacao(JSONObject avaliacao) {
     this.avaliacao = avaliacao;
   }
+
 }

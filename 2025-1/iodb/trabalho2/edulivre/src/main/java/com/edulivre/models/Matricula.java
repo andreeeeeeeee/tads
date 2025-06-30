@@ -1,4 +1,4 @@
-package com.edulivre.negocio;
+package com.edulivre.models;
 
 import java.sql.Date;
 import java.util.UUID;

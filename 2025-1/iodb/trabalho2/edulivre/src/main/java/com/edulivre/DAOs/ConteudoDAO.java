@@ -1,4 +1,4 @@
-package com.edulivre.persistencia;
+package com.edulivre.DAOs;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import com.edulivre.negocio.Conteudo;
-import com.edulivre.negocio.Tipo;
+import com.edulivre.models.Conteudo;
+import com.edulivre.models.Tipo;
 
 public interface ConteudoDAO {
   public static List<Conteudo> listar() {
@@ -102,49 +102,6 @@ public interface ConteudoDAO {
           conteudo.getTitulo(),
           conteudo.getTipo().getDescricao(),
           tamanho);
-    }
-  }
-
-  public static void buscarConteudosPorTituloCurso(String tituloCurso) {
-    String sql = """
-        SELECT c.id, c.curso_id, c.titulo, c.descricao, c.tipo, c.arquivo
-        FROM conteudo c
-        INNER JOIN curso cur ON c.curso_id = cur.id
-        WHERE cur.titulo = ?
-        """;
-
-    try (Connection conexao = new ConexaoPostgreSQL().getConexao();
-        PreparedStatement preparedStatement = conexao.prepareStatement(sql)) {
-      preparedStatement.setString(1, tituloCurso);
-      ResultSet rs = preparedStatement.executeQuery();
-
-      System.out.println("=== CONTEÚDOS DO CURSO: " + tituloCurso + " ===");
-      System.out.printf("%-5s %-30s %-15s %-15s%n", "ID", "Título", "Tipo", "Tamanho");
-      System.out.println("─".repeat(70));
-
-      boolean encontrou = false;
-      while (rs.next()) {
-        encontrou = true;
-        int id = rs.getInt("id");
-        String titulo = rs.getString("titulo");
-        String tipo = rs.getString("tipo");
-        byte[] arquivo = rs.getBytes("arquivo");
-
-        String tamanho = "N/A";
-        if (arquivo != null) {
-          tamanho = formatarTamanho(arquivo.length);
-        }
-
-        System.out.printf("%-5d %-30s %-15s %-15s%n", id, titulo, tipo, tamanho);
-      }
-
-      if (!encontrou) {
-        System.out.println("Nenhum conteúdo encontrado para o curso: " + tituloCurso);
-      }
-
-      conexao.close();
-    } catch (Exception e) {
-      System.err.println("Erro ao buscar conteúdos por título do curso: " + e.getMessage());
     }
   }
 

@@ -1,4 +1,4 @@
-package com.edulivre.negocio;
+package com.edulivre.models;
 
 public enum Tipo {
   VIDEO("video"),

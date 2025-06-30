@@ -1,4 +1,4 @@
-package com.edulivre.persistencia;
+package com.edulivre.DAOs;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +11,7 @@ import java.util.UUID;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.edulivre.negocio.Curso;
+import com.edulivre.models.Curso;
 
 public class CursoDAO {
   public static List<Curso> listar() {

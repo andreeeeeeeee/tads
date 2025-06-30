@@ -20,7 +20,7 @@ Desenvolver um banco de dados PostgreSQL para a plataforma **EduLivre** e implem
 | **Matrícula** | `id (serial)`, `usuario_id (UUID)`, `curso_id (UUID)`, `data_matricula` |
 | **Conteúdo**  | `id (serial)`, `curso_id (UUID)`, `titulo`, `descricao`, `tipo`, `arquivo` (BYTEA)         |
 
-### 📌 Exemplo de conteúdo do campo avaliacao (JSONB):
+### 📌 Exemplo de conteúdo do campo avaliacao (JSONB)
 
 ```json
 {
@@ -46,7 +46,7 @@ Desenvolver um banco de dados PostgreSQL para a plataforma **EduLivre** e implem
 
 ---
 
-### 📌 Exemplos comuns de `tipo` de conteúdo:
+### 📌 Exemplos comuns de `tipo` de conteúdo
 
 | Valor de `tipo` | Descrição                          |
 | --------------- | ---------------------------------- |
@@ -56,7 +56,6 @@ Desenvolver um banco de dados PostgreSQL para a plataforma **EduLivre** e implem
 | `audio`         | Um podcast ou gravação de áudio    |
 | `quiz`          | Um pequeno teste ou questionário   |
 | `slide`         | Uma apresentação (PowerPoint etc.) |
-
 
 O campo **`tipo`** da entidade **Conteúdo** indica **o formato ou a natureza do conteúdo multimídia** que está associado a um curso. Ele ajuda a plataforma a entender como tratar o conteúdo — se deve exibir como vídeo, PDF, imagem, etc.
 

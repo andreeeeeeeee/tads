@@ -1,4 +1,4 @@
-package com.edulivre.apresentacao;
+package com.edulivre.views;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,16 +10,16 @@ import java.util.Scanner;
 
 import org.json.JSONObject;
 
-import com.edulivre.negocio.Conteudo;
-import com.edulivre.negocio.Curso;
-import com.edulivre.negocio.Matricula;
-import com.edulivre.negocio.Perfil;
-import com.edulivre.negocio.Tipo;
-import com.edulivre.negocio.Usuario;
-import com.edulivre.persistencia.ConteudoDAO;
-import com.edulivre.persistencia.CursoDAO;
-import com.edulivre.persistencia.MatriculaDAO;
-import com.edulivre.persistencia.UsuarioDAO;
+import com.edulivre.DAOs.ConteudoDAO;
+import com.edulivre.DAOs.CursoDAO;
+import com.edulivre.DAOs.MatriculaDAO;
+import com.edulivre.DAOs.UsuarioDAO;
+import com.edulivre.models.Conteudo;
+import com.edulivre.models.Curso;
+import com.edulivre.models.Matricula;
+import com.edulivre.models.Perfil;
+import com.edulivre.models.Tipo;
+import com.edulivre.models.Usuario;
 
 public class Main {
   // Curso cursoJavaScript = new Curso();
@@ -143,32 +143,30 @@ public class Main {
   private static void mostrarMenuAdmin() {
     System.out.println("1. Cadastrar usuário");
     System.out.println("2. Cadastrar curso");
-    System.out.println("3. Matricular usuário em curso");
+    System.out.println("3. Matricular usuário em um curso");
     System.out.println("4. Buscar conteúdos de um curso");
     System.out.println("5. Listar cursos com avaliações");
-    System.out.println("6. Visualizar conteúdo");
   }
 
   private static void mostrarMenuProfessor() {
     System.out.println("1. Cadastrar aluno");
-    System.out.println("2. Cadastrar conteúdo em curso");
-    System.out.println("3. Matricular aluno em curso");
+    System.out.println("2. Cadastrar conteúdo em um curso");
+    System.out.println("3. Matricular aluno em um curso");
     System.out.println("4. Buscar conteúdos de um curso");
     System.out.println("5. Listar cursos com avaliações");
-    System.out.println("6. Visualizar conteúdo");
   }
 
   private static void mostrarMenuAluno() {
-    System.out.println("1. Matricular-se em curso");
+    System.out.println("1. Matricular-se em um curso");
     System.out.println("2. Buscar conteúdos de um curso");
     System.out.println("3. Listar cursos com avaliações");
     System.out.println("4. Avaliar curso");
-    System.out.println("5. Visualizar conteúdo");
   }
 
   private static void processarOpcao(int opcao) {
     if (opcao == 0) {
       System.out.println("Obrigado por usar a Plataforma EduLivre!");
+      System.exit(0);
       return;
     }
 
@@ -194,16 +192,13 @@ public class Main {
         cadastrarCurso();
         break;
       case 3:
-        matricularUsuario();
+        matricularAluno();
         break;
       case 4:
         buscarConteudosCurso();
         break;
       case 5:
         listarCursosComAvaliacoes();
-        break;
-      case 6:
-        visualizarConteudo();
         break;
       default:
         System.out.println("Opção inválida!");
@@ -219,16 +214,13 @@ public class Main {
         cadastrarConteudo();
         break;
       case 3:
-        matricularUsuario();
+        matricularAluno();
         break;
       case 4:
         buscarConteudosCurso();
         break;
       case 5:
         listarCursosComAvaliacoes();
-        break;
-      case 6:
-        visualizarConteudo();
         break;
       default:
         System.out.println("Opção inválida!");
@@ -248,9 +240,6 @@ public class Main {
         break;
       case 4:
         avaliarCurso();
-        break;
-      case 5:
-        visualizarConteudo();
         break;
       default:
         System.out.println("Opção inválida!");
@@ -420,16 +409,16 @@ public class Main {
     }
 
     String nomeArquivo = arquivo.getName().toLowerCase();
-    if (!verificarTipoArquivo(nomeArquivo, tipo)) {
+    if (!Conteudo.verificarTipoArquivo(nomeArquivo, tipo)) {
       System.out.println("O tipo do arquivo não corresponde ao tipo selecionado!");
-      System.out.println("Tipos aceitos para " + tipo.getDescricao() + ": " + getExtensoesAceitas(tipo));
+      System.out.println("Tipos aceitos para " + tipo.getDescricao() + ": " + Conteudo.getExtensoesAceitas(tipo));
       return;
     }
 
     byte[] bytesArquivo;
     try {
       bytesArquivo = Files.readAllBytes(arquivo.toPath());
-      System.out.println("Arquivo carregado com sucesso! Tamanho: " + formatarTamanho(bytesArquivo.length));
+      System.out.println("Arquivo carregado com sucesso! Tamanho: " + Conteudo.formatarTamanho(bytesArquivo.length));
     } catch (IOException e) {
       System.out.println("Erro ao ler o arquivo: " + e.getMessage());
       return;
@@ -449,14 +438,14 @@ public class Main {
     }
   }
 
-  private static void matricularUsuario() {
-    System.out.println("\n=== MATRICULAR USUÁRIO ===");
-    System.out.print("Email do usuário: ");
+  private static void matricularAluno() {
+    System.out.println("\n=== MATRICULAR ALUNO ===");
+    System.out.print("Email do aluno: ");
     String email = scanner.nextLine();
 
     Usuario usuario = UsuarioDAO.buscarPorEmail(email);
     if (usuario == null) {
-      System.out.println("Usuário não encontrado!");
+      System.out.println("Aluno não encontrado!");
       return;
     }
 
@@ -498,7 +487,7 @@ public class Main {
   }
 
   private static void matricularSeEmCurso() {
-    System.out.println("\n=== MATRICULAR-SE EM CURSO ===");
+    System.out.println("\n=== MATRICULAR-SE EM UM CURSO ===");
 
     List<Curso> cursos = CursoDAO.listar();
     if (cursos == null || cursos.isEmpty()) {
@@ -534,10 +523,60 @@ public class Main {
 
   private static void buscarConteudosCurso() {
     System.out.println("\n=== BUSCAR CONTEÚDOS DE CURSO ===");
-    System.out.print("Digite o título do curso: ");
-    String tituloCurso = scanner.nextLine();
 
-    ConteudoDAO.buscarConteudosPorTituloCurso(tituloCurso);
+    List<Curso> cursos = usuarioLogado.obterCursosDisponiveis();
+    if (cursos == null || cursos.isEmpty()) {
+      System.out.println("Nenhum curso disponível!");
+      return;
+    }
+
+    System.out.println("Cursos disponíveis:");
+    for (int i = 0; i < cursos.size(); i++) {
+      System.out.println((i + 1) + ". " + cursos.get(i).getTitulo());
+    }
+
+    System.out.print("Escolha o curso: ");
+    int cursoIndex = lerInteiro() - 1;
+    if (cursoIndex < 0 || cursoIndex >= cursos.size()) {
+      System.out.println("Curso inválido!");
+      return;
+    }
+
+    Curso cursoSelecionado = cursos.get(cursoIndex);
+    List<Conteudo> conteudos = ConteudoDAO.buscarPorCurso(cursoSelecionado.getId());
+    if (conteudos == null || conteudos.isEmpty()) {
+      System.out.println("Nenhum conteúdo encontrado para este curso!");
+      return;
+    }
+    System.out.println("\n=== CONTEÚDOS DISPONÍVEIS ===");
+    for (int i = 0; i < conteudos.size(); i++) {
+      Conteudo conteudo = conteudos.get(i);
+      String tamanho = "N/A";
+      if (conteudo.getArquivo() != null) {
+        tamanho = conteudo.formatarTamanho();
+      }
+
+      System.out.printf("%d. %-30s %-10s %-10s%n",
+          (i + 1),
+          conteudo.getTitulo(),
+          conteudo.getTipo().getDescricao(),
+          tamanho);
+    }
+
+    System.out.print("\nEscolha o conteúdo para visualizar (0 para voltar): ");
+    int opcao = lerInteiro();
+
+    if (opcao == 0) {
+      return;
+    }
+
+    if (opcao < 1 || opcao > conteudos.size()) {
+      System.out.println("Opção inválida!");
+      return;
+    }
+
+    Conteudo conteudoSelecionado = conteudos.get(opcao - 1);
+    exibirDetalhesConteudo(conteudoSelecionado);
   }
 
   private static void listarCursosComAvaliacoes() {
@@ -574,14 +613,26 @@ public class Main {
 
   private static void avaliarCurso() {
     System.out.println("\n=== AVALIAR CURSO ===");
-    System.out.print("Digite o título do curso: ");
-    String tituloCurso = scanner.nextLine();
 
-    Curso curso = CursoDAO.buscarPorTitulo(tituloCurso);
-    if (curso == null) {
-      System.out.println("Curso não encontrado!");
+    List<Curso> cursos = usuarioLogado.obterCursosDisponiveis();
+    if (cursos == null || cursos.isEmpty()) {
+      System.out.println("Nenhum curso disponível!");
       return;
     }
+
+    System.out.println("Cursos disponíveis:");
+    for (int i = 0; i < cursos.size(); i++) {
+      System.out.println((i + 1) + ". " + cursos.get(i).getTitulo());
+    }
+
+    System.out.print("Escolha o curso para avaliar: ");
+    int cursoIndex = lerInteiro() - 1;
+    if (cursoIndex < 0 || cursoIndex >= cursos.size()) {
+      System.out.println("Curso inválido!");
+      return;
+    }
+
+    Curso curso = cursos.get(cursoIndex);
 
     System.out.print("Nota (1-5): ");
     float nota = lerFloat();
@@ -595,70 +646,6 @@ public class Main {
 
     usuarioLogado.addAvaliacao(curso, nota, comentario, Date.valueOf(LocalDate.now()));
     System.out.println("Avaliação adicionada com sucesso!");
-  }
-
-  private static boolean verificarTipoArquivo(String nomeArquivo, Tipo tipo) {
-    String extensao = obterExtensao(nomeArquivo);
-
-    switch (tipo) {
-      case VIDEO:
-        return extensao.matches("mp4|avi|mkv|mov|wmv|flv|webm");
-      case PDF:
-        return extensao.equals("pdf");
-      case IMAGEM:
-        return extensao.matches("jpg|jpeg|png|gif|bmp|svg|webp");
-      case AUDIO:
-        return extensao.matches("mp3|wav|ogg|flac|aac|m4a");
-      case QUIZ:
-        return extensao.matches("txt|json|xml");
-      case SLIDE:
-        return extensao.matches("ppt|pptx|odp");
-      default:
-        return false;
-    }
-  }
-
-  private static String obterExtensao(String nomeArquivo) {
-    int ultimoPonto = nomeArquivo.lastIndexOf('.');
-    if (ultimoPonto > 0 && ultimoPonto < nomeArquivo.length() - 1) {
-      return nomeArquivo.substring(ultimoPonto + 1).toLowerCase();
-    }
-    return "";
-  }
-
-  private static String getExtensoesAceitas(Tipo tipo) {
-    switch (tipo) {
-      case VIDEO:
-        return "mp4, avi, mkv, mov, wmv, flv, webm";
-      case PDF:
-        return "pdf";
-      case IMAGEM:
-        return "jpg, jpeg, png, gif, bmp, svg, webp";
-      case AUDIO:
-        return "mp3, wav, ogg, flac, aac, m4a";
-      case QUIZ:
-        return "txt, json, xml";
-      case SLIDE:
-        return "ppt, pptx, odp";
-      default:
-        return "Nenhuma extensão definida";
-    }
-  }
-
-  private static String formatarTamanho(long bytes) {
-    if (bytes == 0)
-      return "0 B";
-
-    String[] unidades = { "B", "KB", "MB", "GB", "TB" };
-    int unidade = 0;
-    double tamanho = bytes;
-
-    while (tamanho >= 1024 && unidade < unidades.length - 1) {
-      tamanho /= 1024;
-      unidade++;
-    }
-
-    return String.format("%.2f %s", tamanho, unidades[unidade]);
   }
 
   private static int lerInteiro() {
@@ -681,54 +668,6 @@ public class Main {
     }
   }
 
-  private static void visualizarConteudo() {
-    System.out.println("\n=== VISUALIZAR CONTEÚDO ===");
-    System.out.print("Digite o título do curso: ");
-    String tituloCurso = scanner.nextLine();
-
-    Curso curso = CursoDAO.buscarPorTitulo(tituloCurso);
-    if (curso == null) {
-      System.out.println("Curso não encontrado!");
-      return;
-    }
-
-    List<Conteudo> conteudos = ConteudoDAO.buscarPorCurso(curso.getId());
-    if (conteudos == null || conteudos.isEmpty()) {
-      System.out.println("Nenhum conteúdo encontrado para este curso!");
-      return;
-    }
-
-    System.out.println("\n=== CONTEÚDOS DISPONÍVEIS ===");
-    for (int i = 0; i < conteudos.size(); i++) {
-      Conteudo conteudo = conteudos.get(i);
-      String tamanho = "N/A";
-      if (conteudo.getArquivo() != null) {
-        tamanho = formatarTamanho(conteudo.getArquivo().length);
-      }
-
-      System.out.printf("%d. %-30s %-10s %-10s%n",
-          (i + 1),
-          conteudo.getTitulo(),
-          conteudo.getTipo().getDescricao(),
-          tamanho);
-    }
-
-    System.out.print("\nEscolha o conteúdo para visualizar (0 para voltar): ");
-    int opcao = lerInteiro();
-
-    if (opcao == 0) {
-      return;
-    }
-
-    if (opcao < 1 || opcao > conteudos.size()) {
-      System.out.println("Opção inválida!");
-      return;
-    }
-
-    Conteudo conteudoSelecionado = conteudos.get(opcao - 1);
-    exibirDetalhesConteudo(conteudoSelecionado);
-  }
-
   private static void exibirDetalhesConteudo(Conteudo conteudo) {
     System.out.println("\n" + "=".repeat(60));
     System.out.println("DETALHES DO CONTEÚDO");
@@ -738,10 +677,10 @@ public class Main {
     System.out.println("Tipo: " + conteudo.getTipo().getDescricao());
 
     if (conteudo.getArquivo() != null) {
-      System.out.println("Tamanho: " + formatarTamanho(conteudo.getArquivo().length));
+      System.out.println("Tamanho: " + conteudo.formatarTamanho());
       System.out.println("\nOpções:");
-      System.out.println("1. Baixar arquivo");
-      System.out.println("2. Visualizar conteúdo (texto/dados)");
+      System.out.println("1. Visualizar conteúdo");
+      System.out.println("2. Baixar arquivo");
       System.out.println("0. Voltar");
 
       System.out.print("Escolha uma opção: ");
@@ -749,10 +688,10 @@ public class Main {
 
       switch (opcao) {
         case 1:
-          baixarArquivo(conteudo);
+          visualizarConteudoArquivo(conteudo);
           break;
         case 2:
-          visualizarConteudoArquivo(conteudo);
+          baixarArquivo(conteudo);
           break;
         case 0:
           return;
@@ -764,86 +703,83 @@ public class Main {
     }
   }
 
-  private static void baixarArquivo(Conteudo conteudo) {
-    System.out.print("Digite o caminho onde salvar o arquivo: ");
-    String caminhoDestino = scanner.nextLine();
+  private static void visualizarConteudoArquivo(Conteudo conteudo) {
+    System.out.println("\n=== VISUALIZANDO CONTEÚDO ===");
+    System.out.println("Tipo: " + conteudo.getTipo().getDescricao());
+    System.out.println("Tamanho: " + conteudo.formatarTamanho());
 
-    try {
-      String extensao = obterExtensaoPadrao(conteudo.getTipo());
-      String nomeArquivo = conteudo.getTitulo().replaceAll("[^a-zA-Z0-9]", "_") + "." + extensao;
+    // Usar o novo método de exibição baseado no tipo
+    conteudo.exibirConteudo();
 
-      File arquivoDestino = new File(caminhoDestino, nomeArquivo);
-      Files.write(arquivoDestino.toPath(), conteudo.getArquivo());
-
-      System.out.println("Arquivo salvo com sucesso em: " + arquivoDestino.getAbsolutePath());
-    } catch (IOException e) {
-      System.out.println("Erro ao salvar arquivo: " + e.getMessage());
-    }
+    System.out.println("\nPressione Enter para continuar...");
+    scanner.nextLine();
   }
 
-  private static void visualizarConteudoArquivo(Conteudo conteudo) {
-    System.out.println("\n=== CONTEÚDO DO ARQUIVO ===");
+  private static void baixarArquivo(Conteudo conteudo) {
+    System.out.println("\n=== BAIXAR ARQUIVO ===");
+    System.out.print("Digite o caminho onde deseja salvar o arquivo: ");
+    String caminhoDestino = scanner.nextLine();
 
-    byte[] arquivo = conteudo.getArquivo();
-    if (arquivo == null || arquivo.length == 0) {
-      System.out.println("Arquivo vazio ou não disponível.");
+    // Verificar se o caminho existe
+    File diretorio = new File(caminhoDestino);
+    if (!diretorio.exists()) {
+      System.out.println("Diretório não existe! Deseja criá-lo? (s/n): ");
+      String resposta = scanner.nextLine();
+      if (resposta.toLowerCase().startsWith("s")) {
+        if (!diretorio.mkdirs()) {
+          System.out.println("Erro ao criar diretório!");
+          return;
+        }
+      } else {
+        System.out.println("Download cancelado!");
+        return;
+      }
+    }
+
+    if (!diretorio.isDirectory()) {
+      System.out.println("O caminho especificado não é um diretório!");
       return;
     }
 
-    if (conteudo.getTipo() == Tipo.QUIZ || arquivo.length < 1024) {
-      try {
-        String conteudoTexto = new String(arquivo, "UTF-8");
-        System.out.println(conteudoTexto);
-      } catch (Exception e) {
-        System.out.println("Não é possível exibir o conteúdo como texto.");
-        exibirInformacoesArquivo(arquivo);
+    // Sanitizar nome do arquivo
+    String nomeArquivo = sanitizarNomeArquivo(conteudo.getTitulo()) + "." + conteudo.obterExtensaoPadrao();
+    String caminhoCompleto = caminhoDestino + File.separator + nomeArquivo;
+
+    try {
+      File arquivoDestino = new File(caminhoCompleto);
+
+      // Verificar se arquivo já existe
+      if (arquivoDestino.exists()) {
+        System.out.println("Arquivo já existe! Deseja sobrescrever? (s/n): ");
+        String resposta = scanner.nextLine();
+        if (!resposta.toLowerCase().startsWith("s")) {
+          System.out.println("Download cancelado!");
+          return;
+        }
       }
-    } else {
-      System.out.println("Arquivo muito grande para visualização direta.");
-      exibirInformacoesArquivo(arquivo);
+
+      Files.write(arquivoDestino.toPath(), conteudo.getArquivo());
+      System.out.println("Arquivo baixado com sucesso!");
+      System.out.println("Local: " + arquivoDestino.getAbsolutePath());
+      System.out.println("Tamanho: " + conteudo.formatarTamanho());
+
+    } catch (IOException e) {
+      System.out.println("Erro ao salvar arquivo: " + e.getMessage());
     }
 
     System.out.println("\nPressione Enter para continuar...");
     scanner.nextLine();
   }
 
-  private static void exibirInformacoesArquivo(byte[] arquivo) {
-    System.out.println("Informações do arquivo:");
-    System.out.println("- Tamanho: " + formatarTamanho(arquivo.length));
-    System.out.println("- Primeiros bytes (hex): " + bytesToHex(arquivo, 16));
-  }
-
-  private static String bytesToHex(byte[] bytes, int limite) {
-    StringBuilder result = new StringBuilder();
-    int maxBytes = Math.min(bytes.length, limite);
-
-    for (int i = 0; i < maxBytes; i++) {
-      result.append(String.format("%02x ", bytes[i]));
+  private static String sanitizarNomeArquivo(String nome) {
+    // Remove caracteres inválidos para nomes de arquivo
+    String nomeSeguro = nome.replaceAll("[\\\\/:*?\"<>|]", "_");
+    // Remove espaços extras e substitui por underscores
+    nomeSeguro = nomeSeguro.replaceAll("\\s+", "_");
+    // Limita o tamanho do nome
+    if (nomeSeguro.length() > 50) {
+      nomeSeguro = nomeSeguro.substring(0, 50);
     }
-
-    if (bytes.length > limite) {
-      result.append("...");
-    }
-
-    return result.toString();
-  }
-
-  private static String obterExtensaoPadrao(Tipo tipo) {
-    switch (tipo) {
-      case VIDEO:
-        return "mp4";
-      case PDF:
-        return "pdf";
-      case IMAGEM:
-        return "jpg";
-      case AUDIO:
-        return "mp3";
-      case QUIZ:
-        return "txt";
-      case SLIDE:
-        return "pptx";
-      default:
-        return "bin";
-    }
+    return nomeSeguro;
   }
 }

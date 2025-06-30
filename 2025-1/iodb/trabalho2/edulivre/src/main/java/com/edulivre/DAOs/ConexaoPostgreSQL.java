@@ -1,4 +1,4 @@
-package com.edulivre.persistencia;
+package com.edulivre.DAOs;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

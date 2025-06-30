@@ -1,4 +1,4 @@
-package com.edulivre.persistencia;
+package com.edulivre.DAOs;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import com.edulivre.negocio.Perfil;
-import com.edulivre.negocio.Usuario;
+import com.edulivre.models.Perfil;
+import com.edulivre.models.Usuario;
 
 public class UsuarioDAO {
   public List<Usuario> listar() {
