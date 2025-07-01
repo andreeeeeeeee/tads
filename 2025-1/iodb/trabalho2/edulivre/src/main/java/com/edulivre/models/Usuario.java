@@ -69,10 +69,8 @@ public class Usuario {
 
   public List<Curso> obterCursosDisponiveis() {
     if (this.perfil == Perfil.ALUNO) {
-      // Para alunos, retorna apenas os cursos em que estão matriculados
       return obterCursosMatriculados();
     } else {
-      // Para professores e admins, retorna todos os cursos
       return CursoDAO.listar();
     }
   }
@@ -84,7 +82,6 @@ public class Usuario {
     if (matriculas != null) {
       for (Matricula matricula : matriculas) {
         if (matricula.getUsuarioID().equals(this.id)) {
-          // Buscar o curso correspondente à matrícula
           List<Curso> todosCursos = CursoDAO.listar();
           if (todosCursos != null) {
             for (Curso curso : todosCursos) {

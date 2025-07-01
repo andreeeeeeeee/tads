@@ -16,16 +16,11 @@ public enum Perfil {
   }
 
   public static Perfil fromString(String descricao) {
-    switch (descricao) {
-      case "aluno":
-        return ALUNO;
-      case "professor":
-        return PROFESSOR;
-      case "admin":
-        return ADMIN;
-
-      default:
-        return null;
-    }
+      return switch (descricao) {
+          case "aluno" -> ALUNO;
+          case "professor" -> PROFESSOR;
+          case "admin" -> ADMIN;
+          default -> null;
+      };
   }
 }

@@ -77,7 +77,7 @@ public class Main {
 
   // System.out.println("Buscando conteúdos do Curso de PostgreSQL:");
   // ConteudoDAO.buscarConteudosPorTituloCurso("Curso de PostgreSQL");
-  private static Scanner scanner = new Scanner(System.in);
+  private static final Scanner scanner = new Scanner(System.in);
   private static Usuario usuarioLogado;
 
   public static void main(String[] args) {
@@ -121,15 +121,9 @@ public class Main {
       System.out.println("=".repeat(50));
 
       switch (usuarioLogado.getPerfil()) {
-        case ADMIN:
-          mostrarMenuAdmin();
-          break;
-        case PROFESSOR:
-          mostrarMenuProfessor();
-          break;
-        case ALUNO:
-          mostrarMenuAluno();
-          break;
+        case ADMIN -> mostrarMenuAdmin();
+        case PROFESSOR -> mostrarMenuProfessor();
+        case ALUNO -> mostrarMenuAluno();
       }
 
       System.out.println("0. Sair");
@@ -143,7 +137,7 @@ public class Main {
   private static void mostrarMenuAdmin() {
     System.out.println("1. Cadastrar usuário");
     System.out.println("2. Cadastrar curso");
-    System.out.println("3. Matricular usuário em um curso");
+    System.out.println("3. Matricular aluno em um curso");
     System.out.println("4. Buscar conteúdos de um curso");
     System.out.println("5. Listar cursos com avaliações");
   }
@@ -171,78 +165,41 @@ public class Main {
     }
 
     switch (usuarioLogado.getPerfil()) {
-      case ADMIN:
-        processarOpcaoAdmin(opcao);
-        break;
-      case PROFESSOR:
-        processarOpcaoProfessor(opcao);
-        break;
-      case ALUNO:
-        processarOpcaoAluno(opcao);
-        break;
+      case ADMIN -> processarOpcaoAdmin(opcao);
+      case PROFESSOR -> processarOpcaoProfessor(opcao);
+      case ALUNO -> processarOpcaoAluno(opcao);
     }
   }
 
   private static void processarOpcaoAdmin(int opcao) {
     switch (opcao) {
-      case 1:
-        cadastrarUsuario();
-        break;
-      case 2:
-        cadastrarCurso();
-        break;
-      case 3:
-        matricularAluno();
-        break;
-      case 4:
-        buscarConteudosCurso();
-        break;
-      case 5:
-        listarCursosComAvaliacoes();
-        break;
-      default:
-        System.out.println("Opção inválida!");
+      case 1 -> cadastrarUsuario();
+      case 2 -> cadastrarCurso();
+      case 3 -> matricularAluno();
+      case 4 -> buscarConteudosCurso();
+      case 5 -> listarCursosComAvaliacoes();
+      default -> System.out.println("Opção inválida!");
     }
   }
 
   private static void processarOpcaoProfessor(int opcao) {
     switch (opcao) {
-      case 1:
-        cadastrarAluno();
-        break;
-      case 2:
-        cadastrarConteudo();
-        break;
-      case 3:
-        matricularAluno();
-        break;
-      case 4:
-        buscarConteudosCurso();
-        break;
-      case 5:
-        listarCursosComAvaliacoes();
-        break;
-      default:
-        System.out.println("Opção inválida!");
+      case 1 -> cadastrarAluno();
+      case 2 -> cadastrarConteudo();
+      case 3 -> matricularAluno();
+      case 4 -> buscarConteudosCurso();
+      case 5 -> listarCursosComAvaliacoes();
+      default -> System.out.println("Opção inválida!");
     }
   }
 
   private static void processarOpcaoAluno(int opcao) {
     switch (opcao) {
-      case 1:
-        matricularSeEmCurso();
-        break;
-      case 2:
-        buscarConteudosCurso();
-        break;
-      case 3:
-        listarCursosComAvaliacoes();
-        break;
-      case 4:
-        avaliarCurso();
-        break;
-      default:
-        System.out.println("Opção inválida!");
+      case 1 -> matricularSeEmCurso();
+      case 2 -> buscarConteudosCurso();
+      case 3 -> listarCursosComAvaliacoes();
+      case 4 -> avaliarCurso();
+      default -> System.out.println("Opção inválida!");
     }
   }
 
@@ -263,18 +220,13 @@ public class Main {
 
     Perfil perfil;
     switch (perfilOpcao) {
-      case 1:
-        perfil = Perfil.ALUNO;
-        break;
-      case 2:
-        perfil = Perfil.PROFESSOR;
-        break;
-      case 3:
-        perfil = Perfil.ADMIN;
-        break;
-      default:
+      case 1 -> perfil = Perfil.ALUNO;
+      case 2 -> perfil = Perfil.PROFESSOR;
+      case 3 -> perfil = Perfil.ADMIN;
+      default -> {
         System.out.println("Perfil inválido!");
         return;
+      }
     }
 
     Usuario usuario = new Usuario();
@@ -371,27 +323,16 @@ public class Main {
 
     Tipo tipo;
     switch (tipoOpcao) {
-      case 1:
-        tipo = Tipo.VIDEO;
-        break;
-      case 2:
-        tipo = Tipo.PDF;
-        break;
-      case 3:
-        tipo = Tipo.IMAGEM;
-        break;
-      case 4:
-        tipo = Tipo.AUDIO;
-        break;
-      case 5:
-        tipo = Tipo.QUIZ;
-        break;
-      case 6:
-        tipo = Tipo.SLIDE;
-        break;
-      default:
+      case 1 -> tipo = Tipo.VIDEO;
+      case 2 -> tipo = Tipo.PDF;
+      case 3 -> tipo = Tipo.IMAGEM;
+      case 4 -> tipo = Tipo.AUDIO;
+      case 5 -> tipo = Tipo.QUIZ;
+      case 6 -> tipo = Tipo.SLIDE;
+      default -> {
         System.out.println("Tipo inválido!");
         return;
+      }
     }
 
     System.out.print("Caminho do arquivo: ");
@@ -687,16 +628,12 @@ public class Main {
       int opcao = lerInteiro();
 
       switch (opcao) {
-        case 1:
-          visualizarConteudoArquivo(conteudo);
-          break;
-        case 2:
-          baixarArquivo(conteudo);
-          break;
-        case 0:
-          return;
-        default:
-          System.out.println("Opção inválida!");
+        case 1 -> visualizarConteudoArquivo(conteudo);
+        case 2 -> baixarArquivo(conteudo);
+        case 0 -> {
+        }
+
+        default -> System.out.println("Opção inválida!");
       }
     } else {
       System.out.println("Arquivo não disponível!");
@@ -708,7 +645,6 @@ public class Main {
     System.out.println("Tipo: " + conteudo.getTipo().getDescricao());
     System.out.println("Tamanho: " + conteudo.formatarTamanho());
 
-    // Usar o novo método de exibição baseado no tipo
     conteudo.exibirConteudo();
 
     System.out.println("\nPressione Enter para continuar...");
@@ -720,7 +656,6 @@ public class Main {
     System.out.print("Digite o caminho onde deseja salvar o arquivo: ");
     String caminhoDestino = scanner.nextLine();
 
-    // Verificar se o caminho existe
     File diretorio = new File(caminhoDestino);
     if (!diretorio.exists()) {
       System.out.println("Diretório não existe! Deseja criá-lo? (s/n): ");
@@ -741,14 +676,12 @@ public class Main {
       return;
     }
 
-    // Sanitizar nome do arquivo
     String nomeArquivo = sanitizarNomeArquivo(conteudo.getTitulo()) + "." + conteudo.obterExtensaoPadrao();
     String caminhoCompleto = caminhoDestino + File.separator + nomeArquivo;
 
     try {
       File arquivoDestino = new File(caminhoCompleto);
 
-      // Verificar se arquivo já existe
       if (arquivoDestino.exists()) {
         System.out.println("Arquivo já existe! Deseja sobrescrever? (s/n): ");
         String resposta = scanner.nextLine();
@@ -772,11 +705,8 @@ public class Main {
   }
 
   private static String sanitizarNomeArquivo(String nome) {
-    // Remove caracteres inválidos para nomes de arquivo
     String nomeSeguro = nome.replaceAll("[\\\\/:*?\"<>|]", "_");
-    // Remove espaços extras e substitui por underscores
     nomeSeguro = nomeSeguro.replaceAll("\\s+", "_");
-    // Limita o tamanho do nome
     if (nomeSeguro.length() > 50) {
       nomeSeguro = nomeSeguro.substring(0, 50);
     }

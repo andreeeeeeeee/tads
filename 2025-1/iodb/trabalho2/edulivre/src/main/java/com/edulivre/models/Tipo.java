@@ -19,22 +19,14 @@ public enum Tipo {
   }
 
   public static Tipo fromString(String descricao) {
-    switch (descricao) {
-      case "video":
-        return VIDEO;
-      case "pdf":
-        return PDF;
-      case "imagem":
-        return IMAGEM;
-      case "audio":
-        return AUDIO;
-      case "quiz":
-        return QUIZ;
-      case "slide":
-        return SLIDE;
-
-      default:
-        return null;
-    }
+      return switch (descricao) {
+          case "video" -> VIDEO;
+          case "pdf" -> PDF;
+          case "imagem" -> IMAGEM;
+          case "audio" -> AUDIO;
+          case "quiz" -> QUIZ;
+          case "slide" -> SLIDE;
+          default -> null;
+      };
   }
 }

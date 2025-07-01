@@ -103,26 +103,13 @@ public class Conteudo {
     }
 
     switch (this.tipo) {
-      case IMAGEM:
-        exibirImagem();
-        break;
-      case PDF:
-        exibirPDF();
-        break;
-      case VIDEO:
-        exibirVideo();
-        break;
-      case AUDIO:
-        exibirAudio();
-        break;
-      case QUIZ:
-        exibirQuiz();
-        break;
-      case SLIDE:
-        exibirSlide();
-        break;
-      default:
-        System.out.println("Tipo de arquivo não suportado para visualização!");
+      case IMAGEM -> exibirImagem();
+      case PDF -> exibirPDF();
+      case VIDEO -> exibirVideo();
+      case AUDIO -> exibirAudio();
+      case QUIZ -> exibirQuiz();
+      case SLIDE -> exibirSlide();
+      default -> System.out.println("Tipo de arquivo não suportado para visualização!");
     }
   }
 
@@ -260,22 +247,15 @@ public class Conteudo {
   public static boolean verificarTipoArquivo(String nomeArquivo, Tipo tipo) {
     String extensao = obterExtensao(nomeArquivo);
 
-    switch (tipo) {
-      case VIDEO:
-        return extensao.matches("mp4|avi|mkv|mov|wmv|flv|webm");
-      case PDF:
-        return extensao.equals("pdf");
-      case IMAGEM:
-        return extensao.matches("jpg|jpeg|png|gif|bmp|svg|webp");
-      case AUDIO:
-        return extensao.matches("mp3|wav|ogg|flac|aac|m4a");
-      case QUIZ:
-        return extensao.matches("txt|json|xml");
-      case SLIDE:
-        return extensao.matches("ppt|pptx|odp");
-      default:
-        return false;
-    }
+      return switch (tipo) {
+          case VIDEO -> extensao.matches("mp4|avi|mkv|mov|wmv|flv|webm");
+          case PDF -> extensao.equals("pdf");
+          case IMAGEM -> extensao.matches("jpg|jpeg|png|gif|bmp|svg|webp");
+          case AUDIO -> extensao.matches("mp3|wav|ogg|flac|aac|m4a");
+          case QUIZ -> extensao.matches("txt|json|xml");
+          case SLIDE -> extensao.matches("ppt|pptx|odp");
+          default -> false;
+      };
   }
 
   private static String obterExtensao(String nomeArquivo) {
@@ -287,22 +267,15 @@ public class Conteudo {
   }
 
   public static String getExtensoesAceitas(Tipo tipo) {
-    switch (tipo) {
-      case VIDEO:
-        return "mp4, avi, mkv, mov, wmv, flv, webm";
-      case PDF:
-        return "pdf";
-      case IMAGEM:
-        return "jpg, jpeg, png, gif, bmp, svg, webp";
-      case AUDIO:
-        return "mp3, wav, ogg, flac, aac, m4a";
-      case QUIZ:
-        return "txt, json, xml";
-      case SLIDE:
-        return "ppt, pptx, odp";
-      default:
-        return "Nenhuma extensão definida";
-    }
+      return switch (tipo) {
+          case VIDEO -> "mp4, avi, mkv, mov, wmv, flv, webm";
+          case PDF -> "pdf";
+          case IMAGEM -> "jpg, jpeg, png, gif, bmp, svg, webp";
+          case AUDIO -> "mp3, wav, ogg, flac, aac, m4a";
+          case QUIZ -> "txt, json, xml";
+          case SLIDE -> "ppt, pptx, odp";
+          default -> "Nenhuma extensão definida";
+      };
   }
 
   public static String formatarTamanho(long bytes) {
@@ -355,22 +328,15 @@ public class Conteudo {
   }
 
   public String obterExtensaoPadrao() {
-    switch (this.tipo) {
-      case VIDEO:
-        return "mp4";
-      case PDF:
-        return "pdf";
-      case IMAGEM:
-        return "jpg";
-      case AUDIO:
-        return "mp3";
-      case QUIZ:
-        return "txt";
-      case SLIDE:
-        return "pptx";
-      default:
-        return "bin";
-    }
+      return switch (this.tipo) {
+          case VIDEO -> "mp4";
+          case PDF -> "pdf";
+          case IMAGEM -> "jpg";
+          case AUDIO -> "mp3";
+          case QUIZ -> "txt";
+          case SLIDE -> "pptx";
+          default -> "bin";
+      };
   }
 
 }

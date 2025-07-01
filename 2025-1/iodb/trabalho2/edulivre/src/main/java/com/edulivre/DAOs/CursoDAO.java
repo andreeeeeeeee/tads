@@ -112,7 +112,6 @@ public class CursoDAO {
     String sql = "INSERT INTO curso (titulo, descricao, avaliacao) VALUES (?, ?, ?::jsonb);";
     try (Connection conexao = new ConexaoPostgreSQL().getConexao();
         PreparedStatement preparedStatement = conexao.prepareStatement(sql)) {
-      ;
       preparedStatement.setString(1, curso.getTitulo());
       preparedStatement.setString(2, curso.getDescricao());
       preparedStatement.setString(3, curso.getAvaliacao().toString());
