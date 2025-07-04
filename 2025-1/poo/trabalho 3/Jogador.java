@@ -1,8 +1,10 @@
 public class Jogador extends Personagem {
+  private static final int TAMANHO = 20;
+
   private boolean temEscudo;
 
   public Jogador(Ponto posicao, int velocidade) {
-    super(posicao, 20, velocidade);
+    super(posicao, TAMANHO, velocidade);
     this.temEscudo = false;
   }
 

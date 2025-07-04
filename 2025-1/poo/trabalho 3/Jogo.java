@@ -145,9 +145,8 @@ public class Jogo extends JPanel implements KeyListener, Runnable {
       jogador.mover(Direcao.DIREITA);
 
     for (Inimigo inimigo : faseAtual.getInimigos()) {
-      if (random.nextInt(20) == 0) {
+      if (random.nextInt(20) == 0)
         inimigo.moverAleatoriamente();
-      }
     }
 
     verificarColisoes();
