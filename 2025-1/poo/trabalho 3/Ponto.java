@@ -49,4 +49,10 @@ public class Ponto {
         && y >= MIN_Y
         && y <= MAX_Y;
   }
+
+  public double calcularDistancia(Ponto p) {
+    int deltaX = this.getX() - p.getX();
+    int deltaY = this.getY() - p.getY();
+    return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+  }
 }

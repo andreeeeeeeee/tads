@@ -37,7 +37,7 @@ public class Jogo extends JPanel implements KeyListener, Runnable {
       posicaoObjetivo = new Ponto(
           random.nextInt(700) + 50,
           random.nextInt(500) + 50);
-    } while (calcularDistancia(jogador.getPosicao(), posicaoObjetivo) < 100
+    } while (posicaoObjetivo.calcularDistancia(jogador.getPosicao()) < 100
         || !posicaoObjetivo.estaNoLimite());
 
     Objetivo objetivo = new Objetivo(posicaoObjetivo);
@@ -51,24 +51,25 @@ public class Jogo extends JPanel implements KeyListener, Runnable {
         posicaoInimigo = new Ponto(
             random.nextInt(700) + 50,
             random.nextInt(500) + 50);
-      } while (calcularDistancia(jogador.getPosicao(), posicaoInimigo) < 80
-          || calcularDistancia(posicaoObjetivo, posicaoInimigo) < 80);
+      } while (posicaoInimigo.calcularDistancia(jogador.getPosicao()) < 80
+          || posicaoInimigo.calcularDistancia(posicaoObjetivo) < 80
+          || !posicaoInimigo.estaNoLimite());
 
       int velocidadeInimigo = (int) (1.4f * numeroFaseAtual) + 3;
       inimigos[i] = new Inimigo(posicaoInimigo, velocidadeInimigo);
     }
 
     Escudo escudo = null;
-    if (numeroFaseAtual <= 3) {
+    if (numeroFaseAtual <= 3)
       faseAtual = new Fase(numeroFaseAtual, inimigos, objetivo);
-    } else {
+    else {
       Ponto posicaoEscudo;
       do {
         posicaoEscudo = new Ponto(
             random.nextInt(700) + 50,
             random.nextInt(500) + 50);
-      } while (calcularDistancia(jogador.getPosicao(), posicaoEscudo) < 80
-          || calcularDistancia(posicaoObjetivo, posicaoEscudo) < 80
+      } while (posicaoEscudo.calcularDistancia(jogador.getPosicao()) < 80
+          || posicaoEscudo.calcularDistancia(posicaoObjetivo) < 80
           || !posicaoEscudo.estaNoLimite());
 
       escudo = new Escudo(posicaoEscudo);
@@ -76,12 +77,6 @@ public class Jogo extends JPanel implements KeyListener, Runnable {
     }
 
     jogador.setVelocidade((int) (1.2f * numeroFaseAtual) + 3);
-  }
-
-  private double calcularDistancia(Ponto p1, Ponto p2) {
-    int deltaX = p1.getX() - p2.getX();
-    int deltaY = p1.getY() - p2.getY();
-    return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
   }
 
   @Override
