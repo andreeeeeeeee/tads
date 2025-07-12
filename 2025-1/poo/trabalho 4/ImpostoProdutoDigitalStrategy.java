@@ -6,7 +6,7 @@ public class ImpostoProdutoDigitalStrategy implements IImpostoStrategy {
   }
 
   public float getAliquota() {
-    return aliquota;
+    return this.aliquota;
   }
 
   @Override
@@ -15,7 +15,7 @@ public class ImpostoProdutoDigitalStrategy implements IImpostoStrategy {
       throw new IllegalArgumentException("Produto não é do tipo ProdutoDigital");
     }
 
-    return valorBase * aliquota;
+    return valorBase * this.aliquota;
   }
 
 }

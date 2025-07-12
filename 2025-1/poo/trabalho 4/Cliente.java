@@ -9,7 +9,7 @@ public class Cliente {
   private String endereco;
 
   public UUID getId() {
-    return id;
+    return this.id;
   }
 
   public void setId(UUID id) {
@@ -17,7 +17,7 @@ public class Cliente {
   }
 
   public String getNome() {
-    return nome;
+    return this.nome;
   }
 
   public void setNome(String nome) {
@@ -25,7 +25,7 @@ public class Cliente {
   }
 
   public String getEmail() {
-    return email;
+    return this.email;
   }
 
   public void setEmail(String email) {
@@ -33,7 +33,7 @@ public class Cliente {
   }
 
   public Date getDataNascimento() {
-    return dataNascimento;
+    return this.dataNascimento;
   }
 
   public void setDataNascimento(Date dataNascimento) {
@@ -41,7 +41,7 @@ public class Cliente {
   }
 
   public String getEndereco() {
-    return endereco;
+    return this.endereco;
   }
 
   public void setEndereco(String endereco) {

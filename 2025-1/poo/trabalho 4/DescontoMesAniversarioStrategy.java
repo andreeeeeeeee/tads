@@ -14,7 +14,7 @@ public class DescontoMesAniversarioStrategy extends DescontoStrategy {
     }
 
     float desconto = produto.getValorBase() * this.percentualDesconto / 100;
-    return desconto * item.getQuantidade();
+    return desconto;
   }
 
   private boolean isAniversarioMes(Pedido pedido) {

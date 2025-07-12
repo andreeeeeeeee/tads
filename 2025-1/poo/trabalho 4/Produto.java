@@ -1,9 +1,13 @@
 public abstract class Produto implements IProduto {
-  private String nome;
-  private EnumTipoProduto tipo;
-  private float valorBase;
-  private float valorComDesconto;
-  private float valorComImposto;
+  private final String nome;
+  private final EnumTipoProduto tipo;
+  private final float valorBase;
+
+  public Produto(String nome, EnumTipoProduto tipo, float valorBase) {
+    this.nome = nome;
+    this.tipo = tipo;
+    this.valorBase = valorBase;
+  }
 
   @Override
   public String getNome() {
@@ -22,12 +26,18 @@ public abstract class Produto implements IProduto {
 
   @Override
   public float getValorComDesconto(IDescontoStrategy descontoStrategy, Pedido pedido, ItemPedido item) {
-    return this.valorComDesconto;
+    if (descontoStrategy == null) {
+      return this.valorBase;
+    }
+    return this.valorBase - descontoStrategy.calcularDesconto(pedido, item, this);
   }
 
   @Override
   public float getValorComImposto(IImpostoStrategy impostoStrategy) {
-    return this.valorComImposto;
+    if (impostoStrategy == null) {
+      return this.valorBase;
+    }
+    return this.valorBase + impostoStrategy.calcularImposto(this, this.valorBase);
   }
 
 }

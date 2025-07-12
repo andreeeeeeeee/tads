@@ -11,6 +11,6 @@ public class ImpostoAssinaturaStrategy implements IImpostoStrategy {
       throw new IllegalArgumentException("Produto não é do tipo Assinatura");
     }
 
-    return valorBase * aliquota;
+    return valorBase * this.aliquota;
   }
 }

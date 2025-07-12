@@ -14,7 +14,7 @@ public class DescontoBlackFridayStrategy extends DescontoStrategy {
     }
 
     float desconto = produto.getValorBase() * this.percentualDesconto / 100;
-    return desconto * item.getQuantidade();
+    return desconto;
   }
 
   private boolean isBlackFriday(Pedido pedido) {

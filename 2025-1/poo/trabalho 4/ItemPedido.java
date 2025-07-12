@@ -1,5 +1,3 @@
-
-
 public class ItemPedido {
   private IProduto produto;
   private int quantidade;
@@ -9,59 +7,69 @@ public class ItemPedido {
   private float impostoAplicado;
   private float valorLiquidoItem;
 
-    public IProduto getProduto() {
-        return produto;
-    }
+  public ItemPedido(IProduto produto, int quantidade) {
+    this.produto = produto;
+    this.quantidade = quantidade;
+    this.valorUnitario = produto.getValorBase();
+    this.valorTotalItem = this.valorUnitario * quantidade;
+    this.descontoAplicado = 0;
+    this.impostoAplicado = 0;
+    this.valorLiquidoItem = this.valorTotalItem - this.descontoAplicado + this.impostoAplicado;
+  }
 
-    public void setProduto(IProduto produto) {
-        this.produto = produto;
-    }
+  public IProduto getProduto() {
+    return this.produto;
+  }
 
-    public int getQuantidade() {
-        return quantidade;
-    }
+  public void setProduto(IProduto produto) {
+    this.produto = produto;
+  }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
+  public int getQuantidade() {
+    return this.quantidade;
+  }
 
-    public float getValorUnitario() {
-        return valorUnitario;
-    }
+  public void setQuantidade(int quantidade) {
+    this.quantidade = quantidade;
+  }
 
-    public void setValorUnitario(float valorUnitario) {
-        this.valorUnitario = valorUnitario;
-    }
+  public float getValorUnitario() {
+    return this.valorUnitario;
+  }
 
-    public float getValorTotalItem() {
-        return valorTotalItem;
-    }
+  public void setValorUnitario(float valorUnitario) {
+    this.valorUnitario = valorUnitario;
+  }
 
-    public void setValorTotalItem(float valorTotalItem) {
-        this.valorTotalItem = valorTotalItem;
-    }
+  public float getValorTotalItem() {
+    return this.valorTotalItem;
+  }
 
-    public float getDescontoAplicado() {
-        return descontoAplicado;
-    }
+  public void setValorTotalItem(float valorTotalItem) {
+    this.valorTotalItem = valorTotalItem;
+  }
 
-    public void setDescontoAplicado(float descontoAplicado) {
-        this.descontoAplicado = descontoAplicado;
-    }
+  public float getDescontoAplicado() {
+    return this.descontoAplicado;
+  }
 
-    public float getImpostoAplicado() {
-        return impostoAplicado;
-    }
+  public void setDescontoAplicado(float descontoAplicado) {
+    this.descontoAplicado = descontoAplicado;
+  }
 
-    public void setImpostoAplicado(float impostoAplicado) {
-        this.impostoAplicado = impostoAplicado;
-    }
+  public float getImpostoAplicado() {
+    return this.impostoAplicado;
+  }
 
-    public float getValorLiquidoItem() {
-        return valorLiquidoItem;
-    }
+  public void setImpostoAplicado(float impostoAplicado) {
+    this.impostoAplicado = impostoAplicado;
+  }
 
-    public void setValorLiquidoItem(float valorLiquidoItem) {
-        this.valorLiquidoItem = valorLiquidoItem;
-    }
+  public float getValorLiquidoItem() {
+    return this.valorLiquidoItem;
+  }
+
+  public void setValorLiquidoItem(float valorLiquidoItem) {
+    this.valorLiquidoItem = valorLiquidoItem;
+  }
 }

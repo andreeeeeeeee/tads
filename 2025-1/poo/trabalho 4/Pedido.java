@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -13,8 +14,19 @@ public class Pedido {
   private float valorTotalImpostos;
   private float valorTotalLiquido;
 
+  public Pedido(UUID id, Date dataPedido, Cliente cliente) {
+    this.id = id;
+    this.dataPedido = dataPedido;
+    this.cliente = cliente;
+    this.itens = new ArrayList<>();
+    this.valorTotalBruto = 0.0f;
+    this.valorTotalDescontos = 0.0f;
+    this.valorTotalImpostos = 0.0f;
+    this.valorTotalLiquido = 0.0f;
+  }
+
   public UUID getId() {
-    return id;
+    return this.id;
   }
 
   public void setId(UUID id) {
@@ -22,7 +34,7 @@ public class Pedido {
   }
 
   public Date getDataPedido() {
-    return dataPedido;
+    return this.dataPedido;
   }
 
   public void setDataPedido(Date dataPedido) {
@@ -30,7 +42,7 @@ public class Pedido {
   }
 
   public Cliente getCliente() {
-    return cliente;
+    return this.cliente;
   }
 
   public void setCliente(Cliente cliente) {
@@ -38,7 +50,7 @@ public class Pedido {
   }
 
   public List<ItemPedido> getItens() {
-    return itens;
+    return this.itens;
   }
 
   public void setItens(List<ItemPedido> itens) {
@@ -46,7 +58,7 @@ public class Pedido {
   }
 
   public float getValorTotalBruto() {
-    return valorTotalBruto;
+    return this.valorTotalBruto;
   }
 
   public void setValorTotalBruto(float valorTotalBruto) {
@@ -54,7 +66,7 @@ public class Pedido {
   }
 
   public float getValorTotalDescontos() {
-    return valorTotalDescontos;
+    return this.valorTotalDescontos;
   }
 
   public void setValorTotalDescontos(float valorTotalDescontos) {
@@ -62,7 +74,7 @@ public class Pedido {
   }
 
   public float getValorTotalImpostos() {
-    return valorTotalImpostos;
+    return this.valorTotalImpostos;
   }
 
   public void setValorTotalImpostos(float valorTotalImpostos) {
@@ -70,7 +82,7 @@ public class Pedido {
   }
 
   public float getValorTotalLiquido() {
-    return valorTotalLiquido;
+    return this.valorTotalLiquido;
   }
 
   public void setValorTotalLiquido(float valorTotalLiquido) {
@@ -78,10 +90,21 @@ public class Pedido {
   }
 
   public void adicionarItem(ItemPedido item) {
-    itens.add(item);
+    this.itens.add(item);
   }
 
   public void calcularTotais() {
+    this.valorTotalBruto = 0.0f;
+    this.valorTotalDescontos = 0.0f;
+    this.valorTotalImpostos = 0.0f;
+    this.valorTotalLiquido = 0.0f;
+
+    for (ItemPedido item : this.itens) {
+      this.valorTotalBruto += item.getValorTotalItem();
+      this.valorTotalDescontos += item.getDescontoAplicado();
+      this.valorTotalImpostos += item.getImpostoAplicado();
+      this.valorTotalLiquido += item.getValorLiquidoItem();
+    }
   }
 
 }
