@@ -5,12 +5,15 @@ public class ImpostoAssinaturaStrategy implements IImpostoStrategy {
     this.aliquota = aliquota;
   }
 
+  public float getAliquota() {
+    return this.aliquota;
+  }
+
   @Override
   public float calcularImposto(IProduto produto, float valorBase) {
-    if (!(produto instanceof Assinatura)) {
+    if (!(produto instanceof Assinatura))
       throw new IllegalArgumentException("Produto não é do tipo Assinatura");
-    }
 
-    return valorBase * this.aliquota;
+    return valorBase * (this.aliquota / 100);
   }
 }

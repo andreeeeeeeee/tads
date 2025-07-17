@@ -9,9 +9,8 @@ public class DescontoBlackFridayStrategy extends DescontoStrategy {
 
   @Override
   public float calcularDesconto(Pedido pedido, ItemPedido item, IProduto produto) {
-    if (!isBlackFriday(pedido)) {
+    if (!isBlackFriday(pedido))
       return 0;
-    }
 
     float desconto = produto.getValorBase() * this.percentualDesconto / 100;
     return desconto;
@@ -23,6 +22,6 @@ public class DescontoBlackFridayStrategy extends DescontoStrategy {
     int month = cal.get(Calendar.MONTH);
     int day = cal.get(Calendar.DAY_OF_MONTH);
 
-    return month == Calendar.NOVEMBER && (day >= 22 && day <= 28) && cal.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY;
+    return month == Calendar.NOVEMBER && (day >= 22 && day <= 28);
   }
 }

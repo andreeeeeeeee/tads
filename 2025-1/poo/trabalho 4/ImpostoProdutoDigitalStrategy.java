@@ -11,11 +11,10 @@ public class ImpostoProdutoDigitalStrategy implements IImpostoStrategy {
 
   @Override
   public float calcularImposto(IProduto produto, float valorBase) {
-    if (!(produto instanceof ProdutoDigital)) {
+    if (!(produto instanceof ProdutoDigital))
       throw new IllegalArgumentException("Produto não é do tipo ProdutoDigital");
-    }
 
-    return valorBase * this.aliquota;
+    return valorBase * (this.aliquota / 100);
   }
 
 }

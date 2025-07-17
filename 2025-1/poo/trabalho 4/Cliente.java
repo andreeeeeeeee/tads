@@ -8,6 +8,18 @@ public class Cliente {
   private Date dataNascimento;
   private String endereco;
 
+  public Cliente() {
+    this.id = UUID.randomUUID();
+  }
+
+  public Cliente(String nome, String email, Date dataNascimento, String endereco) {
+    this.id = UUID.randomUUID();
+    this.nome = nome;
+    this.email = email;
+    this.dataNascimento = dataNascimento;
+    this.endereco = endereco;
+  }
+
   public UUID getId() {
     return this.id;
   }

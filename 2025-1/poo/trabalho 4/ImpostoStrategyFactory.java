@@ -1,4 +1,5 @@
-public class ImpostoStrategyFactory {
+public class ImpostoStrategyFactory implements IImpostoStrategyFactory {
+  @Override
   public IImpostoStrategy createImpostoStrategy(EnumTipoProduto tipoProduto, float aliquota) {
     switch (tipoProduto) {
       case DIGITAL -> {
@@ -8,7 +9,7 @@ public class ImpostoStrategyFactory {
         return new ImpostoProdutoFisicoStrategy(aliquota);
       }
       case ASSINATURA -> {
-        return new IsencaoImpostoStrategy();
+        return new ImpostoAssinaturaStrategy(aliquota);
       }
       default -> throw new IllegalArgumentException("Tipo de produto desconhecido: " + tipoProduto);
     }

@@ -1,10 +1,15 @@
 public class CalculadoraPedido {
   private final IDescontoStrategy descontoStrategy;
-  private final ImpostoStrategyFactory impostoStrategyFactory;
+  private final IImpostoStrategyFactory impostoStrategyFactory;
 
   public CalculadoraPedido(IDescontoStrategy descontoStrategy) {
     this.descontoStrategy = descontoStrategy;
     this.impostoStrategyFactory = new ImpostoStrategyFactory();
+  }
+
+  public CalculadoraPedido(IDescontoStrategy descontoStrategy, IImpostoStrategyFactory impostoStrategyFactory) {
+    this.descontoStrategy = descontoStrategy;
+    this.impostoStrategyFactory = impostoStrategyFactory;
   }
 
   public void processarPedido(Pedido pedido) {
@@ -18,16 +23,22 @@ public class CalculadoraPedido {
       float valorTotalItem = valorUnitario * quantidade;
       item.setValorTotalItem(valorTotalItem);
 
-      float valorComDesconto = produto.getValorComDesconto(this.descontoStrategy, pedido, item);
-      float descontoAplicado = valorUnitario - valorComDesconto;
-      item.setDescontoAplicado(descontoAplicado);
+      float descontoPorUnidade = 0;
+      if (this.descontoStrategy != null)
+        descontoPorUnidade = this.descontoStrategy.calcularDesconto(pedido, item, produto);
 
-      IImpostoStrategy impostoStrategy = impostoStrategyFactory.createImpostoStrategy(produto.getTipo(), 20);
-      float valorComImposto = produto.getValorComImposto(impostoStrategy);
-      float impostoAplicado = valorComImposto - valorUnitario;
-      item.setImpostoAplicado(impostoAplicado);
+      float descontoTotal = descontoPorUnidade * quantidade;
+      item.setDescontoAplicado(descontoTotal);
 
-      float valorLiquidoItem = valorTotalItem - descontoAplicado + impostoAplicado;
+      IImpostoStrategy impostoStrategy = impostoStrategyFactory.createImpostoStrategy(produto.getTipo(), 10);
+      float impostoPorUnidade = 0;
+      if (impostoStrategy != null)
+        impostoPorUnidade = impostoStrategy.calcularImposto(produto, valorUnitario);
+
+      float impostoTotal = impostoPorUnidade * quantidade;
+      item.setImpostoAplicado(impostoTotal);
+
+      float valorLiquidoItem = valorTotalItem - descontoTotal + impostoTotal;
       item.setValorLiquidoItem(valorLiquidoItem);
     }
 

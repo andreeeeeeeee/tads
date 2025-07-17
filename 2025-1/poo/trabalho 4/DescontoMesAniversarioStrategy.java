@@ -9,9 +9,8 @@ public class DescontoMesAniversarioStrategy extends DescontoStrategy {
 
   @Override
   public float calcularDesconto(Pedido pedido, ItemPedido item, IProduto produto) {
-    if (!isAniversarioMes(pedido)) {
+    if (!isAniversarioMes(pedido))
       return 0;
-    }
 
     float desconto = produto.getValorBase() * this.percentualDesconto / 100;
     return desconto;

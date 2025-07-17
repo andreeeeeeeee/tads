@@ -8,9 +8,8 @@ public class DescontoPorVolumeStrategy extends DescontoStrategy {
 
   @Override
   public float calcularDesconto(Pedido pedido, ItemPedido item, IProduto produto) {
-    if (item.getQuantidade() < this.quantidadeMinima) {
+    if (item.getQuantidade() < this.quantidadeMinima)
       return 0;
-    }
 
     float desconto = produto.getValorBase() * this.percentualDesconto / 100;
     return desconto;
