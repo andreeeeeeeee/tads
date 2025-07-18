@@ -37,6 +37,10 @@ public class Pedido {
     return this.dataPedido;
   }
 
+  public String getDataString() {
+    return String.format("%1$td/%1$tm/%1$tY", this.dataPedido);
+  }
+
   public void setDataPedido(Date dataPedido) {
     this.dataPedido = dataPedido;
   }

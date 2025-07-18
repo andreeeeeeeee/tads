@@ -145,7 +145,7 @@ public class Main {
 
   private static void testeDescontoMesAniversario(Cliente cliente, ProdutoDigital produtoDigital,
       ProdutoFisico produtoFisico) {
-    System.out.println("Cliente: " + cliente.getNome() + " (Aniversário: " + cliente.getDataNascimento() + ")");
+    System.out.println("Cliente: " + cliente.getNome() + " (Aniversário: " + cliente.getDataString() + ")");
 
     Calendar calPedido = Calendar.getInstance();
     calPedido.set(2025, Calendar.JULY, 17);
@@ -281,7 +281,7 @@ public class Main {
 
   private static void imprimirRelatorioPedido(Pedido pedido, String descricaoEstrategia) {
     System.out.println("RELATÓRIO DO PEDIDO:");
-    System.out.println("   Data: " + pedido.getDataPedido());
+    System.out.println("   Data: " + pedido.getDataString());
     System.out.println("   Estratégia: " + descricaoEstrategia);
     System.out.println("   Valor Bruto: R$ " + String.format("%.2f", pedido.getValorTotalBruto()));
     System.out.println("   Descontos: R$ " + String.format("%.2f", pedido.getValorTotalDescontos()));

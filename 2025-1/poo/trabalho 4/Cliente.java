@@ -48,6 +48,10 @@ public class Cliente {
     return this.dataNascimento;
   }
 
+  public String getDataString() {
+    return String.format("%1$td/%1$tm/%1$tY", this.dataNascimento);
+  }
+
   public void setDataNascimento(Date dataNascimento) {
     this.dataNascimento = dataNascimento;
   }
