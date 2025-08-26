@@ -1,5 +1,7 @@
 package com.strategy.validators;
 
+import com.strategy.validators.negocio.interfaces.ValidadorStrategy;
+
 public class ValidadorContexto {
   private ValidadorStrategy strategy;
 

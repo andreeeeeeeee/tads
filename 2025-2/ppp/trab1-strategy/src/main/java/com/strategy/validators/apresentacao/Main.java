@@ -1,4 +1,10 @@
-package com.strategy.validators;
+package com.strategy.validators.apresentacao;
+
+import com.strategy.validators.ValidadorContexto;
+import com.strategy.validators.negocio.validadores.ValidadorCNPJ;
+import com.strategy.validators.negocio.validadores.ValidadorCPF;
+import com.strategy.validators.negocio.validadores.ValidadorEmail;
+import com.strategy.validators.negocio.validadores.ValidadorTelefone;
 
 public class Main {
   public static void main(String[] args) {

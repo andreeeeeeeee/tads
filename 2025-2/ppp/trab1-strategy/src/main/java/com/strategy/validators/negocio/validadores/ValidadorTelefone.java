@@ -1,4 +1,6 @@
-package com.strategy.validators;
+package com.strategy.validators.negocio.validadores;
+
+import com.strategy.validators.negocio.interfaces.ValidadorStrategy;
 
 public class ValidadorTelefone implements ValidadorStrategy {
   @Override
