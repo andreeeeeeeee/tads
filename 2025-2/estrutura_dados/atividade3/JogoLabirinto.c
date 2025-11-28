@@ -4,6 +4,7 @@
 #include <time.h>
 
 #define MAX_SIZE 15
+#define MAX_ITERACOES_FATOR 10
 #define CAMINHO_LIVRE ' '
 #define PAREDE '#'
 #define INICIO 'S'
@@ -200,9 +201,9 @@ void geraLabirintoNivel1(Labirinto *lab)
 
 void geraLabirintoNivel2(Labirinto *lab)
 {
+  limpaLabirinto(lab);
   lab->tamanho = 10;
   lab->nivel = 2;
-  limpaLabirinto(lab);
 
   for (int i = 0; i < lab->tamanho; i++)
     for (int j = 0; j < lab->tamanho; j++)
@@ -228,9 +229,9 @@ void geraLabirintoNivel2(Labirinto *lab)
 
 void geraLabirintoNivel3(Labirinto *lab)
 {
+  limpaLabirinto(lab);
   lab->tamanho = 15;
   lab->nivel = 3;
-  limpaLabirinto(lab);
 
   for (int i = 0; i < lab->tamanho; i++)
     for (int j = 0; j < lab->tamanho; j++)
@@ -367,7 +368,7 @@ int resolveLabirintoBacktracking(Labirinto *lab, Pilha *pilha, int visualizar)
   push(pilha, criaElementoPasso(linha_atual, coluna_atual, NENHUM));
 
   int passos = 0;
-  int max_iteracoes = lab->tamanho * lab->tamanho * 10;
+  int max_iteracoes = lab->tamanho * lab->tamanho * MAX_ITERACOES_FATOR;
 
   while (!pilhaVazia(pilha) && passos < max_iteracoes)
   {
