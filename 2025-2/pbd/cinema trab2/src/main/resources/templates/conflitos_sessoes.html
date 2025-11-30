@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{titulo}}</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(45deg, #e74c3c, #c0392b);
+      color: white;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .header p {
+      font-size: 1.2em;
+      opacity: 0.9;
+    }
+
+    .main-content {
+      padding: 40px;
+    }
+
+    .back-button {
+      display: inline-block;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      margin-bottom: 30px;
+      transition: all 0.3s ease;
+    }
+
+    .back-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .warning-box {
+      background: #fff3cd;
+      border-left: 5px solid #ffc107;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 8px;
+    }
+
+    .warning-box h3 {
+      color: #856404;
+      margin-bottom: 10px;
+    }
+
+    .warning-box p {
+      color: #856404;
+      line-height: 1.6;
+    }
+
+    .success-box {
+      background: #d4edda;
+      border-left: 5px solid #28a745;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 8px;
+    }
+
+    .success-box h3 {
+      color: #155724;
+      margin-bottom: 10px;
+    }
+
+    .success-box p {
+      color: #155724;
+      line-height: 1.6;
+    }
+
+    .conflict-card {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-left: 5px solid #e74c3c;
+      border-radius: 10px;
+      padding: 25px;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .conflict-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .conflict-header {
+      display: flex;
+      justify-content: between;
+      align-items: center;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .conflict-title {
+      font-size: 1.3em;
+      font-weight: 600;
+      color: #2c3e50;
+      flex: 1;
+    }
+
+    .conflict-time {
+      background: #e74c3c;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-weight: 500;
+      font-size: 0.9em;
+    }
+
+    .conflict-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .detail-item {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #dee2e6;
+    }
+
+    .detail-label {
+      font-size: 0.8em;
+      color: #6c757d;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .detail-value {
+      font-size: 1.1em;
+      font-weight: 500;
+      color: #2c3e50;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background: linear-gradient(45deg, #e74c3c, #c0392b);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .stat-card h4 {
+      font-size: 2em;
+      margin-bottom: 5px;
+    }
+
+    .stat-card p {
+      opacity: 0.9;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #666;
+    }
+
+    .empty-state h3 {
+      margin-bottom: 15px;
+      color: #28a745;
+    }
+
+    .empty-state p {
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .main-content {
+        padding: 20px;
+      }
+
+      .conflict-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .conflict-details {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>⚠️ {{titulo}}</h1>
+      <p>Verificação de sessões simultâneas para o mesmo filme em salas diferentes</p>
+    </div>
+
+    <div class="main-content">
+      <a href="/" class="back-button">← Voltar ao Menu Principal</a>
+
+      {{#conflitos.0}}
+      <div class="warning-box">
+        <h3>🚨 Conflitos Detectados</h3>
+        <p>Foram encontrados conflitos de horário entre sessões. Sessões do mesmo filme não devem ocorrer
+          simultaneamente em salas diferentes, pois isso pode causar problemas operacionais, confusão para os clientes e
+          redução da eficiência do cinema.</p>
+      </div>
+
+      <div class="stats">
+        <div class="stat-card">
+          <h4>{{conflitos.length}}</h4>
+          <p>Conflitos Encontrados</p>
+        </div>
+      </div>
+      {{/conflitos.0}}
+
+      {{#conflitos}}
+      <div class="conflict-card">
+        <div class="conflict-header">
+          <div class="conflict-title">
+            🎬 {{tituloFilme}}
+          </div>
+          <div class="conflict-time">
+            {{horarioFormatado}}
+          </div>
+        </div>
+
+        <div class="conflict-details">
+          <div class="detail-item">
+            <div class="detail-label">Sessão 1</div>
+            <div class="detail-value"># {{sessaoId1}} - Sala {{salaId1}}</div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-label">Sessão 2</div>
+            <div class="detail-value"># {{sessaoId2}} - Sala {{salaId2}}</div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-label">Filme ID</div>
+            <div class="detail-value">{{filmeId}}</div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-label">Problema</div>
+            <div class="detail-value" style="color: #e74c3c;">Horário Simultâneo</div>
+          </div>
+        </div>
+      </div>
+      {{/conflitos}}
+
+      {{^conflitos}}
+      <div class="success-box">
+        <h3>✅ Nenhum Conflito Detectado</h3>
+        <p>Excelente! Não foram encontrados conflitos de horário entre as sessões. Todas as sessões estão adequadamente
+          programadas sem sobreposições problemáticas.</p>
+      </div>
+
+      <div class="empty-state">
+        <h3>🎯 Tudo em Ordem!</h3>
+        <p>A programação das sessões está organizada corretamente.<br>
+          Não há sessões do mesmo filme ocorrendo simultaneamente em salas diferentes.</p>
+
+        <div
+          style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-top: 20px; text-align: left; max-width: 500px; margin-left: auto; margin-right: auto;">
+          <h4 style="margin-bottom: 10px; color: #2c3e50;">💡 Por que verificar conflitos?</h4>
+          <ul style="color: #666; line-height: 1.6;">
+            <li>Evita confusão para os clientes</li>
+            <li>Otimiza o uso das salas</li>
+            <li>Melhora a eficiência operacional</li>
+            <li>Reduz erros de programação</li>
+          </ul>
+        </div>
+      </div>
+      {{/conflitos}}
+
+      <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+        <h4 style="margin-bottom: 15px; color: #2c3e50;">🔧 Endpoints da API</h4>
+        <div style="font-family: 'Courier New', monospace; font-size: 0.9em;">
+          <div style="margin-bottom: 10px;">
+            <strong>JSON:</strong>
+            <span style="color: #3498db;">GET /sessoes/conflitos</span>
+          </div>
+          <div>
+            <strong>HTML:</strong>
+            <span style="color: #3498db;">GET /sessoes/conflitos/view</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

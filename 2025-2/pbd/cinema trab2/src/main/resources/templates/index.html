@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{titulo}}</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .header {
+      color: white;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .header p {
+      font-size: 1.2em;
+      opacity: 0.9;
+    }
+
+    .main-content {
+      padding: 40px;
+    }
+
+    .back-button {
+      display: inline-block;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      margin-bottom: 30px;
+      transition: all 0.3s ease;
+    }
+
+    .back-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .info-box {
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 8px;
+      border-left: 5px solid;
+    }
+
+    .info-box h3 {
+      margin-bottom: 10px;
+    }
+
+    .info-box p {
+      line-height: 1.6;
+    }
+
+    .btn {
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn:disabled {
+      background: #bdc3c7 !important;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #2c3e50;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-control {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-control:focus {
+      outline: none;
+      border-color: #6c5ce7;
+      box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+    }
+
+    .result-box {
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+      display: none;
+    }
+
+    .result-box.success {
+      background: #d4edda;
+      border: 1px solid #c3e6cb;
+      color: #155724;
+    }
+
+    .result-box.error {
+      background: #f8d7da;
+      border: 1px solid #f5c6cb;
+      color: #721c24;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      padding: 18px 15px;
+      text-align: left;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.9em;
+      letter-spacing: 0.5px;
+    }
+
+    td {
+      padding: 15px;
+      border-bottom: 1px solid #f0f0f0;
+      color: #333;
+    }
+
+    tr:hover {
+      background-color: #f8f9fa;
+      transition: background-color 0.2s ease;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #666;
+    }
+
+    .empty-state h3 {
+      margin-bottom: 15px;
+      color: #7f8c8d;
+    }
+
+    .empty-state p {
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .stat-card h4 {
+      font-size: 2em;
+      margin-bottom: 5px;
+    }
+
+    .stat-card p {
+      opacity: 0.9;
+    }
+
+    .warning {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      color: #856404;
+    }
+
+    .warning h5 {
+      margin-bottom: 5px;
+    }
+
+    @media (max-width: 768px) {
+      .main-content {
+        padding: 20px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .header h1 {
+        font-size: 2em;
+      }
+    }
+
+    .header {
+      background: linear-gradient(45deg, #ff6b6b, #ffa500);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .feature-card {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 25px;
+      border-left: 5px solid;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-card.req1 {
+      border-color: #ff6b6b;
+    }
+
+    .feature-card.req2 {
+      border-color: #4ecdc4;
+    }
+
+    .feature-card.req3 {
+      border-color: #45b7d1;
+    }
+
+    .feature-card.req4 {
+      border-color: #f9ca24;
+    }
+
+    .feature-card.req5 {
+      border-color: #6c5ce7;
+    }
+
+    .feature-card h3 {
+      color: #2c3e50;
+      margin-bottom: 15px;
+      font-size: 1.4em;
+    }
+
+    .feature-card p {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .feature-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+    }
+
+    .btn-secondary {
+      background: #ecf0f1;
+      color: #2c3e50;
+      border: 1px solid #bdc3c7;
+    }
+
+    .footer {
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    .api-endpoint {
+      background: #f5f5f5;
+      border-left: 4px solid #3498db;
+      padding: 10px 15px;
+      margin: 10px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9em;
+      color: #2c3e50;
+    }
+
+    @media (max-width: 768px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🎬 {{titulo}}</h1>
+      <p>Sistema completo para gerenciamento de cinema com funcionalidades avançadas</p>
+    </div>
+
+    <div class="main-content">
+      <div class="features-grid">
+        <div class="feature-card req1">
+          <h3>📊 Relatório de Clientes Frequentes</h3>
+          <p>Gera relatório com clientes que compraram ingressos em pelo menos 2 sessões diferentes, incluindo CPF,
+            nome, quantidade de ingressos, total gasto e valor médio por ingresso.</p>
+          <div class="feature-buttons">
+            <a href="/relatorio/clientes-frequentes/view" class="btn btn-primary">Ver Relatório</a>
+            <a href="/relatorio/clientes-frequentes" class="btn btn-secondary">JSON API</a>
+          </div>
+          <div class="api-endpoint">GET /relatorio/clientes-frequentes</div>
+        </div>
+
+        <div class="feature-card req2">
+          <h3>⚠️ Conflitos de Sessões</h3>
+          <p>Verifica conflitos de horário para sessões do mesmo filme em salas diferentes. Identifica sessões que
+            iniciam simultaneamente causando possíveis problemas operacionais.</p>
+          <div class="feature-buttons">
+            <a href="/sessoes/conflitos/view" class="btn btn-primary">Ver Conflitos</a>
+            <a href="/sessoes/conflitos" class="btn btn-secondary">JSON API</a>
+          </div>
+          <div class="api-endpoint">GET /sessoes/conflitos</div>
+        </div>
+
+        <div class="feature-card req3">
+          <h3>🎯 Simulação de Ocupação</h3>
+          <p>Simula a ocupação futura de uma sessão baseada em percentual informado. Insere ingressos simulados e
+            retorna o número de poltronas que seriam ocupadas.</p>
+          <div class="feature-buttons">
+            <a href="/sessoes/simular" class="btn btn-primary">Simular Ocupação</a>
+            <button onclick="exemploSimulacao()" class="btn btn-secondary">Exemplo API</button>
+          </div>
+          <div class="api-endpoint">POST /sessoes/{id}/simular-ocupacao</div>
+        </div>
+
+        <div class="feature-card req4">
+          <h3>💰 Ajuste de Preços</h3>
+          <p>Ajusta automaticamente os preços de sessões com baixa ocupação (< 30%) reduzindo 20% do valor quando falta
+              até 1 hora para o início da sessão.</p>
+              <div class="feature-buttons">
+                <button onclick="ajustarPrecos()" class="btn btn-primary">Ajustar Preços</button>
+                <a href="/sessoes" class="btn btn-secondary">Ver Sessões</a>
+              </div>
+              <div class="api-endpoint">POST /sessoes/ajustar-precos</div>
+        </div>
+
+        <div class="feature-card req5">
+          <h3>🪑 Remanejamento de Poltronas</h3>
+          <p>Permite remanejar um cliente de uma poltrona para outra dentro da mesma sessão. Verifica disponibilidade,
+            atualiza o ingresso e gera log do remanejamento.</p>
+          <div class="feature-buttons">
+            <a href="/ingressos/remanejar" class="btn btn-primary">Remanejar</a>
+            <button onclick="exemploRemanejamento()" class="btn btn-secondary">Exemplo API</button>
+          </div>
+          <div class="api-endpoint">POST /ingressos/remanejar</div>
+        </div>
+
+        <div class="feature-card req1" style="border-color: #e74c3c;">
+          <h3>🎫 Vender Ingresso</h3>
+          <p>Vende ingressos para sessões verificando disponibilidade de poltronas e capacidade da sala. Impede venda
+            de assentos já ocupados e ultrapassagem da capacidade máxima.</p>
+          <div class="feature-buttons">
+            <a href="/ingressos/vender" class="btn btn-primary">Vender Ingresso</a>
+            <button onclick="exemploVenderIngresso()" class="btn btn-secondary">Exemplo API</button>
+          </div>
+          <div class="api-endpoint">POST /ingressos/vender</div>
+        </div>
+
+        <div class="feature-card req2" style="border-color: #27ae60;">
+          <h3>💺 Assentos Disponíveis</h3>
+          <p>Lista todos os assentos disponíveis para uma sessão específica. Mostra fileira, número e tipo de poltrona
+            que ainda podem ser vendidas.</p>
+          <div class="feature-buttons">
+            <a href="/assentos/disponiveis" class="btn btn-primary">Ver Assentos</a>
+            <button onclick="exemploAssentosDisponiveis()" class="btn btn-secondary">Exemplo API</button>
+          </div>
+          <div class="api-endpoint">GET /sessoes/{id}/assentos-disponiveis</div>
+        </div>
+
+        <div class="feature-card req3" style="border-color: #f39c12;">
+          <h3>📈 Relatório de Ocupação</h3>
+          <p>Gera relatório detalhado de ocupação de uma sessão incluindo capacidade da sala, ingressos vendidos,
+            percentual de ocupação e informações do filme.</p>
+          <div class="feature-buttons">
+            <a href="/relatorio/ocupacao" class="btn btn-primary">Ver Relatório</a>
+            <button onclick="exemploRelatorioOcupacao()" class="btn btn-secondary">Exemplo API</button>
+          </div>
+          <div class="api-endpoint">GET /sessoes/{id}/relatorio-ocupacao</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 40px;">
+        <h3 style="color: #2c3e50; margin-bottom: 20px;">🔧 Funcionalidades Auxiliares</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+          <a href="/sessoes" class="btn btn-secondary">📅 Listar Sessões</a>
+          <button onclick="cadastrarCliente()" class="btn btn-secondary">👤 Cadastrar Cliente</button>
+          <button onclick="verificarOcupacao()" class="btn btn-secondary">📊 Ver Ocupação</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>🎓 Trabalho 2 - Programação para Banco de Dados</p>
+      <p>Sistema desenvolvido com Javalin + PostgreSQL + Funções/Triggers</p>
+    </div>
+  </div>
+
+  <script>
+    function ajustarPrecos() {
+      if (confirm('Deseja ajustar os preços de todas as sessões com baixa ocupação?')) {
+        fetch('/sessoes/ajustar-precos', { method: 'POST' })
+          .then(response => response.json())
+          .then(data => {
+            alert(`Sucesso! ${data.ingressos_ajustados} ingressos tiveram seus preços ajustados.`);
+          })
+          .catch(error => {
+            alert('Erro ao ajustar preços: ' + error);
+          });
+      }
+    }
+
+    function exemploSimulacao() {
+      const sessaoId = prompt('Digite o ID da sessão:');
+      const percentual = prompt('Digite o percentual de ocupação (0-100):');
+
+      if (sessaoId && percentual) {
+        fetch(`/sessoes/${sessaoId}/simular-ocupacao`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ percentual: parseFloat(percentual) })
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.sucesso) {
+              alert(`Simulação concluída! ${data.poltronas_ocupadas} poltronas foram ocupadas (${data.percentual_simulado}%).`);
+            } else {
+              alert('Erro: ' + data.erro);
+            }
+          })
+          .catch(error => alert('Erro: ' + error));
+      }
+    }
+
+    function exemploRemanejamento() {
+      const cpf = prompt('Digite o CPF do cliente:');
+      const sessaoId = prompt('Digite o ID da sessão:');
+      const poltronaAntiga = prompt('Digite o ID da poltrona atual:');
+      const poltronaNova = prompt('Digite o ID da nova poltrona:');
+
+      if (cpf && sessaoId && poltronaAntiga && poltronaNova) {
+        fetch('/ingressos/remanejar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            cpf: cpf,
+            sessao_id: parseInt(sessaoId),
+            poltrona_antiga: parseInt(poltronaAntiga),
+            poltrona_nova: parseInt(poltronaNova)
+          })
+        })
+          .then(response => response.json())
+          .then(data => {
+            alert(data.mensagem);
+          })
+          .catch(error => alert('Erro: ' + error));
+      }
+    }
+
+    function verificarOcupacao() {
+      const sessaoId = prompt('Digite o ID da sessão:');
+      if (sessaoId) {
+        fetch(`/sessoes/${sessaoId}/ocupacao`)
+          .then(response => response.json())
+          .then(data => {
+            alert(`Ocupação da sessão ${data.sessao_id}: ${data.percentual_ocupacao.toFixed(2)}%`);
+          })
+          .catch(error => alert('Erro: ' + error));
+      }
+    }
+
+    function exemploVenderIngresso() {
+      const cpf = prompt('Digite o CPF do cliente:');
+      const sessaoId = prompt('Digite o ID da sessão:');
+      const poltronaId = prompt('Digite o ID da poltrona:');
+      const valor = prompt('Digite o valor do ingresso:');
+
+      if (cpf && sessaoId && poltronaId && valor) {
+        fetch('/ingressos/vender', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            cpf: cpf,
+            sessao_id: parseInt(sessaoId),
+            poltrona_id: parseInt(poltronaId),
+            valor: parseFloat(valor)
+          })
+        })
+          .then(response => response.json())
+          .then(data => {
+            alert(data.mensagem);
+          })
+          .catch(error => alert('Erro: ' + error));
+      }
+    }
+
+    function exemploAssentosDisponiveis() {
+      const sessaoId = prompt('Digite o ID da sessão:');
+      if (sessaoId) {
+        fetch(`/sessoes/${sessaoId}/assentos-disponiveis`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.length > 0) {
+              const assentos = data.map(a => `${a.fileira}${a.numero}`).join(', ');
+              alert(`Assentos disponíveis: ${assentos}`);
+            } else {
+              alert('Nenhum assento disponível');
+            }
+          })
+          .catch(error => alert('Erro: ' + error));
+      }
+    }
+
+    function exemploRelatorioOcupacao() {
+      const sessaoId = prompt('Digite o ID da sessão:');
+      if (sessaoId) {
+        fetch(`/sessoes/${sessaoId}/relatorio-ocupacao`)
+          .then(response => response.json())
+          .then(data => {
+            alert(`Relatório da sessão ${data.sessaoId}:
+Filme: ${data.tituloFilme}
+Sala: ${data.salaId}
+Capacidade: ${data.capacidade}
+Ocupados: ${data.ocupados}
+Percentual: ${data.percentual.toFixed(1)}%`);
+          })
+          .catch(error => alert('Erro: ' + error));
+      }
+    }
+
+    function cadastrarCliente() {
+      const cpf = prompt('CPF:');
+      const nome = prompt('Nome:');
+      const email = prompt('Email:');
+      const telefone = prompt('Telefone:');
+
+      if (cpf && nome) {
+        fetch('/clientes', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ cpf, nome, email, telefone })
+        })
+          .then(response => response.json())
+          .then(data => alert(data.mensagem || data.erro))
+          .catch(error => alert('Erro: ' + error));
+      }
+    }
+  </script>
+</body>
+
+</html>

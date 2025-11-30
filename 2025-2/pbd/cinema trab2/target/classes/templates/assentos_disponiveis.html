@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{titulo}}</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+      color: white;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .header p {
+      font-size: 1.2em;
+      opacity: 0.9;
+    }
+
+    .main-content {
+      padding: 40px;
+    }
+
+    .form-section {
+      margin-bottom: 40px;
+    }
+
+    .form-section h2 {
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 1.8em;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+
+    .form-group select:focus {
+      outline: none;
+      border-color: #2196F3;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .assentos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .poltrona {
+      background: #4CAF50;
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .poltrona.disponivel {
+      background: #4CAF50;
+      cursor: pointer;
+    }
+
+    .poltrona.disponivel:hover {
+      background: #45a049;
+      transform: scale(1.05);
+    }
+
+    .info-section {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .info-section h3 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .info-section p {
+      margin: 5px 0;
+      color: #666;
+    }
+
+    .loading {
+      text-align: center;
+      margin-top: 20px;
+      display: none;
+    }
+
+    .spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #2196F3;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>{{titulo}}</h1>
+      <p>Visualização de assentos disponíveis por sessão</p>
+    </div>
+
+    <div class="main-content">
+      <div class="form-section">
+        <h2>Selecionar Sessão</h2>
+        <form id="selecionarSessaoForm">
+          <div class="form-group">
+            <label for="sessao">Sessão:</label>
+            <select id="sessao" name="sessao_id" required>
+              <option value="">Selecione uma sessão</option>
+              {{#sessoes}}
+              <option value="{{id}}">{{titulo}} - Sala {{sala_id}} - {{data}} {{hora_inicio}}</option>
+              {{/sessoes}}
+            </select>
+          </div>
+
+          <button type="submit" class="btn">Visualizar Assentos</button>
+        </form>
+      </div>
+
+      <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>Carregando assentos...</p>
+      </div>
+
+      <div id="infoSection" style="display: none;">
+        <div class="info-section">
+          <h3>Informações da Sessão</h3>
+          <p id="sessaoInfo"></p>
+        </div>
+      </div>
+
+      <div id="assentosSection" style="display: none;">
+        <h2>Assentos Disponíveis</h2>
+        <div class="assentos-grid" id="assentosGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('selecionarSessaoForm');
+    const loading = document.getElementById('loading');
+    const infoSection = document.getElementById('infoSection');
+    const assentosSection = document.getElementById('assentosSection');
+    const sessaoInfo = document.getElementById('sessaoInfo');
+    const assentosGrid = document.getElementById('assentosGrid');
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const sessaoId = document.getElementById('sessao').value;
+      if (!sessaoId) return;
+
+      loading.style.display = 'block';
+      infoSection.style.display = 'none';
+      assentosSection.style.display = 'none';
+
+      try {
+        // Carregar informações da sessão
+        const sessoesResponse = await fetch('/sessoes');
+        const sessoes = await sessoesResponse.json();
+        const sessao = sessoes.find(s => s.id == sessaoId);
+
+        if (sessao) {
+          sessaoInfo.innerHTML = `
+            <strong>Filme:</strong> ${sessao.titulo}<br>
+            <strong>Sala:</strong> ${sessao.sala_id}<br>
+            <strong>Data:</strong> ${sessao.data}<br>
+            <strong>Horário:</strong> ${sessao.hora_inicio}
+          `;
+          infoSection.style.display = 'block';
+        }
+
+        // Carregar assentos disponíveis
+        const assentosResponse = await fetch(`/sessoes/${sessaoId}/assentos-disponiveis`);
+        const poltronas = await assentosResponse.json();
+
+        assentosGrid.innerHTML = '';
+        poltronas.forEach(poltrona => {
+          const poltronaDiv = document.createElement('div');
+          poltronaDiv.className = 'poltrona disponivel';
+          poltronaDiv.textContent = `${poltrona.fileira}${poltrona.numero}`;
+          assentosGrid.appendChild(poltronaDiv);
+        });
+
+        assentosSection.style.display = 'block';
+      } catch (error) {
+        console.error('Erro ao carregar dados:', error);
+        alert('Erro ao carregar dados da sessão');
+      } finally {
+        loading.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+
+</html>
