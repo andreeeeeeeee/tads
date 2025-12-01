@@ -32,7 +32,7 @@ CREATE OR REPLACE PROCEDURE vender_ingresso(
     cpf_aux CHAR(11),
     sessao_id_aux INTEGER,
     poltrona_id_aux INTEGER,
-    valor_aux NUMERIC
+    valor_aux DOUBLE PRECISION
 ) AS $$
 DECLARE
     capacidade_sala INTEGER;
@@ -78,12 +78,12 @@ BEGIN
     WHERE s.id = sessao_id_aux;
 
     SELECT COUNT(*) INTO ocup_aux
-    FROM ingresso
-    WHERE sessao_id = sessao_id_aux AND cpf IS NOT NULL;
+    FROM ingresso i
+    WHERE i.sessao_id = sessao_id_aux AND i.cpf IS NOT NULL;
 
-    perc_aux := (ocup_aux::NUMERIC / cap_aux::NUMERIC) * 100;
+    perc_aux := (ocup_aux::NUMERIC / NULLIF(cap_aux, 0)::NUMERIC) * 100;
 
-    RETURN QUERY SELECT sessao_id_aux, titulo_aux, sala_aux, cap_aux, ocup_aux, perc_aux;
+    RETURN QUERY SELECT sessao_id_aux, titulo_aux, sala_aux, cap_aux, ocup_aux, COALESCE(perc_aux, 0);
 END;
 $$ LANGUAGE plpgsql;
 
@@ -122,8 +122,8 @@ BEGIN
     WHERE s.id = NEW.sessao_id;
 
     SELECT COUNT(*) INTO ocup
-    FROM ingresso
-    WHERE sessao_id = NEW.sessao_id AND cpf IS NOT NULL;
+    FROM ingresso i
+    WHERE i.sessao_id = NEW.sessao_id AND i.cpf IS NOT NULL;
 
     perc := (ocup::NUMERIC / cap::NUMERIC) * 100;
 

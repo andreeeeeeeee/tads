@@ -1,9 +1,11 @@
 package com.javalin.trab2.persistencia;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,8 +39,8 @@ public class SessaoDAO {
         sessao.setId(rs.getInt("id"));
         sessao.setFilmeId(rs.getInt("filme_id"));
         sessao.setSalaId(rs.getInt("sala_id"));
-        java.sql.Date data = rs.getDate("data");
-        java.sql.Time horaInicio = rs.getTime("hora_inicio");
+        Date data = rs.getDate("data");
+        Time horaInicio = rs.getTime("hora_inicio");
         if (data != null && horaInicio != null) {
           sessao.setHorario(data.toLocalDate().atTime(horaInicio.toLocalTime()));
         }
@@ -68,7 +70,7 @@ public class SessaoDAO {
         if (data != null && horaInicio != null) {
           sessao.setHorario(data.toLocalDate().atTime(horaInicio.toLocalTime()));
         }
-        sessao.setValor(25.00); 
+        sessao.setValor(25.00);
         return sessao;
       }
     }

@@ -407,7 +407,7 @@
         const match = text.match(/R\$ (\d+\.?\d*)/);
         if (match) {
           const value = parseFloat(match[1]);
-          element.textContent = 'R$ ' + value.toFixed(2).replace('.', ',');
+          element.textContent = 'R$ ' + value?.toFixed(2).replace('.', ',');
         }
       });
     });

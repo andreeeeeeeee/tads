@@ -1,6 +1,7 @@
 package com.javalin.trab2.negocio;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Sessao {
   private int id;
@@ -57,6 +58,13 @@ public class Sessao {
 
   public void setValor(double valor) {
     this.valor = valor;
+  }
+
+  public String getHorarioFormatado() {
+    if (horario == null)
+      return "";
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    return horario.format(formatter);
   }
 
   @Override

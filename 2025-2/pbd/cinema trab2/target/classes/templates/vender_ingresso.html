@@ -50,6 +50,22 @@
       padding: 40px;
     }
 
+    .back-button {
+      display: inline-block;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      margin-bottom: 30px;
+      transition: all 0.3s ease;
+    }
+
+    .back-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
     .form-section {
       margin-bottom: 40px;
     }
@@ -138,8 +154,13 @@
     }
 
     @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
     }
   </style>
 </head>
@@ -152,6 +173,8 @@
     </div>
 
     <div class="main-content">
+      <a href="/" class="back-button">← Voltar ao Menu Principal</a>
+
       <div class="form-section">
         <h2>Vender Ingresso</h2>
         <form id="venderIngressoForm">
@@ -160,7 +183,7 @@
             <select id="sessao" name="sessao_id" required>
               <option value="">Selecione uma sessão</option>
               {{#sessoes}}
-              <option value="{{id}}">{{titulo}} - Sala {{sala_id}} - {{data}} {{hora_inicio}}</option>
+              <option value="{{id}}">Sala {{salaId}} - {{horarioFormatado}}</option>
               {{/sessoes}}
             </select>
           </div>
@@ -202,7 +225,7 @@
     const loading = document.getElementById('loading');
     const result = document.getElementById('result');
 
-    sessaoSelect.addEventListener('change', async function() {
+    sessaoSelect.addEventListener('change', async function () {
       const sessaoId = this.value;
       if (sessaoId) {
         poltronaSelect.disabled = true;
@@ -230,12 +253,13 @@
       }
     });
 
-    form.addEventListener('submit', async function(e) {
+    form.addEventListener('submit', async function (e) {
       e.preventDefault();
 
       const formData = new FormData(form);
+      const cpfRaw = formData.get('cpf').replace(/\D/g, '');
       const data = {
-        cpf: formData.get('cpf'),
+        cpf: cpfRaw,
         sessao_id: parseInt(formData.get('sessao_id')),
         poltrona_id: parseInt(formData.get('poltrona_id')),
         valor: parseFloat(formData.get('valor'))

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.javalin.trab2.negocio.CinemaService;
 import com.javalin.trab2.negocio.Cliente;
 import com.javalin.trab2.negocio.ConflitoDeSessao;
@@ -17,16 +18,19 @@ import com.javalin.trab2.negocio.RelatorioOcupacao;
 import com.javalin.trab2.negocio.Sessao;
 
 import io.javalin.Javalin;
+import io.javalin.json.JavalinJackson;
 import io.javalin.rendering.template.JavalinMustache;
 
 public class Main {
 
   private static final CinemaService cinemaService = new CinemaService();
-  private static final ObjectMapper objectMapper = new ObjectMapper();
+  private static final ObjectMapper objectMapper = new ObjectMapper()
+      .registerModule(new JavaTimeModule());
 
   public static void main(String[] args) {
     Javalin app = Javalin.create(config -> {
       config.fileRenderer(new JavalinMustache());
+      config.jsonMapper(new JavalinJackson(objectMapper, true));
     }).start(7070);
 
     app.get("/", ctx -> {
@@ -230,7 +234,7 @@ public class Main {
         String sinopse = (String) requestBody.get("sinopse");
 
         boolean sucesso = cinemaService.adicionarFilme(titulo, duracao, classificacao, sinopse);
-        
+
         if (sucesso) {
           ctx.json(Map.of("sucesso", true, "mensagem", "Filme adicionado com sucesso"));
         } else {
@@ -247,7 +251,7 @@ public class Main {
       try {
         int id = Integer.parseInt(ctx.pathParam("id"));
         boolean sucesso = cinemaService.excluirFilme(id);
-        
+
         if (sucesso) {
           ctx.json(Map.of("sucesso", true, "mensagem", "Filme excluído com sucesso"));
         } else {

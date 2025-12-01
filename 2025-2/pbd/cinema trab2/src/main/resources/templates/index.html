@@ -528,7 +528,7 @@
         fetch(`/sessoes/${sessaoId}/ocupacao`)
           .then(response => response.json())
           .then(data => {
-            alert(`Ocupação da sessão ${data.sessao_id}: ${data.percentual_ocupacao.toFixed(2)}%`);
+            alert(`Ocupação da sessão ${data.sessao_id}: ${data.percentual_ocupacao?.toFixed(2)}%`);
           })
           .catch(error => alert('Erro: ' + error));
       }
@@ -587,7 +587,7 @@ Filme: ${data.tituloFilme}
 Sala: ${data.salaId}
 Capacidade: ${data.capacidade}
 Ocupados: ${data.ocupados}
-Percentual: ${data.percentual.toFixed(1)}%`);
+Percentual: ${data.percentual?.toFixed(1)}%`);
           })
           .catch(error => alert('Erro: ' + error));
       }

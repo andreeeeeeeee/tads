@@ -119,13 +119,14 @@ public class IngressoDAO {
   public double calcularPercentualOcupacao(int sessaoId) throws SQLException {
     String sql = """
         SELECT
-            COUNT(i.id)::FLOAT / p.total_poltronas * 100 as percentual
-        FROM
-            (SELECT COUNT(*) as total_poltronas
-             FROM poltrona pol
-             INNER JOIN sessao s ON pol.sala_id = s.sala_id
-             WHERE s.id = ?) p
-        LEFT JOIN ingresso i ON i.sessao_id = ?
+            COALESCE(
+              (SELECT COUNT(*) FROM ingresso WHERE sessao_id = ? AND cpf IS NOT NULL)::FLOAT /
+              NULLIF((SELECT sa.ocupacao
+                      FROM sala sa
+                      INNER JOIN sessao s ON sa.id = s.sala_id
+                      WHERE s.id = ?), 0) * 100,
+              0
+            ) as percentual
         """;
 
     try (Connection conexao = conexaoBanco.getConexao();

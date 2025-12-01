@@ -50,6 +50,22 @@
       padding: 40px;
     }
 
+    .back-button {
+      display: inline-block;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      margin-bottom: 30px;
+      transition: all 0.3s ease;
+    }
+
+    .back-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
     .form-section {
       margin-bottom: 40px;
     }
@@ -195,8 +211,13 @@
     }
 
     @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
     }
   </style>
 </head>
@@ -209,6 +230,8 @@
     </div>
 
     <div class="main-content">
+      <a href="/" class="back-button">← Voltar ao Menu Principal</a>
+
       <div class="form-section">
         <h2>Selecionar Sessão</h2>
         <form id="selecionarSessaoForm">
@@ -217,7 +240,7 @@
             <select id="sessao" name="sessao_id" required>
               <option value="">Selecione uma sessão</option>
               {{#sessoes}}
-              <option value="{{id}}">{{titulo}} - Sala {{sala_id}} - {{data}} {{hora_inicio}}</option>
+              <option value="{{id}}">Sala {{salaId}} - {{horarioFormatado}}</option>
               {{/sessoes}}
             </select>
           </div>
@@ -278,7 +301,7 @@
     const progressFill = document.getElementById('progressFill');
     const progressText = document.getElementById('progressText');
 
-    form.addEventListener('submit', async function(e) {
+    form.addEventListener('submit', async function (e) {
       e.preventDefault();
 
       const sessaoId = document.getElementById('sessao').value;
@@ -288,11 +311,9 @@
       relatorioCard.style.display = 'none';
 
       try {
-        // Carregar relatório
         const response = await fetch(`/sessoes/${sessaoId}/relatorio-ocupacao`);
         const relatorio = await response.json();
 
-        // Carregar informações da sessão
         const sessoesResponse = await fetch('/sessoes');
         const sessoes = await sessoesResponse.json();
         const sessao = sessoes.find(s => s.id == sessaoId);
@@ -300,12 +321,13 @@
         tituloRelatorio.textContent = `Relatório de Ocupação - ${relatorio.tituloFilme}`;
         infoSessao.textContent = `Sala ${relatorio.salaId} - Sessão ${relatorio.sessaoId}`;
 
-        capacidade.textContent = relatorio.capacidade;
-        ocupados.textContent = relatorio.ocupados;
-        percentual.textContent = `${relatorio.percentual.toFixed(1)}%`;
+        capacidade.textContent = relatorio.capacidade || 0;
+        ocupados.textContent = relatorio.ocupados || 0;
+        const perc = relatorio.percentual || 0;
+        percentual.textContent = `${perc.toFixed(1)}%`;
 
-        progressFill.style.width = `${relatorio.percentual}%`;
-        progressText.textContent = `${relatorio.percentual.toFixed(1)}% de ocupação`;
+        progressFill.style.width = `${perc}%`;
+        progressText.textContent = `${perc.toFixed(1)}% de ocupação`;
 
         relatorioCard.style.display = 'block';
       } catch (error) {

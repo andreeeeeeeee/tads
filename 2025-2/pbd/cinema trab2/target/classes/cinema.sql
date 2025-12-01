@@ -474,7 +474,7 @@ DECLARE
     resto2 integer := 0;
     digito2 integer := 0;
 BEGIN
-    IF (isnumeric(cpf::text) is FALSE) THEN
+    IF (public.isnumeric(cpf::text) is FALSE) THEN
         RETURN FALSE;
     END IF;
 
@@ -1046,7 +1046,7 @@ CREATE VIEW public.relatorio_clientes_frequentes AS
    FROM (public.cliente c
      JOIN public.ingresso i ON ((c.cpf = i.cpf)))
   GROUP BY c.cpf, c.nome
- HAVING (count(i.id) >= 5)
+ HAVING (count(DISTINCT i.sessao_id) >= 2)
   ORDER BY (sum(i.valor)) DESC;
 
 
@@ -1335,8 +1335,8 @@ INSERT INTO public.genero VALUES (4, 'AÇÃO');
 -- Data for Name: ingresso; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.ingresso VALUES (40, '60721765858', 4, 0.00, 6, 1, '2025-11-10 21:35:21.97579');
-INSERT INTO public.ingresso VALUES (41, '60721765858', 4, 0.00, 7, 1, '2025-11-10 21:35:34.159442');
+INSERT INTO public.ingresso VALUES (40, '60721765858', 4, 15.00, 6, 1, '2025-11-10 21:35:21.97579');
+INSERT INTO public.ingresso VALUES (41, '60721765858', 4, 15.00, 7, 1, '2025-11-10 21:35:34.159442');
 
 
 --
@@ -1434,8 +1434,8 @@ INSERT INTO public.sala VALUES (2, 50);
 -- Data for Name: sessao; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.sessao VALUES (4, 2, 2, '2025-10-24', '20:30:55.504385', '20:30:55.504385');
-INSERT INTO public.sessao VALUES (7, 2, 1, '2025-11-24', '21:28:59.127491', '21:28:59.127491');
+INSERT INTO public.sessao VALUES (4, 2, 2, '2026-01-24', '20:30:55.504385', '20:30:55.504385');
+INSERT INTO public.sessao VALUES (7, 2, 1, '2026-11-24', '21:28:59.127491', '21:28:59.127491');
 
 
 --
