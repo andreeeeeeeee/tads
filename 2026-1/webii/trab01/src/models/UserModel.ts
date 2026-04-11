@@ -12,7 +12,7 @@ export interface UserRow {
   password_hash: string;
   role: UserRole;
   email_verified: boolean;
-  active: number;
+  active: boolean;
   created_at: string;
   email_verify_code: string | null;
   email_verify_expires_at: string | null;
@@ -26,7 +26,7 @@ function rowToUser(raw: Record<string, unknown>): UserRow {
     password_hash: raw.password_hash as string,
     role: raw.role as UserRole,
     email_verified: Boolean(raw.email_verified),
-    active: Number(raw.active) ? 1 : 0,
+    active: Boolean(raw.active),
     created_at: raw.created_at as string,
     email_verify_code: raw.email_verify_code != null ? String(raw.email_verify_code) : null,
     email_verify_expires_at: raw.email_verify_expires_at != null ? String(raw.email_verify_expires_at) : null,
@@ -75,12 +75,12 @@ export function listUsersForAdmin(): AdminUserListItem[] {
 }
 
 export function setUserActive(id: number, active: boolean): void {
-  db.prepare('UPDATE users SET active = ? WHERE id = ?').run(active ? 1 : 0, id);
+  db.prepare('UPDATE users SET active = ? WHERE id = ?').run(active, id);
 }
 
 export function countActiveAdmins(): number {
   const row = db.prepare(
-    `SELECT COUNT(*) as c FROM users WHERE role = 'admin' AND active = 1`,
+    `SELECT COUNT(*) as c FROM users WHERE role = 'admin' AND active = true`,
   ).get() as { c: number };
   return row.c;
 }
@@ -96,7 +96,7 @@ export function createUser(params: {
   const result = db
     .prepare(
       `INSERT INTO users (name, email, password_hash, role, email_verified, active)
-       VALUES (@name, @email, @password_hash, @role, 0, 1)`,
+       VALUES (@name, @email, @password_hash, @role, false, true)`,
     )
     .run({
       name: params.name.trim(),
@@ -147,7 +147,7 @@ export function verifyEmailWithCode(email: string, inputCode: string): VerifyCod
     return { ok: false, reason: 'invalid_code' };
   }
   db.prepare(
-    `UPDATE users SET email_verified = 1, email_verify_code = NULL, email_verify_expires_at = NULL WHERE id = ?`,
+    `UPDATE users SET email_verified = true, email_verify_code = NULL, email_verify_expires_at = NULL WHERE id = ?`,
   ).run(user.id);
   return { ok: true };
 }
