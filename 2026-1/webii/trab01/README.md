@@ -23,6 +23,25 @@
 4. **Banco de dados:**
    - O banco SQLite será criado automaticamente como `banco.db` na raiz do projeto.
 
+## Configuração do arquivo `.env`
+
+Crie um arquivo `.env` na raiz do projeto com o seguinte conteúdo (exemplo para Gmail):
+
+``` .env
+SESSION_SECRET="sua-chave-secreta"
+SMTP_HOST="smtp.gmail.com"
+SMTP_PORT=587
+SMTP_SECURE=0
+SMTP_USER="seu-email@gmail.com"
+SMTP_PASS="sua-senha-de-app"
+EMAIL_FROM="MarketMVP <seu-email@gmail.com>"
+```
+
+- `SESSION_SECRET`: Uma string secreta para proteger as sessões.
+- `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS`, `EMAIL_FROM`: Dados do servidor SMTP para envio de e-mails (exemplo acima para Gmail). Para Gmail, use uma senha de app.
+
+> **Importante:** Para Gmail, gere uma senha de app em <https://myaccount.google.com/apppasswords>
+
 ## Usuários de Teste
 
 - **Administrador:**
