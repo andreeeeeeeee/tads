@@ -21,7 +21,7 @@ function requireSeller(req: Request, res: Response, next: NextFunction) {
 }
 
 router.get('/dashboard', requireSeller, async (req: Request, res: Response) => {
-  const produtos = ProductModel.findByUser(req.session.user?.id || 0);
+  const produtos = ProductModel.findByUser(req.session.user!.id);
   res.render('seller-dashboard', { produtos });
 });
 
@@ -33,7 +33,7 @@ router.post('/cadastrar', requireSeller, productImageUpload.single('image'), asy
     imageUrl = stored.imageUrl;
   }
   ProductModel.create({
-    userId: req.session.user?.id || 0,
+    userId: req.session.user!.id,
     name: nome,
     description: descricao,
     category: categoria,

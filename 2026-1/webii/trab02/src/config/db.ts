@@ -12,6 +12,12 @@ db.exec(`
     name TEXT NOT NULL,
     email TEXT NOT NULL UNIQUE,
     password_hash TEXT NOT NULL,
+    telefone TEXT NOT NULL DEFAULT '',
+    endereco TEXT NOT NULL DEFAULT '',
+    cidade TEXT NOT NULL DEFAULT '',
+    estado TEXT NOT NULL DEFAULT '',
+    cep TEXT NOT NULL DEFAULT '',
+    pagamento TEXT NOT NULL DEFAULT '',
     role TEXT NOT NULL,
     email_verified BOOLEAN NOT NULL DEFAULT false,
     active BOOLEAN NOT NULL DEFAULT true,
@@ -48,11 +54,11 @@ db.exec(`
   );
 `);
 
-db.exec(`
-  INSERT INTO users (id, name, email, password_hash, role, email_verified) VALUES
-    (1, 'Admin User', 'admin@teste.com', '${bcrypt.hashSync('Admin@123', 10)}', 'admin', true),
-    (2, 'Comprador User', 'comprador@teste.com', '${bcrypt.hashSync('Comprador@123', 10)}', 'comprador', true),
-    (3, 'Vendedor User', 'vendedor@teste.com', '${bcrypt.hashSync('Vendedor@123', 10)}', 'vendedor', true);
-`);
+// db.exec(`
+//   INSERT INTO users (id, name, email, password_hash, role, email_verified) VALUES
+//     (1, 'Admin User', 'admin@teste.com', '${bcrypt.hashSync('Admin@123', 10)}', 'admin', true),
+//     (2, 'Comprador User', 'comprador@teste.com', '${bcrypt.hashSync('Comprador@123', 10)}', 'comprador', true),
+//     (3, 'Vendedor User', 'vendedor@teste.com', '${bcrypt.hashSync('Vendedor@123', 10)}', 'vendedor', true);
+// `);
 
 export default db;

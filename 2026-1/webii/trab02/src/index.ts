@@ -23,6 +23,8 @@ import * as LoginController from './controllers/LoginController';
 import ProductsController from './controllers/ProductsController';
 import * as SignupController from './controllers/SignupController';
 import * as VerifyEmailController from './controllers/VerifyEmailController';
+import * as SellerController from './controllers/SellerController';
+import * as BuyerController from './controllers/BuyerController';
 import { auditLog } from './middleware/auditLog';
 import { requireAuth, requireRole } from './middleware/requireAuth';
 import { requireGuest } from './middleware/requireGuest';
@@ -68,7 +70,7 @@ app.use((req, res, next) => {
 
   req.session.urls = req.session.urls || [];
   (req.session.urls as any).push(req.url);
-
+  
   console.log({
     id_sessao: req.sessionID,
     sessao: req.session
@@ -76,7 +78,12 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get('/', HomeController.index);
+app.get('/index.html', HomeController.index);
+app.get('/index', HomeController.index);
+
 app.use(auditLog());
+app.use('/uploads', express.static('uploads'));
 
 app.get('/signup', requireGuest, SignupController.showSignupForm);
 app.get('/signup.html', requireGuest, SignupController.showSignupForm);
@@ -96,9 +103,6 @@ app.get('/login.html', requireGuest, LoginController.show);
 app.post('/login', requireGuest, LoginController.submit);
 app.post('/logout', LoginController.logout);
 
-app.get('/index.html', (_req, res) => {
-  res.render('index');
-});
 app.get('/categories.html', (_req, res) => {
   res.render('categories');
 });
@@ -116,9 +120,7 @@ app.get('/orders.html', requireAuth, requireRole('comprador'), (_req, res) => {
   res.render('orders');
 });
 
-app.get('/seller-dashboard.html', requireAuth, requireRole('vendedor'), (_req, res) => {
-  res.render('seller-dashboard');
-});
+app.get('/seller-dashboard.html', requireAuth, requireRole('vendedor'), SellerController.dashboard);
 
 app.post(
   '/admin/users/:id/active',
@@ -132,7 +134,10 @@ app.get('/logs', requireAuth, requireRole('admin'), LogController.getLogs);
 
 app.use('/produtos', ProductsController);
 
-app.get('/', HomeController.index);
+
+app.get('/comprador/perfil', requireAuth, requireRole('comprador'), BuyerController.profile);
+app.get('/comprador/editar', requireAuth, requireRole('comprador'), BuyerController.showEdit);
+app.post('/comprador/editar', requireAuth, requireRole('comprador'), BuyerController.update);
 
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);

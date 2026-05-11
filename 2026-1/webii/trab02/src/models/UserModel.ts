@@ -10,6 +10,12 @@ export interface UserRow {
   name: string;
   email: string;
   password_hash: string;
+  telefone: string;
+  endereco: string;
+  cidade: string;
+  estado: string;
+  cep: string;
+  pagamento: string;  
   role: UserRole;
   email_verified: boolean;
   active: boolean;
@@ -24,6 +30,12 @@ function rowToUser(raw: Record<string, unknown>): UserRow {
     name: raw.name as string,
     email: raw.email as string,
     password_hash: raw.password_hash as string,
+    telefone: raw.telefone as string,
+    endereco: raw.endereco as string,
+    cidade: raw.cidade as string,
+    estado: raw.estado as string,
+    cep: raw.cep as string,
+    pagamento: raw.pagamento as string,
     role: raw.role as UserRole,
     email_verified: Boolean(raw.email_verified),
     active: Boolean(raw.active),
@@ -170,4 +182,37 @@ export function authenticate(
     return { ok: false, reason: 'wrong_password' };
 
   return { ok: true, user };
+}
+
+export function updateBuyerProfile(id: number, data: {
+  telefone: string;
+  endereco: string;
+  cidade: string;
+  estado: string;
+  cep: string;
+  pagamento: string;
+}): { error?: string } {
+  try {
+    db.prepare(`
+      UPDATE users SET
+        telefone = ?,
+        endereco = ?,
+        cidade = ?,
+        estado = ?,
+        cep = ?,
+        pagamento = ?
+      WHERE id = ?
+    `).run(
+      data.telefone,
+      data.endereco,
+      data.cidade,
+      data.estado,
+      data.cep,
+      data.pagamento,
+      id
+    );
+    return {};
+  } catch (e: any) {
+    return { error: 'Erro ao atualizar perfil: ' + e.message };
+  }
 }
