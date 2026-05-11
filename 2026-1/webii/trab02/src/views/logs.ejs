@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <title>MarketMVP | Painel administrativo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ["Space Grotesk", "sans-serif"],
+              body: ["Plus Jakarta Sans", "sans-serif"],
+            },
+            colors: {
+              brand: { 50: "#F8F7F2", 100: "#EDE8D8", 200: "#D9CEAA", 300: "#C7B57D", 400: "#B99B56", 500: "#A8853A", 600: "#886B2F", 700: "#665024", 800: "#43361A", 900: "#251E10" },
+              accent: { 500: "#0A7D7A", 600: "#075F5D" },
+              coral: { 500: "#E66A4E", 600: "#C85339" },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .grid-bg {
+        background-image: radial-gradient(#d9ceaa 0.8px, transparent 0.8px), radial-gradient(#d9ceaa 0.8px, #f8f7f2 0.8px);
+        background-size: 28px 28px;
+        background-position: 0 0, 14px 14px;
+      }
+    </style>
+  </head>
+  <body class="font-body bg-brand-50 text-brand-900">
+    <div class="min-h-screen grid-bg">
+      <header class="border-b border-brand-200/80 bg-white/75 backdrop-blur">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+          <a href="index.html" class="font-display text-xl font-bold">MarketMVP</a>
+          <nav class="hidden gap-5 text-sm font-medium md:flex">
+            <a href="index.html" class="hover:text-accent-600">Início</a>
+            <form action="/logout" method="post" class="inline">
+              <button type="submit" class="cursor-pointer border-0 bg-transparent p-0 text-sm font-medium hover:text-accent-600">Sair</button>
+            </form>
+          </nav>
+        </div>
+      </header>
+
+      <main class="mx-auto max-w-7xl space-y-6 px-4 py-8 sm:px-6 lg:px-8">
+        <% const rolePt = { admin: 'Administrador', comprador: 'Comprador', vendedor: 'Vendedor' }; %>
+        <h1 class="font-display text-3xl font-bold mb-6">Logs de Auditoria</h1>
+        <div class="overflow-x-auto rounded-2xl border border-brand-200 bg-white shadow">
+          <table class="min-w-full text-left text-sm">
+            <thead class="bg-brand-100 text-brand-800">
+              <tr>
+                <th class="px-4 py-3 font-semibold">Data/Hora</th>
+                <th class="px-4 py-3 font-semibold">Usuário</th>
+                <th class="px-4 py-3 font-semibold">Método</th>
+                <th class="px-4 py-3 font-semibold">Endpoint</th>
+                <th class="px-4 py-3 font-semibold">Resumo</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-brand-200 bg-white">
+              <% for (const log of logs) { %>
+                <tr>
+                  <td class="px-4 py-2"><%= log.timestamp %></td>
+                  <td class="px-4 py-2"><%= log.user_id ?? '-' %></td>
+                  <td class="px-4 py-2">
+                    <span class="inline-block rounded px-2 py-1 text-xs font-semibold <%= log.method === 'POST' ? 'bg-accent-500/10 text-accent-600' : log.method === 'PUT' ? 'bg-brand-100 text-brand-800' : log.method === 'DELETE' ? 'bg-coral-500/10 text-coral-600' : 'bg-brand-200 text-brand-800' %>"><%= log.method %></span>
+                  </td>
+                  <td class="px-4 py-2 font-mono text-xs text-brand-700"><%= log.endpoint %></td>
+                  <td class="px-4 py-2"><%= log.summary %></td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

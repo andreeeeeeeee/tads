@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <title>MarketMVP | Painel do vendedor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ["Space Grotesk", "sans-serif"],
+              body: ["Plus Jakarta Sans", "sans-serif"],
+            },
+            colors: {
+              brand: { 50: "#F8F7F2", 100: "#EDE8D8", 200: "#D9CEAA", 300: "#C7B57D", 400: "#B99B56", 500: "#A8853A", 600: "#886B2F", 700: "#665024", 800: "#43361A", 900: "#251E10" },
+              accent: { 500: "#0A7D7A", 600: "#075F5D" },
+              coral: { 500: "#E66A4E", 600: "#C85339" },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .grid-bg {
+        background-image: radial-gradient(#d9ceaa 0.8px, transparent 0.8px), radial-gradient(#d9ceaa 0.8px, #f8f7f2 0.8px);
+        background-size: 28px 28px;
+        background-position: 0 0, 14px 14px;
+      }
+    </style>
+  </head>
+  <body class="font-body bg-brand-50 text-brand-900">
+    <div class="min-h-screen grid-bg">
+      <header class="border-b border-brand-200/80 bg-white/75 backdrop-blur">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+          <a href="index.html" class="font-display text-xl font-bold">MarketMVP</a>
+          <nav class="hidden gap-5 text-sm font-medium md:flex">
+            <a href="index.html" class="hover:text-accent-600">Início</a>
+            <form action="/logout" method="post" class="inline">
+              <button type="submit" class="cursor-pointer border-0 bg-transparent p-0 text-sm font-medium hover:text-accent-600">Sair</button>
+            </form>
+          </nav>
+          <button class="rounded-xl bg-coral-500 px-4 py-2.5 text-sm font-semibold text-white hover:bg-coral-600">+ Novo anúncio</button>
+        </div>
+      </header>
+
+      <main class="max-w-4xl mx-auto py-8">
+        <h1 class="text-2xl font-bold mb-6">Painel do Vendedor</h1>
+
+        <section class="mb-8">
+          <h2 class="text-xl font-semibold mb-2">Cadastrar novo produto</h2>
+          <form action="/produtos/cadastrar" method="post" enctype="multipart/form-data" class="space-y-4 bg-white p-4 rounded shadow">
+            <div>
+              <label class="block mb-1 font-medium">Nome</label>
+              <input type="text" name="nome" required class="w-full border rounded px-3 py-2" />
+            </div>
+            <div>
+              <label class="block mb-1 font-medium">Descrição</label>
+              <textarea name="descricao" required class="w-full border rounded px-3 py-2"></textarea>
+            </div>
+            <div>
+              <label class="block mb-1 font-medium">Categoria</label>
+              <input type="text" name="categoria" required class="w-full border rounded px-3 py-2" />
+            </div>
+            <div>
+              <label class="block mb-1 font-medium">Preço</label>
+              <input type="number" name="preco" step="0.01" required class="w-full border rounded px-3 py-2" />
+            </div>
+            <div>
+              <label class="block mb-1 font-medium">Estoque</label>
+              <input type="number" name="estoque" required class="w-full border rounded px-3 py-2" />
+            </div>
+            <div>
+              <label class="block mb-1 font-medium">Imagem</label>
+              <input type="file" name="image" accept="image/*" class="w-full" />
+            </div>
+            <button type="submit" class="bg-accent-500 hover:bg-accent-600 text-white px-4 py-2 rounded">Cadastrar Produto</button>
+          </form>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold mb-2">Seus produtos</h2>
+          <% if (produtos && produtos.length > 0) { %>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <% produtos.forEach(function(produto) { %>
+                <div class="bg-white rounded shadow p-4 flex flex-col">
+                  <% if (produto.imageUrl) { %>
+                    <img src="<%= produto.imageUrl %>" alt="Imagem do produto" class="w-full h-40 object-cover rounded mb-2" />
+                  <% } %>
+                  <h3 class="font-bold text-lg mb-1"><%= produto.name %></h3>
+                  <p class="mb-1"><%= produto.description %></p>
+                  <div class="text-sm text-brand-700 mb-1">Categoria: <%= produto.category %></div>
+                  <div class="text-sm mb-1">Preço: R$ <%= produto.price.toFixed(2) %></div>
+                  <div class="text-sm mb-1">Estoque: <%= produto.stock %></div>
+                  <div class="text-xs text-brand-400 mt-auto">Cadastrado em: <%= produto.createdAt.toLocaleString() %></div>
+                </div>
+              <% }) %>
+            </div>
+          <% } else { %>
+            <p>Você ainda não cadastrou produtos.</p>
+          <% } %>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
