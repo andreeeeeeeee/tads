@@ -34,18 +34,8 @@ function update(req: Request, res: Response) {
 const router = Router();
 const onlyBuyer = requireRole('comprador');
 
-router.get('/comprador/perfil', requireAuth, onlyBuyer, profile);
-router.get('/comprador/editar', requireAuth, onlyBuyer, showEdit);
-router.post('/comprador/editar', requireAuth, onlyBuyer, update);
-
-router.get('/cart', requireAuth, onlyBuyer, (_req, res) => {
-  res.render('cart');
-});
-router.get('/checkout', requireAuth, onlyBuyer, (_req, res) => {
-  res.render('checkout');
-});
-router.get('/orders', requireAuth, onlyBuyer, (_req, res) => {
-  res.render('orders');
-});
+router.get('/perfil', requireAuth, onlyBuyer, profile);
+router.get('/editar', requireAuth, onlyBuyer, showEdit);
+router.post('/editar', requireAuth, onlyBuyer, update);
 
 export default router;

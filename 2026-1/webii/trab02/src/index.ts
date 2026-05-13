@@ -83,17 +83,18 @@ app.use(auditLog());
 app.use('/uploads', express.static('uploads'));
 app.use('/uploads/comments', express.static('uploads/comments'));
 
+app.use('/comprador', BuyerController);
+app.use('/vendedor', SellerProfileController);
+app.use('/produtos', ProductsController);
+app.use('/comentarios', CommentController);
+
 app.use(HomeController);
 app.use(SignupController);
 app.use(LoginController);
 app.use(VerifyEmailController);
-app.use(BuyerController);
 app.use(SellerController);
-app.use(SellerProfileController);
 app.use(AdminController);
 app.use(LogController);
-app.use('/produtos', ProductsController);
-app.use('/comentarios', CommentController);
 
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);

@@ -1,7 +1,9 @@
 import { Request, Response, Router } from 'express';
+import { requireAuth, requireRole } from '../middleware/requireAuth';
 import * as ProductModel from '../models/ProductModel';
 
 const router = Router();
+const onlyBuyer = requireRole('comprador');
 
 function index(_req: Request, res: Response): void {
   const produtos = ProductModel.findAll();
@@ -41,6 +43,16 @@ router.get('/product-details', (req, res) => {
     commentError: null,
     currentUser: req.session.user ?? null,
   });
+});
+
+router.get('/cart', requireAuth, onlyBuyer, (_req, res) => {
+  res.render('cart');
+});
+router.get('/checkout', requireAuth, onlyBuyer, (_req, res) => {
+  res.render('checkout');
+});
+router.get('/orders', requireAuth, onlyBuyer, (_req, res) => {
+  res.render('orders');
 });
 
 export default router;

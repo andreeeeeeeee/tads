@@ -55,9 +55,9 @@ function publicProfile(req: Request, res: Response) {
 const router = Router();
 const onlySeller = requireRole('vendedor');
 
-router.get('/vendedor/perfil', requireAuth, onlySeller, profile);
-router.get('/vendedor/editar', requireAuth, onlySeller, showEdit);
-router.post('/vendedor/editar', requireAuth, onlySeller, update);
-router.get('/vendedor/:id(\\d+)', publicProfile);
+router.get('/perfil', requireAuth, onlySeller, profile);
+router.get('/editar', requireAuth, onlySeller, showEdit);
+router.post('/editar', requireAuth, onlySeller, update);
+router.get('/:id(\\d+)', publicProfile);
 
 export default router;
