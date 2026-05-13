@@ -219,8 +219,7 @@
                                 <% } %>
                                   <% if (currentUser && (comentario.userId===currentUser.id ||
                                     currentUser.role==='admin' )) { %>
-                                    <form action="/comentarios/<%= comentario.id %>" method="post" class="inline">
-                                      <input type="hidden" name="_method" value="DELETE" />
+                                    <form action="/comentarios/<%= comentario.id %>/excluir" method="post" class="inline">
                                       <button type="submit"
                                         class="text-xs text-red-600 hover:underline">Excluir</button>
                                     </form>
@@ -229,7 +228,7 @@
                                         onclick="toggleEditForm('<%= comentario.id %>')">Editar</button>
                                       <% } %>
                                         <form id="edit-form-<%= comentario.id %>"
-                                          action="/comentarios/<%= comentario.id %>?_method=PUT" method="post"
+                                          action="/comentarios/<%= comentario.id %>/editar" method="post"
                                           enctype="multipart/form-data" class="mt-2 hidden">
                                           <textarea name="content" required maxlength="500"
                                             class="w-full rounded border px-2 py-1 mb-2"><%= comentario.content %></textarea>

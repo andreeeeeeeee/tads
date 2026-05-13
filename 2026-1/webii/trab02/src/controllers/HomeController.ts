@@ -10,7 +10,7 @@ function index(_req: Request, res: Response): void {
 
 router.get('/', index);
 router.get('/index', index);
-router.get('/index', index);
+router.get('/index.html', index);
 
 router.get('/categories', (req, res) => {
   const rawCategory = typeof req.query.categoria === 'string' ? req.query.categoria.trim() : '';

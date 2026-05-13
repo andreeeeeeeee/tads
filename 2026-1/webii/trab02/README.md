@@ -155,18 +155,20 @@ src/
 
 ## Mapa de Rotas Relevantes
 
-| Método   | Rota                                       | Quem pode                           |
-| -------- | ------------------------------------------ | ----------------------------------- |
-| GET      | `/produtos/:id`                            | qualquer visitante                  |
-| GET      | `/vendedor/:id`                            | qualquer visitante (perfil público) |
-| GET/POST | `/vendedor/perfil` · `/vendedor/editar`    | vendedor (próprio)                  |
-| GET/POST | `/comprador/perfil` · `/comprador/editar`  | comprador (próprio)                 |
-| GET      | `/produtos/dashboard`                      | vendedor / admin                    |
-| POST     | `/produtos/cadastrar`                      | vendedor / admin                    |
-| POST     | `/produtos/:id/imagens`                    | dono do produto / admin             |
-| POST     | `/produtos/:id/imagens/:imageId/principal` | dono do produto / admin             |
-| DELETE   | `/produtos/:id/imagens/:imageId`           | dono do produto / admin             |
-| POST     | `/comentarios/produto/:productId`          | autenticado                         |
-| PUT      | `/comentarios/:id`                         | autor do comentário                 |
-| DELETE   | `/comentarios/:id`                         | autor ou admin                      |
-| POST     | `/comentarios/:id/like` · `/unlike`        | autenticado                         |
+| Método   | Rota                                       | Quem pode                                   |
+| -------- | ------------------------------------------ | ------------------------------------------- |
+| GET      | `/produtos/:id`                            | qualquer visitante                          |
+| GET      | `/vendedor/:id`                            | qualquer visitante (perfil público)         |
+| GET/POST | `/vendedor/perfil` · `/vendedor/editar`    | vendedor (próprio)                          |
+| GET/POST | `/comprador/perfil` · `/comprador/editar`  | comprador (próprio)                         |
+| GET      | `/produtos/dashboard`                      | vendedor / admin                            |
+| POST     | `/produtos/cadastrar`                      | vendedor / admin                            |
+| POST     | `/produtos/:id/imagens`                    | dono do produto / admin                     |
+| POST     | `/produtos/:id/imagens/:imageId/principal` | dono do produto / admin                     |
+| DELETE   | `/produtos/:id/imagens/:imageId`           | dono do produto / admin                     |
+| POST     | `/comentarios/produto/:productId`          | autenticado                                 |
+| PUT      | `/comentarios/:id`                         | autor do comentário (API)                   |
+| POST     | `/comentarios/:id/editar`                  | autor do comentário (form HTML + multipart) |
+| DELETE   | `/comentarios/:id`                         | autor ou admin (API)                        |
+| POST     | `/comentarios/:id/excluir`                 | autor ou admin (form HTML)                  |
+| POST     | `/comentarios/:id/like` · `/unlike`        | autenticado                                 |
