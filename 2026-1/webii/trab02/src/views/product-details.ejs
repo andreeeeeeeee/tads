@@ -1,71 +1,270 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="color-scheme" content="light" />
-    <title>MarketMVP | Detalhes do produto</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              display: ["Space Grotesk", "sans-serif"],
-              body: ["Plus Jakarta Sans", "sans-serif"],
-            },
-            colors: {
-              brand: { 50: "#F8F7F2", 100: "#EDE8D8", 200: "#D9CEAA", 300: "#C7B57D", 400: "#B99B56", 500: "#A8853A", 600: "#886B2F", 700: "#665024", 800: "#43361A", 900: "#251E10" },
-              accent: { 500: "#0A7D7A", 600: "#075F5D" },
-              coral: { 500: "#E66A4E", 600: "#C85339" },
-            },
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light" />
+  <title>MarketMVP | Detalhes do produto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ["Space Grotesk", "sans-serif"],
+            body: ["Plus Jakarta Sans", "sans-serif"],
+          },
+          colors: {
+            brand: { 50: "#F8F7F2", 100: "#EDE8D8", 200: "#D9CEAA", 300: "#C7B57D", 400: "#B99B56", 500: "#A8853A", 600: "#886B2F", 700: "#665024", 800: "#43361A", 900: "#251E10" },
+            accent: { 500: "#0A7D7A", 600: "#075F5D" },
+            coral: { 500: "#E66A4E", 600: "#C85339" },
           },
         },
-      };
-    </script>
-    <style>
-      .grid-bg {
-        background-image: radial-gradient(#d9ceaa 0.8px, transparent 0.8px), radial-gradient(#d9ceaa 0.8px, #f8f7f2 0.8px);
-        background-size: 28px 28px;
-        background-position: 0 0, 14px 14px;
-      }
-    </style>
-  </head>
-  <body class="font-body bg-brand-50 text-brand-900">
-    <div class="min-h-screen grid-bg">
-      <header class="border-b border-brand-200/80 bg-white/75 backdrop-blur">
-        <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          <a href="index.html" class="font-display text-xl font-bold">MarketMVP</a>
-          <nav class="flex gap-3 text-sm font-medium">
-            <a href="categories.html" class="hover:text-accent-600">Categorias</a>
-            <% if (currentUser && currentUser.role === 'comprador') { %>
-            <a href="cart.html" class="hover:text-accent-600">Carrinho</a>
-            <% } %>
-          </nav>
-        </div>
-      </header>
+      },
+    };
+  </script>
+  <style>
+    .grid-bg {
+      background-image: radial-gradient(#d9ceaa 0.8px, transparent 0.8px), radial-gradient(#d9ceaa 0.8px, #f8f7f2 0.8px);
+      background-size: 28px 28px;
+      background-position: 0 0, 14px 14px;
+    }
+  </style>
+</head>
 
-      <main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <section class="grid gap-6 rounded-3xl border border-brand-200 bg-white p-6 shadow-sm md:grid-cols-2">
-          <div class="rounded-2xl bg-brand-100 p-6">
-            <div class="flex h-64 items-center justify-center rounded-xl border border-dashed border-brand-300 text-sm text-brand-700">Espaço reservado para imagem do produto</div>
-          </div>
-          <div>
-            <p class="text-xs font-semibold uppercase tracking-wider text-brand-600">Eletrônicos</p>
-            <h1 class="mt-1 font-display text-3xl font-bold">Câmera mirrorless usada</h1>
-            <p class="mt-2 text-sm text-brand-700">Vendedor: PhotoPro Studio | Condição: Excelente</p>
-            <p class="mt-4 text-brand-700">Inclui duas lentes, cartão de 64GB, alça e carregador original. Ideal para criadores de conteúdo que estão começando.</p>
-            <p class="mt-5 font-display text-4xl font-bold text-coral-600">$650</p>
-            <div class="mt-5 flex flex-wrap gap-3">
-              <button class="rounded-xl bg-brand-900 px-5 py-2.5 font-semibold text-brand-50 hover:bg-brand-800">Adicionar ao carrinho</button>
-              <button class="rounded-xl border border-brand-300 px-5 py-2.5 font-semibold hover:bg-brand-100">Salvar item</button>
-            </div>
-          </div>
+<body class="font-body bg-brand-50 text-brand-900">
+  <div class="min-h-screen grid-bg">
+    <header class="border-b border-brand-200/80 bg-white/75 backdrop-blur">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+        <a href="/index" class="font-display text-xl font-bold">MarketMVP</a>
+        <nav class="flex gap-3 text-sm font-medium">
+          <a href="/categories" class="hover:text-accent-600">Categorias</a>
+          <% if (currentUser && currentUser.role==='comprador' ) { %>
+            <a href="/cart" class="hover:text-accent-600">Carrinho</a>
+            <% } %>
+        </nav>
+      </div>
+    </header>
+
+    <main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <% if (!produto) { %>
+        <section class="rounded-3xl border border-brand-200 bg-white p-8 text-center shadow-sm">
+          <h1 class="font-display text-2xl font-bold">Produto não encontrado</h1>
+          <p class="mt-2 text-brand-700">O anúncio pode ter sido removido ou o link está incorreto.</p>
+          <a href="/index"
+            class="mt-4 inline-block rounded-xl bg-brand-900 px-5 py-2.5 font-semibold text-brand-50 hover:bg-brand-800">Voltar
+            ao início</a>
         </section>
-      </main>
-    </div>
-  </body>
+        <% } else { %>
+          <section class="grid gap-6 rounded-3xl border border-brand-200 bg-white p-6 shadow-sm md:grid-cols-2">
+            <div>
+              <% const galeria=(typeof imagens !=='undefined' && imagens && imagens.length> 0)
+                ? imagens
+                : (produto.imageUrl ? [{ id: 0, imageUrl: produto.imageUrl, isMain: true }] : []);
+                const principal = (typeof mainImage !== 'undefined' && mainImage)
+                ? mainImage
+                : (galeria[0] || null);
+                %>
+                <div
+                  class="flex h-72 items-center justify-center rounded-xl border border-dashed border-brand-300 bg-brand-100 overflow-hidden">
+                  <% if (principal) { %>
+                    <img id="produto-imagem-principal" src="<%= principal.imageUrl %>" alt="Imagem principal do produto"
+                      class="max-h-72 max-w-full object-contain rounded" />
+                    <% } else { %>
+                      <span class="text-sm text-brand-700">Sem imagem</span>
+                      <% } %>
+                </div>
+
+                <% if (galeria.length> 1) { %>
+                  <div class="mt-4 grid grid-cols-5 gap-2" role="list" aria-label="Galeria de fotos do produto">
+                    <% galeria.forEach(function(img) { %>
+                      <button type="button"
+                        class="produto-thumb relative aspect-square overflow-hidden rounded-lg border-2 transition <%= (principal && img.id === principal.id) ? 'border-accent-500 ring-2 ring-accent-500' : 'border-brand-200 hover:border-brand-400' %>"
+                        data-image-url="<%= img.imageUrl %>" data-image-id="<%= img.id %>"
+                        aria-label="Ver foto <%= img.isMain ? 'principal' : '' %>">
+                        <img src="<%= img.imageUrl %>" alt="Miniatura do produto" class="h-full w-full object-cover" />
+                        <% if (img.isMain) { %>
+                          <span
+                            class="absolute bottom-0 left-0 right-0 bg-accent-500/90 text-[10px] font-bold uppercase text-white py-0.5">Principal</span>
+                          <% } %>
+                      </button>
+                      <% }); %>
+                  </div>
+                  <p class="mt-2 text-xs text-brand-700">
+                    <%= galeria.length %> foto<%= galeria.length===1 ? '' : 's' %> disponível<%= galeria.length===1 ? ''
+                          : 'is' %>.
+                  </p>
+                  <% } %>
+
+                    <script>
+                      (function () {
+                        var principal = document.getElementById('produto-imagem-principal');
+                        if (!principal) return;
+                        document.querySelectorAll('.produto-thumb').forEach(function (btn) {
+                          btn.addEventListener('click', function () {
+                            var url = btn.getAttribute('data-image-url');
+                            if (!url) return;
+                            principal.src = url;
+                            document.querySelectorAll('.produto-thumb').forEach(function (other) {
+                              other.classList.remove('border-accent-500', 'ring-2', 'ring-accent-500');
+                              other.classList.add('border-brand-200');
+                            });
+                            btn.classList.remove('border-brand-200');
+                            btn.classList.add('border-accent-500', 'ring-2', 'ring-accent-500');
+                          });
+                        });
+                      })();
+                    </script>
+            </div>
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-wider text-brand-600">
+                <%= produto.category %>
+              </p>
+              <h1 class="mt-1 font-display text-3xl font-bold">
+                <%= produto.name %>
+              </h1>
+              <p class="mt-2 text-sm text-brand-700">
+                Vendedor:
+                <a href="/vendedor/<%= vendedor.id %>" class="font-semibold text-accent-600 hover:underline">
+                  <%= vendedor.loja_nome || vendedor.name %>
+                </a>
+                <% if (vendedor.cidade || vendedor.estado) { %>
+                  | <%= vendedor.cidade %>
+                    <%= vendedor.cidade && vendedor.estado ? ' - ' : '' %>
+                      <%= vendedor.estado %>
+                        <% } %>
+              </p>
+              <p class="mt-4 text-brand-700">
+                <%= produto.description %>
+              </p>
+              <p class="mt-5 font-display text-4xl font-bold text-coral-600">R$ <%= produto.price.toFixed(2) %>
+              </p>
+              <div class="mt-2 text-sm">Estoque: <%= produto.stock %>
+              </div>
+              <div class="mt-2 text-sm">Categorias do vendedor: <%= vendedor.loja_categorias %>
+              </div>
+              <div class="mt-5 flex flex-wrap gap-3">
+                <button
+                  class="rounded-xl bg-brand-900 px-5 py-2.5 font-semibold text-brand-50 hover:bg-brand-800">Adicionar
+                  ao carrinho</button>
+                <button class="rounded-xl border border-brand-300 px-5 py-2.5 font-semibold hover:bg-brand-100">Salvar
+                  item</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="mt-8">
+            <h2 class="font-display text-xl font-bold mb-4">Comentários</h2>
+            <% if (typeof commentError==='string' && commentError) { %>
+              <div class="mb-4 rounded border border-coral-500 bg-coral-500/10 px-4 py-2 text-sm text-coral-700">
+                <%= commentError %>
+              </div>
+              <% } %>
+                <% if (currentUser) { %>
+                  <form action="/comentarios/produto/<%= produto.id %>" method="post" enctype="multipart/form-data"
+                    class="mb-6 space-y-2">
+                    <textarea name="content" required maxlength="500"
+                      class="w-full rounded-lg border border-brand-300 px-3 py-2"
+                      placeholder="Escreva um comentário..."></textarea>
+                    <div class="flex items-center gap-2">
+                      <input type="file" name="image" accept="image/*" class="block" />
+                      <button type="submit"
+                        class="rounded bg-accent-500 px-4 py-2 text-white font-semibold hover:bg-accent-600">Comentar</button>
+                    </div>
+                  </form>
+                  <% } else { %>
+                    <div class="mb-6 text-brand-700">Faça login para comentar.</div>
+                    <% } %>
+                      <div id="comentarios-lista">
+                        <% if (comentarios && comentarios.length> 0) { %>
+                          <% comentarios.forEach(function(comentario) { %>
+                            <div class="mb-4 rounded-xl border border-brand-100 bg-white p-4 shadow-sm">
+                              <div class="flex items-center gap-2 mb-1">
+                                <span class="font-semibold text-brand-800">
+                                  <%= comentario.autor ? comentario.autor.name : 'Usuário' %>
+                                </span>
+                                <span class="text-xs text-brand-500">
+                                  <%= comentario.createdAt.toLocaleString('pt-BR') %>
+                                </span>
+                                <span class="ml-2 text-xs text-coral-600 font-bold">
+                                  <%= comentario.likesCount %> curtida<%= comentario.likesCount===1 ? '' : 's' %>
+                                </span>
+                                <% if (currentUser) { %>
+                                  <% if (!comentario.likedByCurrentUser) { %>
+                                    <form action="/comentarios/<%= comentario.id %>/like" method="post" class="inline">
+                                      <button type="submit"
+                                        class="text-xs text-accent-600 hover:underline ml-1">Curtir</button>
+                                    </form>
+                                    <% } else { %>
+                                      <form action="/comentarios/<%= comentario.id %>/unlike" method="post"
+                                        class="inline">
+                                        <button type="submit"
+                                          class="text-xs text-brand-700 hover:underline ml-1">Descurtir</button>
+                                      </form>
+                                      <% } %>
+                                        <% } %>
+                              </div>
+                              <p class="mb-2">
+                                <%= comentario.content %>
+                              </p>
+                              <% if (comentario.imageUrl) { %>
+                                <img src="<%= comentario.imageUrl %>" alt="Foto do comentário"
+                                  class="mb-2 max-h-40 rounded border" />
+                                <% } %>
+                                  <% if (currentUser && (comentario.userId===currentUser.id ||
+                                    currentUser.role==='admin' )) { %>
+                                    <form action="/comentarios/<%= comentario.id %>" method="post" class="inline">
+                                      <input type="hidden" name="_method" value="DELETE" />
+                                      <button type="submit"
+                                        class="text-xs text-red-600 hover:underline">Excluir</button>
+                                    </form>
+                                    <% if (currentUser && (comentario.userId===currentUser.id)) { %>
+                                      <button type="button" class="text-xs text-accent-600 hover:underline ml-2"
+                                        onclick="toggleEditForm('<%= comentario.id %>')">Editar</button>
+                                      <% } %>
+                                        <form id="edit-form-<%= comentario.id %>"
+                                          action="/comentarios/<%= comentario.id %>?_method=PUT" method="post"
+                                          enctype="multipart/form-data" class="mt-2 hidden">
+                                          <textarea name="content" required maxlength="500"
+                                            class="w-full rounded border px-2 py-1 mb-2"><%= comentario.content %></textarea>
+                                          <div class="flex items-center gap-2 mb-2">
+                                            <input type="file" name="image" accept="image/*" />
+                                            <% if (comentario.imageUrl) { %>
+                                              <img src="<%= comentario.imageUrl %>" alt="Imagem atual"
+                                                class="h-10 rounded border" />
+                                              <% } %>
+                                          </div>
+                                          <button type="submit"
+                                            class="rounded bg-accent-500 px-3 py-1 text-white text-xs font-semibold hover:bg-accent-600">Salvar</button>
+                                          <button type="button" class="ml-2 text-xs text-brand-700 hover:underline"
+                                            onclick="toggleEditForm('<%= comentario.id %>', true)">Cancelar</button>
+                                        </form>
+                                        <script>
+                                          function toggleEditForm(id, hide) {
+                                            var form = document.getElementById('edit-form-' + id);
+                                            if (!form) return;
+                                            hide
+                                              ? form.classList.add('hidden')
+                                              : form.classList.toggle('hidden');
+                                          }
+                                        </script>
+                                        <% } %>
+                            </div>
+                            <% }); %>
+                              <% } else { %>
+                                <div class="text-brand-700">Nenhum comentário ainda.</div>
+                                <% } %>
+                      </div>
+          </section>
+          <% } %>
+    </main>
+  </div>
+</body>
+
 </html>

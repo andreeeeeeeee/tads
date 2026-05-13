@@ -19,9 +19,12 @@ export interface UserRow {
   role: UserRole;
   email_verified: boolean;
   active: boolean;
-  created_at: string;
   email_verify_code: string | null;
   email_verify_expires_at: string | null;
+  loja_nome: string;
+  loja_descricao: string;
+  loja_categorias: string;
+  created_at: string;
 }
 
 function rowToUser(raw: Record<string, unknown>): UserRow {
@@ -39,9 +42,12 @@ function rowToUser(raw: Record<string, unknown>): UserRow {
     role: raw.role as UserRole,
     email_verified: Boolean(raw.email_verified),
     active: Boolean(raw.active),
-    created_at: raw.created_at as string,
     email_verify_code: raw.email_verify_code != null ? String(raw.email_verify_code) : null,
     email_verify_expires_at: raw.email_verify_expires_at != null ? String(raw.email_verify_expires_at) : null,
+    loja_nome: raw.loja_nome as string,
+    loja_descricao: raw.loja_descricao as string,
+    loja_categorias: raw.loja_categorias as string,
+    created_at: raw.created_at as string,
   };
 }
 
@@ -209,6 +215,39 @@ export function updateBuyerProfile(id: number, data: {
       data.estado,
       data.cep,
       data.pagamento,
+      id
+    );
+    return {};
+  } catch (e: any) {
+    return { error: 'Erro ao atualizar perfil: ' + e.message };
+  }
+}
+
+export function updateSellerProfile(id: number, data: {
+  loja_nome: string;
+  loja_descricao: string;
+  telefone: string;
+  cidade: string;
+  estado: string;
+  loja_categorias: string;
+}): { error?: string } {
+  try {
+    db.prepare(`
+      UPDATE users SET
+        loja_nome = ?,
+        loja_descricao = ?,
+        telefone = ?,
+        cidade = ?,
+        estado = ?,
+        loja_categorias = ?
+      WHERE id = ?
+    `).run(
+      data.loja_nome,
+      data.loja_descricao,
+      data.telefone,
+      data.cidade,
+      data.estado,
+      data.loja_categorias,
       id
     );
     return {};

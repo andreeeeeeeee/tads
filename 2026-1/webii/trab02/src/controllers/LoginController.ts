@@ -1,17 +1,17 @@
-import { Request, Response } from "express";
-import * as UserModel from "../models/UserModel";
+import { Request, Response, Router } from 'express';
+import { requireGuest } from '../middleware/requireGuest';
+import * as UserModel from '../models/UserModel';
+import { zodIssues } from '../validation/helpers';
+import { loginBodySchema } from '../validation/schemas';
 
 export type LoginForm = { email: string; next: string };
 
 function sanitizeNext(raw: unknown): string {
-  let s = "";
-  if (typeof raw === "string")
-    s = raw.trim();
-  else if (Array.isArray(raw) && typeof raw[0] === "string")
-    s = raw[0].trim();
+  let s = '';
+  if (typeof raw === 'string') s = raw.trim();
+  else if (Array.isArray(raw) && typeof raw[0] === 'string') s = raw[0].trim();
 
-  if (!s.startsWith("/") || s.startsWith("//") || s.includes("://"))
-    return "/";
+  if (!s.startsWith('/') || s.startsWith('//') || s.includes('://')) return '/';
 
   return s;
 }
@@ -29,10 +29,10 @@ function renderLogin(
   },
 ): void {
   const form = {
-    email: opts.form?.email ?? "",
+    email: opts.form?.email ?? '',
     next: sanitizeNext(opts.form?.next),
   };
-  res.render("login", {
+  res.render('login', {
     registered: Boolean(opts.registered),
     deactivated: Boolean(opts.deactivated),
     verified: Boolean(opts.verified),
@@ -43,57 +43,66 @@ function renderLogin(
   });
 }
 
-export function show(req: Request, res: Response): void {
+function show(req: Request, res: Response): void {
   if (req.session.user) {
-    res.redirect("/");
+    res.redirect('/');
     return;
   }
   renderLogin(res, {
-    registered: req.query.registered === "1",
-    deactivated: req.query.deactivated === "1",
-    verified: req.query.verified === "1",
-    alreadyVerified: req.query.already === "verified",
+    registered: req.query.registered === '1',
+    deactivated: req.query.deactivated === '1',
+    verified: req.query.verified === '1',
+    alreadyVerified: req.query.already === 'verified',
     error: null,
     form: {
-      email: "",
+      email: '',
       next: sanitizeNext(req.query.next),
     },
   });
 }
 
-export function submit(req: Request, res: Response): void {
-  const email = String(req.body.email ?? "").trim();
-  const password = String(req.body.password ?? "");
-  const next = sanitizeNext(req.body.next ?? req.query.next);
+function submit(req: Request, res: Response): void {
+  const parsed = loginBodySchema.safeParse({
+    email: req.body.email,
+    password: req.body.password,
+    next: req.body.next ?? req.query.next,
+  });
 
-  const form: LoginForm = { email, next };
+  const next = sanitizeNext(
+    parsed.success ? parsed.data.next : (req.body.next ?? req.query.next),
+  );
+  const form: LoginForm = {
+    email: parsed.success ? parsed.data.email : String(req.body.email ?? '').trim(),
+    next,
+  };
 
-  if (!email || !password) {
-    renderLogin(res, { error: "Informe e-mail e senha.", form });
+  if (!parsed.success) {
+    renderLogin(res, { error: zodIssues(parsed.error).join(' '), form });
     return;
   }
 
+  const { email, password } = parsed.data;
   const result = UserModel.authenticate(email, password);
 
   if (!result.ok) {
-    if (result.reason === "inactive") {
+    if (result.reason === 'inactive') {
       renderLogin(res, {
-        error: "Esta conta foi desativada. Entre em contato com o suporte.",
+        error: 'Esta conta foi desativada. Entre em contato com o suporte.',
         form,
       });
       return;
     }
-    if (result.reason === "unverified") {
+    if (result.reason === 'unverified') {
       const enc = encodeURIComponent(email.trim().toLowerCase());
       renderLogin(res, {
-        error: "Valide seu e-mail com o código enviado antes de entrar.",
+        error: 'Valide seu e-mail com o código enviado antes de entrar.',
         form,
-        verifyEmailLink: `/verify-email.html?email=${enc}`,
+        verifyEmailLink: `/verify-email?email=${enc}`,
       });
       return;
     }
     renderLogin(res, {
-      error: "E-mail ou senha incorretos.",
+      error: 'E-mail ou senha incorretos.',
       form,
     });
     return;
@@ -110,12 +119,21 @@ export function submit(req: Request, res: Response): void {
   res.redirect(next);
 }
 
-export function logout(req: Request, res: Response): void {
+function logout(req: Request, res: Response): void {
   req.session.destroy((err) => {
     if (err) {
-      res.status(500).send("Não foi possível encerrar a sessão.");
+      res.status(500).send('Não foi possível encerrar a sessão.');
       return;
     }
-    res.redirect("/login.html");
+    res.redirect('/login');
   });
 }
+
+const router = Router();
+
+router.get('/login', requireGuest, show);
+router.get('/login', requireGuest, show);
+router.post('/login', requireGuest, submit);
+router.post('/logout', logout);
+
+export default router;

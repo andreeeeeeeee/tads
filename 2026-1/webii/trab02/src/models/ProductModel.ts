@@ -42,6 +42,42 @@ export function findAll(): Product[] {
   return rows.map(mapRowToProduct);
 }
 
+export function findByCategory(category: string): Product[] {
+  const rows = db
+    .prepare(
+      `SELECT * FROM products
+       WHERE LOWER(TRIM(category)) = LOWER(TRIM(?))
+       ORDER BY created_at DESC`,
+    )
+    .all(category);
+  return rows.map(mapRowToProduct);
+}
+
+export type CategorySummary = { name: string; count: number };
+
+export function listCategories(): CategorySummary[] {
+  const rows = db
+    .prepare(
+      `SELECT TRIM(category) AS name, COUNT(*) AS count
+       FROM products
+       WHERE category IS NOT NULL AND TRIM(category) <> ''
+       GROUP BY TRIM(category)
+       ORDER BY count DESC, name COLLATE NOCASE ASC`,
+    )
+    .all() as { name: string; count: number }[];
+  return rows;
+}
+
+export function findById(id: number): Product | undefined {
+  const row = db.prepare('SELECT * FROM products WHERE id = ?').get(id);
+  if (!row) return undefined;
+  return mapRowToProduct(row);
+}
+
+export function updateMainImageUrl(productId: number, imageUrl: string): void {
+  db.prepare('UPDATE products SET image_url = ? WHERE id = ?').run(imageUrl, productId);
+}
+
 function mapRowToProduct(row: any): Product {
   return {
     id: row.id,

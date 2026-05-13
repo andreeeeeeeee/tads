@@ -1,6 +1,7 @@
-import { Request, Response } from 'express';
+import { Request, Response, Router } from 'express';
 import * as UserModel from '../models/UserModel';
 import { sendVerificationEmail, verificationTtlMinutes } from '../services/emailService';
+import { verifyEmailResendSchema, verifyEmailSubmitSchema } from '../validation/schemas';
 
 const errorMessages: Record<string, string> = {
   expired: 'O código expirou. Solicite um novo código abaixo.',
@@ -11,7 +12,7 @@ const errorMessages: Record<string, string> = {
   send: 'Não foi possível enviar o e-mail. Configure SMTP ou tente mais tarde.',
 };
 
-export function show(req: Request, res: Response): void {
+function show(req: Request, res: Response): void {
   const email = typeof req.query.email === 'string' ? req.query.email.trim().toLowerCase() : '';
   const errKey = typeof req.query.error === 'string' ? req.query.error : '';
   const error = errKey && errorMessages[errKey] ? errorMessages[errKey] : null;
@@ -25,67 +26,80 @@ export function show(req: Request, res: Response): void {
   });
 }
 
-export function submit(req: Request, res: Response): void {
-  const email = String(req.body.email ?? '').trim().toLowerCase();
-  const code = String(req.body.code ?? '');
-
-  if (!email || !code.trim()) {
+function submit(req: Request, res: Response): void {
+  const parsed = verifyEmailSubmitSchema.safeParse(req.body);
+  if (!parsed.success) {
+    const email = String(req.body.email ?? '').trim().toLowerCase();
     const q = new URLSearchParams();
-    email
-      ? q.set('email', email)
-      : q.set('error', 'empty');
-    res.redirect(`/verify-email.html?${q.toString()}`);
+    if (email) q.set('email', email);
+    q.set('error', 'invalid');
+    res.redirect(`/verify-email?${q.toString()}`);
     return;
   }
 
+  const { email, code } = parsed.data;
   const result = UserModel.verifyEmailWithCode(email, code);
   if (result.ok) {
-    res.redirect('/login.html?verified=1');
+    res.redirect('/login?verified=1');
     return;
   }
 
   const q = new URLSearchParams({ email });
   if (result.reason === 'already_verified') {
-    res.redirect('/login.html?already=verified');
+    res.redirect('/login?already=verified');
     return;
   }
-  q.set('error',
+  q.set(
+    'error',
     result.reason === 'expired'
       ? 'expired'
       : result.reason === 'not_found'
         ? 'notfound'
-        : 'invalid');
+        : 'invalid',
+  );
 
-  res.redirect(`/verify-email.html?${q.toString()}`);
+  res.redirect(`/verify-email?${q.toString()}`);
 }
 
-export async function resend(req: Request, res: Response): Promise<void> {
-  const email = String(req.body.email ?? '').trim().toLowerCase();
-  if (!email) {
-    res.redirect('/verify-email.html');
+async function resend(req: Request, res: Response): Promise<void> {
+  const parsed = verifyEmailResendSchema.safeParse(req.body);
+  if (!parsed.success) {
+    res.redirect('/verify-email');
     return;
   }
 
+  const { email } = parsed.data;
   const user = UserModel.findByEmail(email);
   if (!user) {
-    res.redirect(`/verify-email.html?email=${encodeURIComponent(email)}&error=notfound`);
+    res.redirect(`/verify-email?email=${encodeURIComponent(email)}&error=notfound`);
     return;
   }
   if (user.email_verified) {
-    res.redirect('/login.html?already=verified');
+    res.redirect('/login?already=verified');
     return;
   }
   if (!user.active) {
-    res.redirect(`/verify-email.html?email=${encodeURIComponent(email)}&error=inactive`);
+    res.redirect(`/verify-email?email=${encodeURIComponent(email)}&error=inactive`);
     return;
   }
 
   try {
     const code = UserModel.issueNewVerificationCodeForUserId(user.id);
     await sendVerificationEmail(user.email, code);
-    res.redirect(`/verify-email.html?email=${encodeURIComponent(email)}&sent=1`);
+    res.redirect(`/verify-email?email=${encodeURIComponent(email)}&sent=1`);
   } catch (e) {
     console.error(e);
-    res.redirect(`/verify-email.html?email=${encodeURIComponent(email)}&error=send`);
+    res.redirect(`/verify-email?email=${encodeURIComponent(email)}&error=send`);
   }
 }
+
+const router = Router();
+
+router.get('/verify-email', show);
+router.get('/verify-email', show);
+router.post('/verify-email', submit);
+router.post('/verify-email/resend', (req, res, next) => {
+  void resend(req, res).catch(next);
+});
+
+export default router;

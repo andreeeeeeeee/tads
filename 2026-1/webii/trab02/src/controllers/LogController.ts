@@ -1,10 +1,8 @@
-import { Request, Response } from 'express';
+import { Request, Response, Router } from 'express';
+import { requireAuth, requireRole } from '../middleware/requireAuth';
 import { getAllLogs } from '../models/LogModel';
 
-export function getLogs(req: Request, res: Response) {
-  if (!req.session?.user || req.session.user.role !== 'admin')
-    return res.status(403).send('Acesso restrito a administradores.');
-
+function getLogs(_req: Request, res: Response) {
   try {
     const logs = getAllLogs();
     res.render('logs', { logs });
@@ -12,3 +10,9 @@ export function getLogs(req: Request, res: Response) {
     res.status(500).send('Erro ao buscar logs.');
   }
 }
+
+const router = Router();
+
+router.get('/logs', requireAuth, requireRole('admin'), getLogs);
+
+export default router;

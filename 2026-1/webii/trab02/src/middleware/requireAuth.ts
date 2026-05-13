@@ -13,21 +13,21 @@ export function sendForbidden(res: Response, message: string): void {
 <html lang="pt-BR"><head><meta charset="utf-8"/><title>Acesso negado</title></head>
 <body style="font-family:system-ui,sans-serif;padding:2rem;max-width:36rem;line-height:1.5">
 <p>${message}</p>
-<p><a href="/index.html">Voltar ao início</a></p>
+<p><a href="/index">Voltar ao início</a></p>
 </body></html>`);
 }
 
 export function requireAuth(req: Request, res: Response, next: NextFunction): void {
   if (!req.session.user) {
     const dest = encodeURIComponent(req.originalUrl.split('?')[0] || '/');
-    res.redirect(`/login.html?next=${dest}`);
+    res.redirect(`/login?next=${dest}`);
     return;
   }
 
   const fresh = UserModel.findById(req.session.user.id);
   if (!fresh || !fresh.active) {
     req.session.destroy(() => {
-      res.redirect('/login.html?deactivated=1');
+      res.redirect('/login?deactivated=1');
     });
     return;
   }

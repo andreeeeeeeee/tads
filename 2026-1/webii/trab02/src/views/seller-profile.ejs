@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="light" />
-  <title>MarketMVP | Painel administrativo</title>
+  <title>MarketMVP | Perfil do Vendedor</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -52,47 +52,33 @@
         </nav>
       </div>
     </header>
-
-    <main class="mx-auto max-w-7xl space-y-6 px-4 py-8 sm:px-6 lg:px-8">
-      <% const rolePt={ admin: 'Administrador' , comprador: 'Comprador' , vendedor: 'Vendedor' }; %>
-        <h1 class="font-display text-3xl font-bold mb-6">Logs de Auditoria</h1>
-        <div class="overflow-x-auto rounded-2xl border border-brand-200 bg-white shadow">
-          <table class="min-w-full text-left text-sm">
-            <thead class="bg-brand-100 text-brand-800">
-              <tr>
-                <th class="px-4 py-3 font-semibold">Data/Hora</th>
-                <th class="px-4 py-3 font-semibold">Usuário</th>
-                <th class="px-4 py-3 font-semibold">Método</th>
-                <th class="px-4 py-3 font-semibold">Endpoint</th>
-                <th class="px-4 py-3 font-semibold">Resumo</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-brand-200 bg-white">
-              <% for (const log of logs) { %>
-                <tr>
-                  <td class="px-4 py-2">
-                    <%= log.timestamp %>
-                  </td>
-                  <td class="px-4 py-2">
-                    <%= log.user_id ?? '-' %>
-                  </td>
-                  <td class="px-4 py-2">
-                    <span
-                      class="inline-block rounded px-2 py-1 text-xs font-semibold <%= log.method === 'POST' ? 'bg-accent-500/10 text-accent-600' : log.method === 'PUT' ? 'bg-brand-100 text-brand-800' : log.method === 'DELETE' ? 'bg-coral-500/10 text-coral-600' : 'bg-brand-200 text-brand-800' %>">
-                      <%= log.method %>
-                    </span>
-                  </td>
-                  <td class="px-4 py-2 font-mono text-xs text-brand-700">
-                    <%= log.endpoint %>
-                  </td>
-                  <td class="px-4 py-2">
-                    <%= log.summary %>
-                  </td>
-                </tr>
-                <% } %>
-            </tbody>
-          </table>
+    <main class="max-w-xl mx-auto py-8">
+      <h1 class="text-2xl font-bold mb-6">Perfil do Vendedor</h1>
+      <div class="bg-white p-6 rounded shadow">
+        <div class="mb-2"><strong>Nome:</strong>
+          <%= user.name %>
         </div>
+        <div class="mb-2"><strong>Nome da loja:</strong>
+          <%= user.loja_nome || '-' %>
+        </div>
+        <div class="mb-2"><strong>Descrição da loja:</strong>
+          <%= user.loja_descricao || '-' %>
+        </div>
+        <div class="mb-2"><strong>Telefone/Contato:</strong>
+          <%= user.telefone || '-' %>
+        </div>
+        <div class="mb-2"><strong>Cidade:</strong>
+          <%= user.cidade || '-' %>
+        </div>
+        <div class="mb-2"><strong>Estado:</strong>
+          <%= user.estado || '-' %>
+        </div>
+        <div class="mb-2"><strong>Categorias/Tipos de produto:</strong>
+          <%= user.loja_categorias || '-' %>
+        </div>
+        <a href="/vendedor/editar"
+          class="inline-block mt-4 px-4 py-2 bg-accent-500 text-white rounded hover:bg-accent-600">Editar dados</a>
+      </div>
     </main>
   </div>
 </body>

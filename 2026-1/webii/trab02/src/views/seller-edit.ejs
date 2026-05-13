@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="light" />
-  <title>MarketMVP | Editar Perfil (Comprador)</title>
+  <title>MarketMVP | Editar Perfil (Vendedor)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -53,7 +53,7 @@
       </div>
     </header>
     <main class="max-w-xl mx-auto py-8">
-      <h1 class="text-2xl font-bold mb-6">Editar Perfil (Comprador)</h1>
+      <h1 class="text-2xl font-bold mb-6">Editar Perfil (Vendedor)</h1>
       <% if (typeof errors !=='undefined' && errors && errors.length) { %>
         <ul class="bg-red-100 text-red-700 p-3 rounded mb-4 list-disc list-inside text-sm space-y-1">
           <% errors.forEach(function(e) { %>
@@ -63,15 +63,20 @@
             <% }); %>
         </ul>
         <% } %>
-          <form action="/comprador/editar" method="post" class="bg-white p-6 rounded shadow space-y-4">
+          <form action="/vendedor/editar" method="post" class="bg-white p-6 rounded shadow space-y-4">
             <div>
-              <label class="block mb-1 font-medium">Telefone</label>
-              <input type="text" name="telefone" value="<%= user.telefone || '' %>" required
+              <label class="block mb-1 font-medium">Nome da loja</label>
+              <input type="text" name="loja_nome" value="<%= user.loja_nome || '' %>" required
                 class="w-full border rounded px-3 py-2" />
             </div>
             <div>
-              <label class="block mb-1 font-medium">Endereço completo</label>
-              <input type="text" name="endereco" value="<%= user.endereco || '' %>" required
+              <label class="block mb-1 font-medium">Descrição da loja/vendedor</label>
+              <textarea name="loja_descricao" required
+                class="w-full border rounded px-3 py-2"><%= user.loja_descricao || '' %></textarea>
+            </div>
+            <div>
+              <label class="block mb-1 font-medium">Telefone/Contato comercial</label>
+              <input type="text" name="telefone" value="<%= user.telefone || '' %>" required
                 class="w-full border rounded px-3 py-2" />
             </div>
             <div>
@@ -80,11 +85,11 @@
                 class="w-full border rounded px-3 py-2" />
             </div>
             <div>
-              <label for="buyer-estado" class="block mb-1 font-medium">Estado</label>
+              <label for="seller-estado" class="block mb-1 font-medium">Estado</label>
               <% const
                 UFS=['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO'];
                 const selectedUf=(user.estado || '' ).toUpperCase(); %>
-                <select id="buyer-estado" name="estado" required class="w-full border rounded px-3 py-2 bg-white">
+                <select id="seller-estado" name="estado" required class="w-full border rounded px-3 py-2 bg-white">
                   <option value="" <%=selectedUf ? '' : 'selected' %>>Selecione...</option>
                   <% UFS.forEach(function(uf) { %>
                     <option value="<%= uf %>" <%=selectedUf===uf ? 'selected' : '' %>><%= uf %>
@@ -93,17 +98,12 @@
                 </select>
             </div>
             <div>
-              <label class="block mb-1 font-medium">CEP</label>
-              <input type="text" name="cep" value="<%= user.cep || '' %>" required
-                class="w-full border rounded px-3 py-2" />
-            </div>
-            <div>
-              <label class="block mb-1 font-medium">Forma de pagamento preferencial</label>
-              <input type="text" name="pagamento" value="<%= user.pagamento || '' %>" required
+              <label class="block mb-1 font-medium">Categorias/Tipos de produto</label>
+              <input type="text" name="loja_categorias" value="<%= user.loja_categorias || '' %>" required
                 class="w-full border rounded px-3 py-2" />
             </div>
             <button type="submit" class="bg-accent-500 hover:bg-accent-600 text-white px-4 py-2 rounded">Salvar</button>
-            <a href="/comprador/perfil" class="ml-4 text-brand-700 hover:underline">Cancelar</a>
+            <a href="/vendedor/perfil" class="ml-4 text-brand-700 hover:underline">Cancelar</a>
           </form>
     </main>
   </div>
