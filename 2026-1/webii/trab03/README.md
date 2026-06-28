@@ -64,14 +64,15 @@ src/
   main/           # app, routes, container, server
   modules/
     auth/         # registro e login
-    users/        # entidade e repositório de usuário
     categories/   # categorias financeiras
-    transactions/ # lançamentos
     reports/      # saldo e resumo por categoria
+    transactions/ # lançamentos
+    users/        # entidade e repositório de usuário
   shared/         # middleware, erros compartilhados
 tests/
-  unit/           # domínio e casos de uso
   integration/    # rotas HTTP
+  support/        # utilitários e helpers
+  unit/           # domínio e casos de uso
 ```
 
 ## Rotas principais
