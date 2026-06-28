@@ -132,7 +132,7 @@ export const verifyEmailResendSchema = z.object({
 });
 
 export const adminUserIdParamSchema = z.object({
-  id: z.coerce.number().int().positive(),
+  id: positiveInteger,
 });
 
 const signupNamePart = z
