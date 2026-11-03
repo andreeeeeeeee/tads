@@ -11,7 +11,9 @@
 //   GET  /auth/me         (token)                 -> 200 usuario
 //   POST /auth/logout     (token)                 -> 204
 //   GET  /anotacoes       (token)                 -> 200 [anotacao]
+//   GET  /anotacoes/:id   (token)                 -> 200 anotacao | 404
 //   POST /anotacoes       (token) { texto }       -> 201 anotacao
+//   GET  /moderacao/anotacoes (token de moderador ou admin) -> 200 [anotacao]
 //   GET  /usuarios        (token de admin)        -> 200 [usuario]
 //
 // "(token)" = a requisição precisa do cabeçalho  Authorization: Bearer <token>
@@ -63,12 +65,15 @@ function autenticado(req, res, next) {
 }
 
 // 403 (proibido) é diferente de 401: o servidor sabe quem é, mas essa
-// pessoa não pode fazer isso.
-function somenteAdmin(req, res, next) {
-  if (req.usuario.papel !== 'admin') {
-    return res.status(403).json({ mensagem: 'Somente administradores podem acessar isto.' });
-  }
-  next();
+// pessoa não pode fazer isso. O middleware recebe os papéis aceitos para
+// a rota não repetir a mesma comparação em cada uma.
+function somentePapeis(...papeis) {
+  return (req, res, next) => {
+    if (!papeis.includes(req.usuario.papel)) {
+      return res.status(403).json({ mensagem: 'Você não tem permissão para acessar isto.' });
+    }
+    next();
+  };
 }
 
 // ------------------------------------------------------------------ rotas
@@ -83,7 +88,9 @@ app.get('/', (req, res) => {
       'GET  /auth/me',
       'POST /auth/logout',
       'GET  /anotacoes',
+      'GET  /anotacoes/:id',
       'POST /anotacoes',
+      'GET  /moderacao/anotacoes (moderador, admin)',
       'GET  /usuarios (admin)',
     ],
   });
@@ -146,6 +153,16 @@ app.get('/anotacoes', autenticado, (req, res) => {
   res.json(banco.listarAnotacoes(req.usuario.id));
 });
 
+// 404 tanto para id inexistente quanto para anotação de outra pessoa.
+// A mensagem é a mesma de propósito: não confirma que o id existe.
+app.get('/anotacoes/:id', autenticado, (req, res) => {
+  const anotacao = banco.buscarAnotacaoDoUsuario(req.usuario.id, req.params.id);
+  if (!anotacao) {
+    return res.status(404).json({ mensagem: 'Anotação não encontrada.' });
+  }
+  res.json(anotacao);
+});
+
 app.post('/anotacoes', autenticado, (req, res) => {
   const { texto } = req.body ?? {};
   if (!texto?.trim()) {
@@ -154,7 +171,11 @@ app.post('/anotacoes', autenticado, (req, res) => {
   res.status(201).json(banco.criarAnotacao(req.usuario.id, texto));
 });
 
-app.get('/usuarios', autenticado, somenteAdmin, (req, res) => {
+app.get('/moderacao/anotacoes', autenticado, somentePapeis('moderador', 'admin'), (req, res) => {
+  res.json(banco.listarTodasAnotacoes());
+});
+
+app.get('/usuarios', autenticado, somentePapeis('admin'), (req, res) => {
   res.json(banco.listarUsuarios());
 });
 

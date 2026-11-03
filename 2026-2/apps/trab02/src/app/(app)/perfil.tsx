@@ -8,7 +8,7 @@ import { PrimaryButton } from '@/components/primary-button';
 import { SessaoAtual } from '@/components/sessao-atual';
 import { Colors, Spacing } from '@/constants/theme';
 import { useAuth } from '@/contexts/auth-context';
-import { api } from '@/services/api';
+import { ApiError, api } from '@/services/api';
 
 // PERFIL — src/app/(app)/perfil.tsx  ->  rota "/perfil"
 //
@@ -31,7 +31,7 @@ export default function PerfilScreen() {
       const doServidor = await api.perfil(token);
       setConfirmacao(`O servidor reconhece o token: ${doServidor.nome} (${doServidor.email}).`);
     } catch (e) {
-      setErro(e instanceof Error ? e.message : 'Falha ao consultar o servidor.');
+      setErro(e instanceof ApiError ? e.message : 'Falha ao consultar o servidor.');
     }
   }
 
@@ -64,9 +64,8 @@ export default function PerfilScreen() {
       </View>
 
       <Note>
-        A sessão vive só na memória do app: recarregue-o e você volta ao login.
-        Guardar o token no aparelho (AsyncStorage) é assunto da aula de
-        persistência.
+        A sessão fica gravada neste aparelho. Recarregar o app restaura o login
+        conferindo o token em GET /auth/me. Sair apaga essa gravação.
       </Note>
 
       <PrimaryButton label={saindo ? 'Saindo…' : 'Sair'} onPress={handleSair} disabled={saindo} />

@@ -1,40 +1,42 @@
-import { Link } from 'expo-router';
-import { useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Link } from "expo-router";
+import { useState } from "react";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
-import { Campo } from '@/components/campo';
-import { Header } from '@/components/header';
-import { MensagemErro } from '@/components/mensagem-erro';
-import { Note } from '@/components/note';
-import { PrimaryButton } from '@/components/primary-button';
-import { SessaoAtual } from '@/components/sessao-atual';
-import { Colors, Spacing } from '@/constants/theme';
-import { useAuth } from '@/contexts/auth-context';
-import { API_URL } from '@/services/api';
+import { Campo } from "@/components/campo";
+import { Header } from "@/components/header";
+import { MensagemErro } from "@/components/mensagem-erro";
+import { Note } from "@/components/note";
+import { PrimaryButton } from "@/components/primary-button";
+import { SessaoAtual } from "@/components/sessao-atual";
+import { TelaDeEspera } from "@/components/tela-de-espera";
+import { Colors, Spacing } from "@/constants/theme";
+import { useAuth } from "@/contexts/auth-context";
+import { API_URL, ApiError } from "@/services/api";
 
 // TELA DE LOGIN — src/app/(auth)/login.tsx  ->  rota "/login"
 //
 // A tela não guarda o usuário: ela só pede ao contexto para entrar. O que
-// é dela é o estado do FORMULÁRIO — campos, erro e "enviando".
+// é dela é o estado do FORMULÁRIO — campos e a mensagem de erro. O
+// "carregando" mora no contexto e, enquanto dura, esta mesma tela mostra
+// a espera sem sair da árvore.
 export default function LoginScreen() {
-  const { entrar } = useAuth();
+  const { entrar, carregando, avisoSessao } = useAuth();
 
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
   const [erro, setErro] = useState<string | null>(null);
-  const [enviando, setEnviando] = useState(false);
 
   async function handleEntrar() {
     setErro(null);
-    setEnviando(true);
     try {
       await entrar(email, senha);
       // Deu certo: o AuthProvider mudou `usuario`, o layout raiz reagiu e
       // esta tela já não existe mais. Não há router.replace('/') aqui.
     } catch (e) {
-      setErro(e instanceof Error ? e.message : 'Não foi possível entrar.');
-    } finally {
-      setEnviando(false);
+      // O erro fica neste useState. A tela de espera é renderizada por
+      // este mesmo componente, então a tela não sai da árvore e o erro
+      // continua aqui quando o login falha.
+      setErro(e instanceof ApiError ? e.message : "Não foi possível entrar.");
     }
   }
 
@@ -45,12 +47,19 @@ export default function LoginScreen() {
     setErro(null);
   }
 
+  // Early return DENTRO desta tela: LoginScreen continua montado, então
+  // email, senha e erro não são zerados quando a espera termina.
+  if (carregando) {
+    return <TelaDeEspera mensagem="Entrando…" />;
+  }
+
   return (
     <ScrollView
       style={styles.tela}
       contentContainerStyle={styles.conteudo}
       keyboardShouldPersistTaps="handled"
-      automaticallyAdjustKeyboardInsets>
+      automaticallyAdjustKeyboardInsets
+    >
       <Header title="Entrar" subtitle="Use uma conta de teste ou crie a sua" />
 
       <View style={styles.formulario}>
@@ -72,12 +81,18 @@ export default function LoginScreen() {
           onSubmitEditing={handleEntrar}
         />
 
+        {avisoSessao ? (
+          <View style={styles.aviso}>
+            <Text style={styles.avisoTexto}>{avisoSessao}</Text>
+          </View>
+        ) : null}
+
         <MensagemErro>{erro}</MensagemErro>
 
         <PrimaryButton
-          label={enviando ? 'Entrando…' : 'Entrar'}
+          label="Entrar"
           onPress={handleEntrar}
-          disabled={enviando || !email || !senha}
+          disabled={!email || !senha}
         />
       </View>
 
@@ -87,12 +102,17 @@ export default function LoginScreen() {
           <PrimaryButton
             label="Ana (usuária)"
             variant="secondary"
-            onPress={() => usarConta('ana@ifrs.edu.br', '123456')}
+            onPress={() => usarConta("ana@ifrs.edu.br", "123456")}
+          />
+          <PrimaryButton
+            label="Moderadora"
+            variant="secondary"
+            onPress={() => usarConta("moderador@ifrs.edu.br", "mod123")}
           />
           <PrimaryButton
             label="Administrador"
             variant="secondary"
-            onPress={() => usarConta('admin@ifrs.edu.br', 'admin123')}
+            onPress={() => usarConta("admin@ifrs.edu.br", "admin123")}
           />
         </View>
       </View>
@@ -128,19 +148,31 @@ const styles = StyleSheet.create({
   },
   rotulo: {
     fontSize: 12,
-    fontWeight: '700',
+    fontWeight: "700",
     letterSpacing: 0.5,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     color: Colors.textSecondary,
   },
   atalhos: {
-    flexDirection: 'row',
+    flexDirection: "row",
+    flexWrap: "wrap",
     gap: Spacing.sm,
+  },
+  aviso: {
+    padding: Spacing.md,
+    borderRadius: Spacing.sm,
+    borderWidth: 1,
+    borderColor: Colors.primary,
+    backgroundColor: "#E7F3FE",
+  },
+  avisoTexto: {
+    fontSize: 14,
+    color: Colors.text,
   },
   link: {
     fontSize: 16,
-    fontWeight: '600',
-    textAlign: 'center',
+    fontWeight: "600",
+    textAlign: "center",
     color: Colors.primary,
   },
 });

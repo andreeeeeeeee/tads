@@ -1,6 +1,6 @@
 // Tipos dos dados que o servidor devolve (ver server/index.js).
 
-export type Papel = 'admin' | 'usuario';
+export type Papel = 'admin' | 'moderador' | 'usuario';
 
 export interface Usuario {
   id: string;
@@ -21,6 +21,11 @@ export interface Anotacao {
   id: string;
   texto: string;
   criadaEm: string;
+}
+
+// O que GET /moderacao/anotacoes devolve: a anotação e o nome de quem a escreveu.
+export interface AnotacaoModeracao extends Anotacao {
+  autor: string;
 }
 
 // Só a tela de administração recebe isto (GET /usuarios).

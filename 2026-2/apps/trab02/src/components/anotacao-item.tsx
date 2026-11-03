@@ -1,5 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Link } from 'expo-router';
+import { Pressable, StyleSheet, Text } from 'react-native';
 
+import { formatarDataHora } from '@/components/formatar-data';
 import { Colors, Spacing } from '@/constants/theme';
 import type { Anotacao } from '@/models/usuario';
 
@@ -7,17 +9,16 @@ interface AnotacaoItemProps {
   anotacao: Anotacao;
 }
 
+// O toque abre /anotacoes/[id] só com o id. O texto é buscado de novo
+// na tela de detalhe — não vai no parâmetro da rota.
 export function AnotacaoItem({ anotacao }: AnotacaoItemProps) {
-  const data = new Date(anotacao.criadaEm);
-
   return (
-    <View style={styles.item}>
-      <Text style={styles.texto}>{anotacao.texto}</Text>
-      <Text style={styles.meta}>
-        {data.toLocaleDateString('pt-BR')} às{' '}
-        {data.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
-      </Text>
-    </View>
+    <Link href={{ pathname: '/anotacoes/[id]', params: { id: anotacao.id } }} asChild>
+      <Pressable style={({ pressed }) => [styles.item, pressed && styles.pressed]}>
+        <Text style={styles.texto}>{anotacao.texto}</Text>
+        <Text style={styles.meta}>{formatarDataHora(anotacao.criadaEm)}</Text>
+      </Pressable>
+    </Link>
   );
 }
 
@@ -29,6 +30,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.border,
     backgroundColor: Colors.surface,
+  },
+  pressed: {
+    opacity: 0.7,
   },
   texto: {
     fontSize: 16,

@@ -108,6 +108,27 @@ export function listarAnotacoes(usuarioId) {
     .sort((a, b) => b.criadaEm.localeCompare(a.criadaEm));
 }
 
+// A anotação de outra pessoa devolve null, igual a um id que não existe.
+// Quem chama a rota responde 404 nos dois casos — não dá para descobrir
+// que a anotação alheia está lá.
+export function buscarAnotacaoDoUsuario(usuarioId, id) {
+  const anotacao = anotacoes.get(id);
+  if (!anotacao || anotacao.usuarioId !== usuarioId) return null;
+  return anotacao;
+}
+
+// A moderação enxerga tudo, com o nome de quem escreveu.
+export function listarTodasAnotacoes() {
+  return [...anotacoes.values()]
+    .sort((a, b) => b.criadaEm.localeCompare(a.criadaEm))
+    .map((anotacao) => ({
+      id: anotacao.id,
+      texto: anotacao.texto,
+      criadaEm: anotacao.criadaEm,
+      autor: usuarios.get(anotacao.usuarioId)?.nome ?? 'Desconhecido',
+    }));
+}
+
 export function criarAnotacao(usuarioId, texto) {
   const anotacao = {
     id: randomUUID(),
@@ -121,10 +142,11 @@ export function criarAnotacao(usuarioId, texto) {
 
 // ------------------------------------------------------- dados iniciais
 
-// Duas contas prontas para a aula. A senha está aqui em texto só porque é
+// Três contas prontas para a aula. A senha está aqui em texto só porque é
 // um dado de exemplo — o Map guarda apenas o hash.
 export const CONTAS_DE_TESTE = [
   { nome: 'Administrador', email: 'admin@ifrs.edu.br', senha: 'admin123', papel: 'admin' },
+  { nome: 'Moderadora', email: 'moderador@ifrs.edu.br', senha: 'mod123', papel: 'moderador' },
   { nome: 'Ana', email: 'ana@ifrs.edu.br', senha: '123456', papel: 'usuario' },
 ];
 
@@ -133,5 +155,8 @@ for (const conta of CONTAS_DE_TESTE) {
   if (conta.papel === 'usuario') {
     criarAnotacao(usuario.id, 'Revisar o material da Aula 5 (navegação).');
     criarAnotacao(usuario.id, 'Trazer o carregador para a aula de quinta.');
+  }
+  if (conta.papel === 'moderador') {
+    criarAnotacao(usuario.id, 'Conferir as anotações da turma antes da aula.');
   }
 }

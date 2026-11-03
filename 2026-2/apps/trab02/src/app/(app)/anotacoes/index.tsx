@@ -11,14 +11,17 @@ import { PrimaryButton } from '@/components/primary-button';
 import { Colors, Spacing } from '@/constants/theme';
 import { useAuth } from '@/contexts/auth-context';
 import type { Anotacao } from '@/models/usuario';
-import { api } from '@/services/api';
+import { ApiError, api } from '@/services/api';
 
-// ANOTAÇÕES — src/app/(app)/anotacoes.tsx  ->  rota "/anotacoes"
+// ANOTAÇÕES — src/app/(app)/anotacoes/index.tsx  ->  rota "/anotacoes"
 //
 // Aqui o token do contexto é usado de verdade: cada requisição leva
 // `Authorization: Bearer <token>`, e o servidor devolve só as anotações de
 // quem o token identifica. Entre como Ana e depois como outra conta para
 // ver listas diferentes.
+//
+// O arquivo é index.tsx (e não anotacoes.tsx) para a pasta também poder
+// ter [id].tsx — as duas rotas convivem: /anotacoes e /anotacoes/[id].
 export default function AnotacoesScreen() {
   const { token } = useAuth();
 
@@ -42,7 +45,7 @@ export default function AnotacoesScreen() {
     try {
       setAnotacoes(await api.listarAnotacoes(token));
     } catch (e) {
-      setErro(e instanceof Error ? e.message : 'Não foi possível carregar.');
+      setErro(e instanceof ApiError ? e.message : 'Não foi possível carregar.');
     } finally {
       setCarregando(false);
     }
@@ -57,7 +60,7 @@ export default function AnotacoesScreen() {
       setAnotacoes((atuais) => [nova, ...atuais]);
       setTexto('');
     } catch (e) {
-      setErro(e instanceof Error ? e.message : 'Não foi possível salvar.');
+      setErro(e instanceof ApiError ? e.message : 'Não foi possível salvar.');
     } finally {
       setSalvando(false);
     }
@@ -74,7 +77,7 @@ export default function AnotacoesScreen() {
       keyboardShouldPersistTaps="handled"
       ListHeaderComponent={
         <View style={styles.cabecalho}>
-          <Header title="Minhas anotações" subtitle="Só as suas — o servidor filtra pelo token" />
+          <Header title="Minhas anotações" subtitle="Toque em uma anotação para abrir o detalhe" />
           <View style={styles.formulario}>
             <Campo
               rotulo="Nova anotação"

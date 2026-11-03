@@ -1,6 +1,6 @@
 import Constants from 'expo-constants';
 
-import type { Anotacao, Sessao, Usuario, UsuarioResumo } from '@/models/usuario';
+import type { Anotacao, AnotacaoModeracao, Sessao, Usuario, UsuarioResumo } from '@/models/usuario';
 
 // SERVIÇO DE API — src/services/api.ts
 //
@@ -42,6 +42,16 @@ interface Opcoes {
   token?: string | null;
 }
 
+// O AuthProvider registra isto na subida. Um 401 de requisição autenticada
+// (token presente) chama o callback — as telas não repetem o if.
+// Login com senha errada também é 401, mas essa chamada não leva token.
+type Tratamento401 = () => void;
+let tratamento401: Tratamento401 | null = null;
+
+export function definirTratamentoDe401(tratamento: Tratamento401) {
+  tratamento401 = tratamento;
+}
+
 async function requisicao<T>(caminho: string, { metodo = 'GET', corpo, token }: Opcoes = {}) {
   let resposta: Response;
 
@@ -66,6 +76,10 @@ async function requisicao<T>(caminho: string, { metodo = 'GET', corpo, token }: 
 
   // 4xx e 5xx NÃO rejeitam o fetch: quem decide que é erro somos nós.
   if (!resposta.ok) {
+    // 403 continua sendo erro da tela: a pessoa está autenticada, só não pode.
+    if (resposta.status === 401 && token) {
+      tratamento401?.();
+    }
     throw new ApiError(resposta.status, dados?.mensagem ?? `Erro ${resposta.status}`);
   }
 
@@ -85,8 +99,14 @@ export const api = {
 
   listarAnotacoes: (token: string | null) => requisicao<Anotacao[]>('/anotacoes', { token }),
 
+  buscarAnotacao: (token: string | null, id: string) =>
+    requisicao<Anotacao>(`/anotacoes/${encodeURIComponent(id)}`, { token }),
+
   criarAnotacao: (token: string | null, texto: string) =>
     requisicao<Anotacao>('/anotacoes', { metodo: 'POST', corpo: { texto }, token }),
+
+  listarAnotacoesModeracao: (token: string | null) =>
+    requisicao<AnotacaoModeracao[]>('/moderacao/anotacoes', { token }),
 
   listarUsuarios: (token: string | null) => requisicao<UsuarioResumo[]>('/usuarios', { token }),
 };

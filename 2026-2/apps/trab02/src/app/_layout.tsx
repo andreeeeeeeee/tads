@@ -1,7 +1,8 @@
-import { Stack } from 'expo-router';
+import { Stack } from "expo-router";
 
-import { Colors } from '@/constants/theme';
-import { AuthProvider, useAuth } from '@/contexts/auth-context';
+import { TelaDeEspera } from "@/components/tela-de-espera";
+import { Colors } from "@/constants/theme";
+import { AuthProvider, useAuth } from "@/contexts/auth-context";
 
 // LAYOUT RAIZ — src/app/_layout.tsx
 //
@@ -25,7 +26,25 @@ export default function RootLayout() {
 }
 
 function RotasDoApp() {
-  const { usuario } = useAuth();
+  const { usuario, restaurando, erroDeConexao, tentarRestaurar } = useAuth();
+
+  // Enquanto a sessão salva não foi conferida, o Stack nem monta.
+  // Assim o grupo (auth) não aparece por um instante antes do app.
+  if (restaurando) {
+    return <TelaDeEspera mensagem="Restaurando sessão…" />;
+  }
+
+  // Servidor fora do ar não é 401: o token continua gravado e o login
+  // não entra no lugar da sessão.
+  if (erroDeConexao) {
+    return (
+      <TelaDeEspera
+        mensagem={erroDeConexao}
+        onTentarNovamente={tentarRestaurar}
+      />
+    );
+  }
+
   const logado = usuario !== null;
 
   return (
@@ -34,7 +53,8 @@ function RotasDoApp() {
         headerStyle: { backgroundColor: Colors.background },
         headerTintColor: Colors.text,
         contentStyle: { backgroundColor: Colors.background },
-      }}>
+      }}
+    >
       {/* <Stack.Protected> com guard=false REMOVE as rotas filhas do
           navegador: não dá para chegar nelas nem por link, nem por
           router.push. E se o usuário estiver em uma delas quando o guard
@@ -52,7 +72,10 @@ function RotasDoApp() {
         <Stack.Screen name="(app)" options={{ headerShown: false }} />
       </Stack.Protected>
 
-      <Stack.Screen name="+not-found" options={{ title: 'Rota não encontrada' }} />
+      <Stack.Screen
+        name="+not-found"
+        options={{ title: "Rota não encontrada" }}
+      />
     </Stack>
   );
 }
